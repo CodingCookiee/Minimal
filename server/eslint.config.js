@@ -1,13 +1,12 @@
+import prettierPlugin from "eslint-plugin-prettier";
+import importPlugin from "eslint-plugin-import";
 import js from "@eslint/js";
 import globals from "globals";
-import prettier from "eslint-config-prettier";
-import importPlugin from "eslint-plugin-import";
-import prettierPlugin from "eslint-plugin-prettier";
 
 export default [
   { ignores: ["dist"] },
   js.configs.recommended,
-  prettier,
+  prettierPlugin.configs.recommended,
   {
     files: ["**/*.js"],
     languageOptions: {
@@ -32,12 +31,12 @@ export default [
         "warn",
         {
           singleQuote: false,
-          DoubleQuote: true,
+          doubleQuote: true,
           semi: true,
           tabWidth: 2,
         },
       ],
-      "no-useless-escape": "off"
+      "no-useless-escape": "off",
     },
   },
 ];
