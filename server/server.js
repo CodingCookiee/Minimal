@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import errorHandler from "./middleware/errorHandler.js";
 import { connectToDatabase } from "./config/database.js";
 
-
 dotenv.config();
 
 const port = parseInt(process.env.PORT || "3000", 10);
