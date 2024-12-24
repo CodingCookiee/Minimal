@@ -37,6 +37,7 @@ export default [
           tabWidth: 2,
         },
       ],
+      "no-useless-escape": "off"
     },
   },
 ];
