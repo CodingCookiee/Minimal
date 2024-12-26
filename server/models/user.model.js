@@ -1,20 +1,21 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required : [true, "Name is required"]
+    name: {
+        type: String,
+        required: [true, "Name is required"]
     },
-    email:{
-        type:String,
-        required :[true, "Email is required"],
-        unique:true,
-        lowercase:true,
-        trim:true
+    email: {
+        type: String,
+        required: [true, "Email is required"],
+        unique: true,
+        lowercase: true,
+        trim: true
     },
-    password:{
-        type:String,
-        required:[true, 'Password is required'],
+    password: {
+        type: String,
+        required: [true, 'Password is required'],
         validate: {
             validator: function(v) {
                 return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(v);
@@ -22,10 +23,10 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid password! Password must be at least 8 characters long and include at least one letter, one number, and one special character.`
         }
     },
-    role:{
-        type:String,
-        enum:['user', 'admin'],
-        default:'user'
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     },
     cartItems: [{
         productId: {
@@ -36,15 +37,12 @@ const userSchema = new mongoose.Schema({
             type: Number,
             default: 1
         }
-        
     }]
-},
-{
-    timestamps:true
-}
-);
+}, {
+    timestamps: true
+});
 
-// hash password before saving to database
+// Hash password before saving to database
 userSchema.pre('save', async function(next) {
     const user = this;
     if (!user.isModified('password')) return next();
@@ -56,17 +54,15 @@ userSchema.pre('save', async function(next) {
     } catch (err) {
         return next(err);
     }
-    });
+});
 
-    // compare password with hashed password
-    userSchema.methods.comparePassword = async function(candidatePassword) {
-        try {
-            return await bcrypt.compare(candidatePassword, this.password);
-        } catch (err) {
-            throw new Error(err);
-        }
-        };
-
-
+// Compare password with hashed password
+userSchema.methods.comparePassword = async function(candidatePassword) {
+    try {
+        return await bcrypt.compare(candidatePassword, this.password);
+    } catch (err) {
+        throw new Error(err);
+    }
+};
 
 export default mongoose.model('User', userSchema);

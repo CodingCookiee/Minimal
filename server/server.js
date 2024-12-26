@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middleware/errorHandler.js";
 import { connectToDatabase } from "./config/database.js";
+import routes from "./routes/index.js";
+
 
 dotenv.config();
 
@@ -22,6 +24,14 @@ app.use(
 );
 
 // Routes
+app.use('/api/auth', routes.authRoutes);
+// app.use('/api/user', routes.userRoutes);
+// app.use('/api/product', routes.productRoutes);
+// app.use('/api/payment', routes.paymentRoutes);
+// app.use('/api/cart', routes.cartRoutes);
+// app.use('/api/coupon', routes.couponRoutes);
+// app.use('/api/analytics', routes.analyticsRoutes);
+
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "healthy",
