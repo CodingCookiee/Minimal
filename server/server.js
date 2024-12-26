@@ -6,7 +6,6 @@ import errorHandler from "./middleware/errorHandler.js";
 import { connectToDatabase } from "./config/database.js";
 import routes from "./routes/index.js";
 
-
 dotenv.config();
 
 const port = parseInt(process.env.PORT || "3000", 10);
@@ -24,7 +23,7 @@ app.use(
 );
 
 // Routes
-app.use('/api/auth', routes.authRoutes);
+app.use("/api/auth", routes.authRoutes);
 // app.use('/api/user', routes.userRoutes);
 // app.use('/api/product', routes.productRoutes);
 // app.use('/api/payment', routes.paymentRoutes);

@@ -7,11 +7,11 @@ import authRoutes from "./auth.route.js";
 // import analyticsRoutes from "./analytics.route.js";
 
 export default {
-    authRoutes,
-    // userRoutes,
-    // productRoutes,
-    // paymentRoutes,
-    // cartRoutes,
-    // couponRoutes,
-    // analyticsRoutes,
-}
+  authRoutes,
+  // userRoutes,
+  // productRoutes,
+  // paymentRoutes,
+  // cartRoutes,
+  // couponRoutes,
+  // analyticsRoutes,
+};
