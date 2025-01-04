@@ -25,7 +25,7 @@ app.use(
 // Routes
 app.use("/api/auth", routes.authRoutes);
 app.use('/api/user', routes.userRoutes);
-// app.use('/api/product', routes.productRoutes);
+app.use('/api/product', routes.productRoutes);
 // app.use('/api/payment', routes.paymentRoutes);
 // app.use('/api/cart', routes.cartRoutes);
 // app.use('/api/coupon', routes.couponRoutes);

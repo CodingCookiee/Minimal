@@ -35,8 +35,12 @@ const user = await User.findById(decoded.userId).select("-password");
 };
 
 export const authenticateAdmin = (req, res, next) => {
+  console.log('Admin check:', req.user.role);
   if (req.user && req.user.role === "admin") {
     next();
+  } else {
+    return next(createError(403, "Access Denied - Admin Only"));
   }
-  return createError(403, "Access Denied - Admin Only");
 };
+
+

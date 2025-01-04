@@ -6,12 +6,13 @@ import createError from "../utils/createError.js";
 export const createProduct = async (req, res, next) => {
   try {
     const { name, description, price, category, image, stock } = req.body;
-
+    
+    
     let cloudinaryResponse = null;
-
     if (image) {
       cloudinaryResponse = await cloudinary.uploader.upload(image, {
         upload_preset: "minimal",
+        timeout: 60000 // 60 seconds timeout
       });
     }
 
@@ -20,19 +21,23 @@ export const createProduct = async (req, res, next) => {
       description,
       price,
       category,
-      image: cloudinaryResponse?.secure_url
-        ? cloudinaryResponse.secure_url
-        : "",
+      image: cloudinaryResponse?.secure_url || "",
       stock,
+      rating: 4.5
     });
 
-    await product.save();
-    res.status(201).json(product);
+    const savedProduct = await product.save();
+
+    res.status(201).json(savedProduct);
   } catch (err) {
-    console.error("Error Creating Product", err.message);
-    next(createError(500, "Internal Server Error"));
+    console.error("Error Creating Product:", {
+      message: err.message,
+      stack: err.stack
+    });
+    next(createError(500, `Product creation failed: ${err.message}`));
   }
 };
+
 
 export const deleteProduct = async (req, res, next) => {
   try {

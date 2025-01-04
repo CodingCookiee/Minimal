@@ -15,11 +15,11 @@ import {
 
 const router = express.Router();
 
-router.get("/", authenticateAdmin, authenticateUser, getAllProducts);
+router.post("/", authenticateUser, authenticateAdmin, createProduct);
+router.get("/", authenticateUser, authenticateAdmin, getAllProducts);
 router.get("/featured", getFeaturedProducts);
 router.get("/category/:category", getProductsByCategory);
 router.get("/recommended", getRecommendedProducts);
-router.post("/", authenticateUser, authenticateAdmin, createProduct);
 router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
 router.patch(
   "/:id",
@@ -27,3 +27,5 @@ router.patch(
   authenticateAdmin,
   toggleFeaturedProduct,
 );
+
+export default router;

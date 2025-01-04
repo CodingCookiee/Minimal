@@ -40,15 +40,20 @@ const setCookies = (res, accessToken, refreshToken) => {
 };
 
 export const signup = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   try {
     const userExists = await User.findOne({ email });
 
     if (userExists) {
       throw createError(400, "User already exists");
     }
-    const user = new User({ name, email, password });
-    await user.save(); // Save the user to the database
+    const user = new User({ 
+      name, 
+      email, 
+      password,
+      role: role || "user" 
+    });
+    await user.save();
 
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
@@ -60,6 +65,7 @@ export const signup = async (req, res, next) => {
     next(err);
   }
 };
+
 
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
