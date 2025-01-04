@@ -17,15 +17,15 @@ const router = express.Router();
 
 router.post("/", authenticateUser, authenticateAdmin, createProduct);
 router.get("/", authenticateUser, authenticateAdmin, getAllProducts);
-router.get("/featured", getFeaturedProducts);
 router.get("/category/:category", getProductsByCategory);
+router.get("/featured", getFeaturedProducts);
 router.get("/recommended", getRecommendedProducts);
-router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
 router.patch(
   "/:id",
   authenticateUser,
   authenticateAdmin,
   toggleFeaturedProduct,
 );
+router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
 
 export default router;

@@ -38,30 +38,6 @@ export const createProduct = async (req, res, next) => {
   }
 };
 
-
-export const deleteProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-
-    if (!product) {
-      return next(createError(404, "Product not found"));
-    }
-
-    if (product.image) {
-      const publicId = product.image.split("/").pop().split(".")[0];
-      await cloudinary.uploader.destroy(publicId);
-      console.log("Image Deleted from Cloudinary");
-    }
-
-    await Product.findByIdAndDelete(id);
-    res.status(204).end();
-  } catch (err) {
-    console.error("Error Deleting Product", err.message);
-    next(createError(500, "Internal Server Error"));
-  }
-};
-
 export const getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
@@ -72,6 +48,7 @@ export const getAllProducts = async (req, res, next) => {
   }
 };
 
+
 export const getFeaturedProducts = async (req, res, next) => {
   try {
     const products = await redis.get("featuredProducts");
@@ -80,7 +57,7 @@ export const getFeaturedProducts = async (req, res, next) => {
       return res.json(JSON.parse(products));
     }
 
-    const featuredProducts = await Product.find({ featured: true });
+    const featuredProducts = await Product.find({ isFeatured: true });
     redis.set("featuredProducts", JSON.stringify(featuredProducts), "EX", 60);
     res.json(featuredProducts);
   } catch (err) {
@@ -103,6 +80,9 @@ export const getProductsByCategory = async (req, res, next) => {
     next(createError(500, "Internal Server Error"));
   }
 };
+
+
+
 
 export const getRecommendedProducts = async (req, res, next) => {
   try {
@@ -135,17 +115,44 @@ export const toggleFeaturedProduct = async (req, res, next) => {
       return next(createError(404, "Product not found"));
     }
 
-    product.featured = !product.featured;
-    await product.save();
+    product.isFeatured = !product.isFeatured;
+    const updatedProduct = await product.save();
+    
+    // Send response immediately after toggle
+    res.status(200).json(updatedProduct);
+
+    // Update cache in background
     const featuredProducts = await Product.find({ isFeatured: true }).lean();
-    await redis.set(
-      "featuredProducts",
-      JSON.stringify(featuredProducts),
-      "EX",
-      60,
-    );
+    await redis.set("featuredProducts", JSON.stringify(featuredProducts), "EX", 60);
+    
   } catch (err) {
     console.error("Error Toggling Featured Product", err.message);
+    next(createError(500, "Internal Server Error"));
+  }
+};
+
+
+
+export const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    
+    if (!product) {
+      return next(createError(404, "Product not found"));
+    }
+
+    if (product.image) {
+      const publicId = product.image.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(publicId);
+      console.log("Image Deleted from Cloudinary");
+    }
+
+    await Product.findByIdAndDelete(id);
+    res.status(200).json({ message: "Product deleted successfully" });
+    
+  } catch (err) {
+    console.error("Error Deleting Product", err.message);
     next(createError(500, "Internal Server Error"));
   }
 };
