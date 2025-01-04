@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+    profilePicture: {
+      type: String,
+      default: "https://via.placeholder.com/150",
+    },
     password: {
       type: String,
       required: [true, "Password is required"],

@@ -1,5 +1,5 @@
 import authRoutes from "./auth.route.js";
-// import userRoutes from "./user.route.js";
+import userRoutes from "./user.route.js";
 // import productRoutes from "./product.route.js";
 // import paymentRoutes from "./payment.route.js";
 // import cartRoutes from "./cart.route.js";
@@ -8,7 +8,7 @@ import authRoutes from "./auth.route.js";
 
 export default {
   authRoutes,
-  // userRoutes,
+  userRoutes,
   // productRoutes,
   // paymentRoutes,
   // cartRoutes,

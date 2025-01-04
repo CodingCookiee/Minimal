@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User";
-import createError from "../utils/createError";
+import User from "../models/user.model.js";
+import createError from "../utils/createError.js";
 
 export const authenticateUser = async (req, res, next) => {
   try {
@@ -12,7 +12,8 @@ export const authenticateUser = async (req, res, next) => {
 
     try {
       const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-      const user = await User.findById(decoded.id).select("-password");
+const user = await User.findById(decoded.userId).select("-password");
+
 
       if (!user) {
         return next(createError(401, "User not found"));
