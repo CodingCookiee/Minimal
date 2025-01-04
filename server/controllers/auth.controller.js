@@ -1,3 +1,4 @@
+import { OAuth2Client } from 'google-auth-library';
 import { redis } from "../lib/redis.js";
 import User from "../models/user.model.js";
 import createError from "../utils/createError.js";
@@ -7,6 +8,12 @@ import {
 } from "../utils/tokenUtils.js";
 import { sendEmail } from "../utils/email.js";
 import jwt from "jsonwebtoken";
+
+const googleClient = new OAuth2Client({
+  clientId: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET
+});
+
 
 const storeRefreshToken = async (userId, refreshToken) => {
   await redis.set(
@@ -194,3 +201,51 @@ export const refreshToken = async (req, res, next) => {
     );
   }
 };
+
+
+
+
+export const googleAuth = async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    
+    const client = new OAuth2Client({
+      clientId: process.env.GOOGLE_CLIENT_ID
+    });
+
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID
+    });
+    
+    const { email, name, picture, sub: googleId } = ticket.getPayload();
+    
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = new User({
+        email,
+        name,
+        password: `${googleId}${process.env.GOOGLE_CLIENT_SECRET}#1Aa`,
+        profilePicture: picture,
+        googleId
+      });
+      await user.save();
+    }
+
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+    await storeRefreshToken(user._id, refreshToken);
+    setCookies(res, accessToken, refreshToken);
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.log('Google Auth Error:', error);
+    next(createError(500, "Google Authentication Failed"));
+  }
+};
+
+
+
+
+
+
