@@ -38,8 +38,8 @@ export const createCheckoutSession = async (req, res, next) => {
                 quantity: item.quantity,
             })),
             mode: "payment",
-            success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.CLIENT_URL}/cart`,
+            success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
             metadata: {
                 userId: userId.toString(),
                 couponCode: couponCode || '',
