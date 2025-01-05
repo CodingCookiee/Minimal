@@ -7,11 +7,11 @@ import {
   updateQuantity,
 } from "../controllers/cart.controller.js";
 
-router = express.Router();
+const router = express.Router();
 
 router.post("/", authenticateUser, addToCart);
 router.get("/", authenticateUser, getCartItems);
-router.delete("/:id", authenticateUser, removeCartItems);
 router.put("/:id", authenticateUser, updateQuantity);
+router.delete("/:id", authenticateUser, removeCartItems);
 
 export default router;
