@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
+// Create a compound index for code and userId together
 const couponSchema = new mongoose.Schema(
   {
     code: {
       type: String,
       required: true,
-      unique: true,
     },
     expirationDate: {
       type: Date,
@@ -25,11 +25,15 @@ const couponSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true,
     },
   },
   {
     timestamps: true,
-  },
+  }
 );
-export const Coupon = mongoose.model("Coupon", couponSchema);
+
+// Add compound index
+couponSchema.index({ code: 1, userId: 1 }, { unique: true });
+
+const Coupon = mongoose.model("Coupon", couponSchema);
+export default Coupon;
