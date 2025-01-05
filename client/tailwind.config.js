@@ -24,16 +24,6 @@ export default {
           600: "#AFB0B6",
           500: "#62646C",
         },
-        blue: {
-          50: "#DFDFF0",
-          75: "#dfdff2",
-          100: "#F0F2FA",
-          200: "#010101",
-          300: "#4FB7DD",
-        },
-        violet: {
-          300: "#5724ff",
-        },
      
         light: {
           primary: "#FFFFFF",
