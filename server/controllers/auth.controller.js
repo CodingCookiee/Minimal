@@ -86,12 +86,7 @@ export const signin = async (req, res, next) => {
     res.status(200).json({ user });
   } catch (error) {
     console.log("Error Logging In:", error.message);
-    next(
-      createError(500, {
-        message: "Internal Server Error",
-        error: error.message,
-      }),
-    );
+    next(error)
   }
 };
 

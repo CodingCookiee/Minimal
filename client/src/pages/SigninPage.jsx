@@ -1,39 +1,33 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import SignIn from '../components/Auth/SignIn';
-import axiosInstance from '../utils/axios';
+import axiosInstance from '../utils/axios.js';
 
 export default function SignInPage() {
+  const [authStatus, setAuthStatus] = useState('loading');
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPageLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    // Check authentication status
+    const checkAuth = async () => {
+      try {
+        const response = await axiosInstance.get('/auth/status');
+        if (response.data.isAuthenticated) {
+          setAuthStatus('authenticated');
+          navigate('/');
+        } else {
+          setAuthStatus('unauthenticated');
+        }
+      } catch (error) {
+        setAuthStatus('unauthenticated');
+      }
+    };
+    
+    checkAuth();
+  }, [navigate]);
 
-  const handleSignin = async (formData) => {
-    setIsLoading(true);
-    try {
-      const { data } = await axiosInstance.post('/auth/signin', formData);
-      toast.success('Welcome back to Minimal!');
-      navigate('/');
-    } catch (error) {
-      const errorMessage = typeof error.response.data === 'string' 
-        ? error.response.data 
-        : error.response.data?.message || 'Registration failed';
-      toast.error(errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (pageLoading || isLoading) {
+  if (authStatus === 'loading') {
     return (
       <div className="flex items-center justify-center min-h-screen bg-light-primary dark:bg-dark-primary">
         <motion.div
@@ -45,5 +39,9 @@ export default function SignInPage() {
     );
   }
 
-  return <SignIn onSubmit={handleSignin} isLoading={isLoading} />;
+  if (authStatus === 'authenticated') {
+    return null;
+  }
+
+  return <SignIn />;
 }

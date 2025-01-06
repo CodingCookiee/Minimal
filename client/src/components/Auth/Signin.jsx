@@ -1,21 +1,39 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button, Input, Card } from '../ui';
 import { Chrome, ArrowRight, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+import axiosInstance from '../../utils/axios.js';
 
-export default function SignIn({ onSubmit }) {
+export default function SignIn() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
-  };
+    setIsLoading(true);
+
+    try {
+      const { data } = await axiosInstance.post('/auth/signin', formData);
+      toast.success('Welcome back to Minimal!');
+      navigate('/');
+    } catch (error) {
+      console.log('Client Error Response:', error.response);
+      const errorMessage = typeof error.response.data === 'string' 
+        ? error.response.data 
+        : error.response.data?.message || 'Invalid credentials';
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+};
+
 
   return (
     <motion.div 
@@ -35,7 +53,7 @@ export default function SignIn({ onSubmit }) {
               Welcome Back
             </h1>
             <p className="text-black-500 dark:text-white-500 mt-2">
-              Sign in to continue shopping
+              Signin to Continue Shopping 
             </p>
           </div>
 
@@ -47,53 +65,58 @@ export default function SignIn({ onSubmit }) {
                 placeholder="Email address"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="pl-10 w-full"
+                className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20"
                 required
               />
             </div>
 
-            <div className="relative">
-              <Lock className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
-              <Input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
-                value={formData.password}
-                onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className="pl-10 w-full"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3.5 text-black-500 dark:text-white-500 hover:text-light-accent dark:hover:text-dark-accent"
-              >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-              </button>
+            <div className="space-y-2">
+              <div className="relative">
+                <Lock className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3.5 text-black-500 dark:text-white-500 hover:text-violet-300 dark:hover:text-violet-300 transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
 
             <Button 
-  type="submit" 
-  className="w-full bg-black-200 hover:bg-black-300 dark:bg-white text-white dark:text-black-200 
-    dark:hover:bg-white-800 transition-all duration-300 rounded-xl py-3"
-  disabled={isLoading}
->
-  {isLoading ? (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="flex items-center justify-center"
-    >
-      <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
-      Signing in...
-    </motion.div>
-  ) : (
-    <span className="flex items-center justify-center">
-      Sign In
-      <ArrowRight className="ml-2 h-4 w-4" />
-    </span>
-  )}
-</Button>
-
+              type="submit" 
+              className="w-full bg-black-200 hover:bg-black-300 dark:bg-white text-white dark:text-black-200 
+                dark:hover:bg-white-800 transition-all duration-300 rounded-xl py-3"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center justify-center"
+                >
+                  <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
+                  Signing in...
+                </motion.div>
+              ) : (
+                <span className="flex items-center justify-center">
+                  Continue
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </span>
+              )}
+            </Button>
           </form>
 
           <div className="relative my-8">
@@ -110,7 +133,8 @@ export default function SignIn({ onSubmit }) {
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full bg-black-100/5 dark:bg-white-500/5 hover:bg-black-100/10 dark:hover:bg-white-500/10 
+              text-black-300 dark:text-white-700 transition-all duration-300 rounded-xl py-3"
           >
             <Chrome className="mr-2 h-5 w-5" />
             Google
@@ -120,7 +144,7 @@ export default function SignIn({ onSubmit }) {
             Don't have an account?{' '}
             <Link 
               to="/signup" 
-              className="font-medium text-black-300 dark:text-white-700 hover:text-light-accent dark:hover:text-dark-accent"
+              className="font-medium text-black-300 dark:text-white-700 hover:text-violet-300 dark:hover:text-violet-300 transition-colors"
             >
               Sign up
             </Link>

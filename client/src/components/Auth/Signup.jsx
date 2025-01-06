@@ -1,18 +1,21 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button, Input, Card } from '../ui';
 import { Chrome, ArrowRight, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+import axiosInstance from '../../utils/axios.js';
 
-export default function SignUp({ onSubmit }) {
+export default function SignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
@@ -35,10 +38,22 @@ export default function SignUp({ onSubmit }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      onSubmit(formData);
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    try {
+      const { data } = await axiosInstance.post('/auth/signup', formData);
+      toast.success(data.message || 'Welcome to Minimal!');
+      navigate('/signin');
+    } catch (error) {
+      const errorMessage = typeof error.response.data === 'string' 
+        ? error.response.data 
+        : error.response.data?.message || 'Registration failed';
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
