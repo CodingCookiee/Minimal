@@ -2,29 +2,22 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SignUp from '../components/Auth/SignUp';
-import axiosInstance from '../utils/axios';
+
 
 export default function SignUpPage() {
   const [authStatus, setAuthStatus] = useState('loading');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axiosInstance.get('/auth/status');
-        if (response.data.isAuthenticated) {
-          setAuthStatus('authenticated');
-          navigate('/signin');
-        } else {
-          setAuthStatus('unauthenticated');
-        }
-      } catch (error) {
-        setAuthStatus('unauthenticated');
-      }
-    };
-    
-    checkAuth();
+    const accessToken = document.cookie.includes('accessToken');
+    if (accessToken) {
+      setAuthStatus('authenticated');
+      navigate('/');
+    } else {
+      setAuthStatus('unauthenticated');
+    }
   }, [navigate]);
+  
 
   if (authStatus === 'loading') {
     return (
