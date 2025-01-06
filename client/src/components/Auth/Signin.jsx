@@ -1,45 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Input, Card } from '../ui';
-import { Chrome, ArrowRight, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Chrome, ArrowRight, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function SignUp({ onSubmit }) {
+export default function SignIn({ onSubmit }) {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.name || formData.name.length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
-    }
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    if (!passwordRegex.test(formData.password)) {
-      newErrors.password = 'Password must contain at least 8 characters, including uppercase, lowercase, numbers and special characters (!@#$%^&*)';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      onSubmit(formData);
-    }
+    onSubmit(formData);
   };
 
   return (
@@ -57,26 +32,14 @@ export default function SignUp({ onSubmit }) {
         >
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-black-100 to-black-300 dark:from-white-700 dark:to-white bg-clip-text text-transparent">
-              Create Account
+              Welcome Back
             </h1>
             <p className="text-black-500 dark:text-white-500 mt-2">
-              Start your journey with Minimal
+              Sign in to continue shopping
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-            <div className="relative">
-              <User className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
-              <Input
-                type="text"
-                placeholder="Full name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className={`pl-10 w-full ${errors.name ? 'border-red-500' : ''}`}
-              />
-              {errors.name && <span className="text-red-500 text-sm mt-1">{errors.name}</span>}
-            </div>
-
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
               <Mail className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
@@ -84,9 +47,9 @@ export default function SignUp({ onSubmit }) {
                 placeholder="Email address"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className={`pl-10 w-full ${errors.email ? 'border-red-500' : ''}`}
+                className="pl-10 w-full"
+                required
               />
-              {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
             </div>
 
             <div className="relative">
@@ -96,7 +59,8 @@ export default function SignUp({ onSubmit }) {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className={`pl-10 w-full ${errors.password ? 'border-red-500' : ''}`}
+                className="pl-10 w-full"
+                required
               />
               <button
                 type="button"
@@ -105,7 +69,6 @@ export default function SignUp({ onSubmit }) {
               >
                 {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
-              {errors.password && <span className="text-red-500 text-sm mt-1">{errors.password}</span>}
             </div>
 
             <Button 
@@ -121,11 +84,11 @@ export default function SignUp({ onSubmit }) {
       className="flex items-center justify-center"
     >
       <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
-      Creating account...
+      Signing in...
     </motion.div>
   ) : (
     <span className="flex items-center justify-center">
-      Get Started
+      Sign In
       <ArrowRight className="ml-2 h-4 w-4" />
     </span>
   )}
@@ -154,12 +117,12 @@ export default function SignUp({ onSubmit }) {
           </Button>
 
           <p className="mt-6 text-center text-sm text-black-500 dark:text-white-500">
-            Already have an account?{' '}
+            Don't have an account?{' '}
             <Link 
-              to="/signin" 
+              to="/signup" 
               className="font-medium text-black-300 dark:text-white-700 hover:text-light-accent dark:hover:text-dark-accent"
             >
-              Sign in
+              Sign up
             </Link>
           </p>
         </motion.div>
