@@ -5,6 +5,7 @@ import { Chrome, ArrowRight, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios.js';
+import { useGoogleLogin } from '@react-oauth/google';
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -33,6 +34,23 @@ export default function SignIn() {
       setIsLoading(false);
     }
 };
+
+const googleLogin = useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      const { data } = await axiosInstance.post('/auth/google', {
+        token: tokenResponse.access_token
+      });
+      toast.success('Welcome to Minimal!');
+      navigate('/');
+    } catch (error) {
+      toast.error('Google authentication failed');
+    }
+  },
+  onError: () => {
+    toast.error('Google authentication failed');
+  }
+});
 
 
   return (
@@ -133,6 +151,7 @@ export default function SignIn() {
           <Button
             type="button"
             variant="outline"
+            onClick={() => googleLogin()}
             className="w-full bg-black-100/5 dark:bg-white-500/5 hover:bg-black-100/10 dark:hover:bg-white-500/10 
               text-black-300 dark:text-white-700 transition-all duration-300 rounded-xl py-3"
           >

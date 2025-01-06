@@ -210,23 +210,23 @@ export const googleAuth = async (req, res, next) => {
   try {
     const { token } = req.body;
     
-    const client = new OAuth2Client({
-      clientId: process.env.GOOGLE_CLIENT_ID
-    });
-
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID
+    const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
     
-    const { email, name, picture, sub: googleId } = ticket.getPayload();
+    const { email, name, picture, sub: googleId } = await response.json();
     
     let user = await User.findOne({ email });
     if (!user) {
+      
+      const validPassword = `${googleId.slice(0, 4)}Aa1!${process.env.GOOGLE_CLIENT_SECRET.slice(0, 4)}`;
+      
       user = new User({
         email,
         name,
-        password: `${googleId}${process.env.GOOGLE_CLIENT_SECRET}#1Aa`,
+        password: validPassword,
         profilePicture: picture,
         googleId
       });
@@ -244,6 +244,9 @@ export const googleAuth = async (req, res, next) => {
     next(createError(500, "Google Authentication Failed"));
   }
 };
+
+
+
 
 
 
