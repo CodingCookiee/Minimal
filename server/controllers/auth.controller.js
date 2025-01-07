@@ -62,6 +62,10 @@ export const signup = async (req, res, next) => {
     setCookies(res, accessToken, refreshToken);
     res.status(201).json({ user });
   } catch (err) {
+    if(err.name === 'ValidationError') {
+      const errors = Object.values(err.errors).map(error => error.message);
+      return res.status(400).json({ errors });
+    }
     next(err);
   }
 };
@@ -85,7 +89,9 @@ export const signin = async (req, res, next) => {
 
     res.status(200).json({ user });
   } catch (error) {
-    console.log("Error Logging In:", error.message);
+    if (error.status === 401) {
+      return res.status(401).json({ message: error.message });
+    }
     next(error)
   }
 };

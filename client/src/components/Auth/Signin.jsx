@@ -19,7 +19,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const { data } = await axiosInstance.post('/auth/signin', formData);
       toast.success('Welcome back to Minimal!');
@@ -33,7 +33,7 @@ export default function SignIn() {
     } finally {
       setIsLoading(false);
     }
-};
+  };
 
 const googleLogin = useGoogleLogin({
   onSuccess: async (tokenResponse) => {

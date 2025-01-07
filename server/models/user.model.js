@@ -6,6 +6,13 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Name is required"],
+      validate: {
+        validator: function (v) {
+          return /^[a-zA-Z\s]+$/.test(v);
+        },
+        message: (props) =>
+          `${props.value} is not a valid name! Name must contain only letters and spaces.`,
+      }
     },
     email: {
       type: String,
@@ -13,7 +20,13 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
+      validate: {
+        validator: function (v) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid email!`,
     },
+  },
     profilePicture: {
       type: String,
       default: "https://via.placeholder.com/150",

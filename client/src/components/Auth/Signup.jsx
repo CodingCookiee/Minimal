@@ -43,22 +43,35 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
     setIsLoading(true);
     try {
-      const { data } = await axiosInstance.post('/auth/signup', formData);
-      toast.success(data.message || 'Welcome to Minimal!');
-      navigate('/signin');
+      const response = await axiosInstance.post('/auth/signup', formData);
+      if (response && response.data) {
+        toast.success('Welcome to Minimal!');
+        navigate('/signin');
+      }
     } catch (error) {
-      const errorMessage = typeof error.response.data === 'string' 
-        ? error.response.data 
-        : error.response.data?.message || 'Registration failed';
-      toast.error(errorMessage);
+      if (error.response?.data?.errors) {
+        const errorMessages = error.response.data.errors;
+        errorMessages.forEach((errorMessage) => {
+          toast.error(errorMessage);
+        });
+        setErrors(prev => ({
+          ...prev,
+          ...errorMessages.reduce((acc, errorMessage) => {
+            const [field, message] = errorMessage.split(': ');
+            acc[field] = message;
+            return acc;
+          }, {})
+        }));
+      } else {
+        const errorMessage = typeof error.response?.data?.message === 'string' ? error.response.data.message : 'Signup Failed, please try again later';
+        toast.error(errorMessage);
+      }
     } finally {
       setIsLoading(false);
     }
   };
-
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
