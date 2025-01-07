@@ -4,6 +4,8 @@ import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -44,6 +46,14 @@ const App = () => {
         {
           path : "/signup",
           element : <SignupPage />
+        },
+        {
+          path : "/forgot-password",
+          element : <ForgotPasswordPage />
+        },
+        {
+          path : "/reset-password",
+          element : <ResetPasswordPage />
         }
         
       ],

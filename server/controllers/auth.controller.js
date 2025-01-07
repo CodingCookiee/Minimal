@@ -8,11 +8,26 @@ import {
 } from "../utils/tokenUtils.js";
 import { sendEmail } from "../utils/email.js";
 import jwt from "jsonwebtoken";
+import { createTransport } from 'nodemailer';
+
 
 const googleClient = new OAuth2Client({
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET
 });
+
+const validatePassword = (password) => {
+  return password.length >= 8 && 
+         /[A-Z]/.test(password) && 
+         /[a-z]/.test(password) && 
+         /[0-9]/.test(password) &&
+         /[!@#$%^&*(),.?":{}|<>]/.test(password);
+};
+
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 
 
 const storeRefreshToken = async (userId, refreshToken) => {
@@ -121,57 +136,102 @@ export const logout = async (req, res, next) => {
   }
 };
 
+
+
 export const forgotPassword = async (req, res, next) => {
   const { email } = req.body;
+
+  if (!validateEmail(email)) {
+    return res.status(400).json({ message: 'Invalid email format' });
+  }
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      throw createError(404, "User not found");
+      return res.status(404).json({ message: 'No account found with this email' });
     }
+
     const resetToken = jwt.sign(
       { userId: user._id },
       process.env.RESET_PASSWORD_SECRET,
-      { expiresIn: "15m" },
+      { expiresIn: '15m' }
     );
+
     const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
-    const message = `Hi,\n\nYou requested a password reset. Please click on the following link to reset your password: ${resetUrl}\n\nRegards,\n\nMinimal Customer Support`;
 
-    await sendEmail(user.email, "Password Reset Request", message);
+    const transporter = createTransport({
+      host: process.env.EMAIL_HOST,
+      port: parseInt(process.env.EMAIL_PORT),
+      secure: process.env.EMAIL_SECURE === 'true',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
 
-    res.status(200).json({ message: "Reset Password Email Sent" });
+    const mailOptions = {
+      from: process.env.EMAIL_FROM,
+      to: user.email,
+      subject: 'Password Reset - Minimal',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #333; text-align: center;">Password Reset Request</h1>
+          <p>Hello,</p>
+          <p>We received a request to reset your password. Click the button below to create a new password:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" 
+              style="background-color: #5724ff; color: white; padding: 12px 24px; 
+              text-decoration: none; border-radius: 5px; display: inline-block;">
+              Reset Password
+            </a>
+          </div>
+          <p>This link will expire in 15 minutes for security reasons.</p>
+          <p>If you didn't request this reset, you can safely ignore this email.</p>
+          <p>Best regards,<br>Minimal Team</p>
+        </div>
+      `
+    };
+
+    await transporter.verify();
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({
+      success: true,
+      message: 'Password reset link sent to your email'
+    });
+
   } catch (error) {
-    console.log("Error Forgot Password:", error.message);
-    next(
-      createError(500, {
-        message: "Internal Server Error",
-        error: error.message,
-      }),
-    );
+    console.error('Password reset error:', error);
+    next(createError(500, 'Failed to send reset email'));
   }
 };
+
 
 export const resetPassword = async (req, res, next) => {
   const { resetToken, newPassword } = req.body;
   try {
-    const { userId } = jwt.verify(
-      resetToken,
-      process.env.RESET_PASSWORD_SECRET,
-    );
-    const user = await User.findById(userId);
-    if (!user) {
-      throw createError(404, "User not found");
-    }
-    user.password = newPassword;
-    await user.save();
-    res.status(200).json({ message: "Password Reset Successfully" });
+      if (!validatePassword(newPassword)) {
+          return res.status(400).json({ 
+              message: 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters'
+          });
+      }
+
+      const decoded = jwt.verify(resetToken, process.env.RESET_PASSWORD_SECRET);
+      const user = await User.findById(decoded.userId);
+      
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      user.password = newPassword;
+      await user.save();
+
+      res.status(200).json({ message: 'Password reset successfully' });
   } catch (error) {
-    console.log("Error Reset Password:", error.message);
-    next(
-      createError(500, {
-        message: "Internal Server Error",
-        error: error.message,
-      }),
-    );
+      if (error.name === 'JsonWebTokenError') {
+          return res.status(400).json({ message: 'Invalid or expired reset token' });
+      }
+      next(createError(500, 'Error resetting password'));
   }
 };
 
