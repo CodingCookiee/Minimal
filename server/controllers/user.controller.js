@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import createError from "../utils/createError.js";
+import createError from "../utils/createError.utils.js";
 
 export const getProfile = async (req, res, next) => {
     try {

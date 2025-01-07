@@ -28,7 +28,7 @@ export default function SignIn() {
       console.log('Client Error Response:', error.response);
       const errorMessage = typeof error.response.data === 'string' 
         ? error.response.data 
-        : error.response.data?.message || 'Invalid credentials';
+        : error.response.data.message || 'Invalid credentials';
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);

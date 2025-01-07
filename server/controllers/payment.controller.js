@@ -1,6 +1,6 @@
 import Coupon from "../models/coupon.model.js";
 import Order from "../models/order.model.js";
-import createError from "../utils/createError.js";
+import createError from "../utils/createError.utils.js";
 import Cart from "../models/cart.model.js";
 import stripe from "../lib/stripe.js";
 

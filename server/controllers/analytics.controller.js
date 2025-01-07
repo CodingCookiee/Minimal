@@ -1,7 +1,7 @@
 import Product from "../models/product.model.js";
 import Order from "../models/order.model.js";
 import User from "../models/user.model.js";
-import createError from "../utils/createError.js";
+import createError from "../utils/createError.utils.js";
 
 export const getAnalyticsData = async (req, res, next) => {
     try {

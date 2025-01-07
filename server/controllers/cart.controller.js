@@ -1,6 +1,6 @@
 import Cart from "../models/cart.model.js";
 import Product from "../models/product.model.js";
-import createError from "../utils/createError.js";
+import createError from "../utils/createError.utils.js";
 
 export const addToCart = async (req, res, next) => {
   try{const { productId, quantity } = req.body;

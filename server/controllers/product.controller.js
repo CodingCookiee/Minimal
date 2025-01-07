@@ -1,7 +1,7 @@
 import { redis } from "../lib/redis.js";
 import cloudinary from "../lib/cloudinary.js";
 import Product from "../models/product.model.js";
-import createError from "../utils/createError.js";
+import createError from "../utils/createError.utils.js";
 
 export const createProduct = async (req, res, next) => {
   try {

@@ -11,17 +11,11 @@ const port = parseInt(process.env.PORT || "3000", 10);
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(errorHandler);
-
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    crossOriginOpenerPolicy: "same-origin-allow-popups"
-  }),
-);
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  headers: ['Content-Type', 'Authorization']
+}));
 
 
 // Routes
@@ -36,6 +30,7 @@ app.get("/", (req, res) => {
   res.send("The Server is running : Use /api to Run Tests");
 });
 
+app.use(errorHandler);
 
 app
   .listen(port, async () => {
