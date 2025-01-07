@@ -112,7 +112,9 @@ const googleLogin = useGoogleLogin({
                 </button>
               </div>
             </div>
-
+            <div className="flex items-center justify-end text-sm text-gray-700 	">
+            <Link to='/forgot-password'>forgot password?</Link>
+            </div>
             <Button 
               type="submit" 
               className="w-full bg-black-200 hover:bg-black-300 dark:bg-white text-white dark:text-black-200 
@@ -163,7 +165,7 @@ const googleLogin = useGoogleLogin({
             Don't have an account?{' '}
             <Link 
               to="/signup" 
-              className="font-medium text-black-300 dark:text-white-700 hover:text-violet-300 dark:hover:text-violet-300 transition-colors"
+              className="font-medium text-black-300 dark:text-white-700 hover:text-light-accent dark:hover:text-dark-accent"
             >
               Sign up
             </Link>

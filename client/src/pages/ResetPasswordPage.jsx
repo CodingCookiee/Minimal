@@ -51,7 +51,7 @@ export default function ResetPassword() {
     >
       <Card className="w-[400px] shadow-xl">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-black-100 to-violet-300 dark:from-white-700 dark:to-white bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-black-100 to-neutral-400 dark:from-violet-700 dark:to-white bg-clip-text text-transparent">
             Reset Your Password
           </h1>
           <p className="text-sm text-black-500 dark:text-white-500 text-center">
@@ -67,7 +67,7 @@ export default function ResetPassword() {
                 placeholder="New password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5"
+                className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20"
                 required
               />
                <button
@@ -89,7 +89,7 @@ export default function ResetPassword() {
                 placeholder="Confirm new password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5"
+                className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20"
                 required
               />
                <button
@@ -107,7 +107,7 @@ export default function ResetPassword() {
 
             <Button 
               type="submit" 
-              className="w-full bg-light-accent hover:bg-violet-300/90 dark:bg-dark-accent dark:hover:bg-dark-accent/90 hover:text-white dark:text-black-200"
+              className="w-full bg-dark-primary text-light-primary hover:text-dark-primary hover:bg-light-primary"
               disabled={isLoading}
             >
               {isLoading ? 'Resetting...' : 'Reset Password'}

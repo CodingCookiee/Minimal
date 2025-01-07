@@ -20,7 +20,7 @@ const generateResetPasswordTemplate = (resetUrl) => {
       <p>We received a request to reset your password. Click the button below to create a new password:</p>
       <div style="text-align: center; margin: 30px 0;">
         <a href="${resetUrl}" 
-          style="background-color: #5724ff; color: white; padding: 12px 24px; 
+          style="background-color: #0E0E10; color: white; padding: 12px 24px; 
           text-decoration: none; border-radius: 5px; display: inline-block;">
           Reset Password
         </a>

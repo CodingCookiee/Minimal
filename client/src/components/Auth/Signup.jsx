@@ -119,7 +119,7 @@ export default function SignUp() {
                 placeholder="Full name"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className={`pl-10 w-full ${errors.name ? 'border-red-500' : ''}`}
+                className={`pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20 ${errors.name ? 'border-red-500' : ''}`}
               />
               {errors.name && <span className="text-red-500 text-sm mt-1">{errors.name}</span>}
             </div>
@@ -131,7 +131,7 @@ export default function SignUp() {
                 placeholder="Email address"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className={`pl-10 w-full ${errors.email ? 'border-red-500' : ''}`}
+                className={`pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20 ${errors.email ? 'border-red-500' : ''}`}
               />
               {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
             </div>
@@ -143,7 +143,7 @@ export default function SignUp() {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className={`pl-10 w-full ${errors.password ? 'border-red-500' : ''}`}
+                className={`pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20 ${errors.password ? 'border-red-500' : ''}`}
               />
               <button
                 type="button"
