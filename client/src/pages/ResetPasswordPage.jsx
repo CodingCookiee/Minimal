@@ -1,6 +1,6 @@
 import { useState,  } from 'react';
 import { Card, CardContent, CardHeader, Button, Input } from '../components/ui';
-import { Lock ,Eye, EyeOff} from 'lucide-react';
+import { LockKeyhole ,Eye, EyeOff} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -61,7 +61,7 @@ export default function ResetPassword() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-5 w-5 text-black-500 dark:text-white-500" />
+              <LockKeyhole className="absolute left-3 top-3 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
                 type={showNewPassword ? 'text' : 'password'}
                 placeholder="New password"
@@ -83,7 +83,7 @@ export default function ResetPassword() {
   </button>
             </div>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-5 w-5 text-black-500 dark:text-white-500" />
+              <LockKeyhole className="absolute left-3 top-3 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="Confirm new password"

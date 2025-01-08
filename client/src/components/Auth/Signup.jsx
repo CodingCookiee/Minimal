@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button, Input, Card } from '../ui';
-import { Chrome, ArrowRight, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import {  ArrowRight, Mail, LockKeyhole, User, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios.js';
@@ -139,7 +139,7 @@ export default function SignUp() {
             </div>
 
             <div className=" flex flex-col relative ">
-              <Lock className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
+              <LockKeyhole className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
