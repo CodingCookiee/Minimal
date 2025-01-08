@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios.js';
 import { useGoogleLogin } from '@react-oauth/google';
+import { FcGoogle } from "react-icons/fc";
+
 
 
 export default function SignUp() {
@@ -22,8 +24,8 @@ export default function SignUp() {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.name || formData.name.length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
+    if (!formData.name || formData.name.length < 5) {
+      newErrors.name = 'Name must be at least 5 characters';
     }
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -95,7 +97,7 @@ export default function SignUp() {
       animate={{ opacity: 1, y: 0 }}
       className="min-h-screen flex items-center justify-center bg-light-primary dark:bg-dark-primary px-4"
     >
-      <Card className="w-full max-w-md bg-white dark:bg-dark-primary border border-black-300/10 dark:border-white-500/10">
+      <Card className="w-full max-w-md  border-none">
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -115,36 +117,36 @@ export default function SignUp() {
             <div className="relative">
               <User className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
-                type="text"
-                placeholder="Full name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className={`pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20 ${errors.name ? 'border-red-500' : ''}`}
-              />
+  type="text"
+  placeholder="Full name"
+  value={formData.name}
+  onChange={(e) => setFormData({...formData, name: e.target.value})}
+  className={`pl-10 w-full border-t-0 border-l-0 border-r-0 border-b border-black-300 rounded-none   focus:border-2 outline-none focus:ring-transparent  ${errors.name ? 'border-red-500' : ''}`}
+/>
               {errors.name && <span className="text-red-500 text-sm mt-1">{errors.name}</span>}
             </div>
 
             <div className="relative">
-              <Mail className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
+              <Mail className="absolute left-3 top-3.5 h-5 w-5  text-black-500 dark:text-white-500" />
               <Input
                 type="email"
                 placeholder="Email address"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className={`pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20 ${errors.email ? 'border-red-500' : ''}`}
-              />
+                className={`pl-10 w-full border-t-0 border-l-0 border-r-0 border-b border-black-300 rounded-none   focus:border-2 outline-none focus:ring-transparent   ${errors.name ? 'border-red-500' : ''}`}
+                />
               {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
             </div>
 
-            <div className="relative">
+            <div className=" flex flex-col relative ">
               <Lock className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className={`pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20 ${errors.password ? 'border-red-500' : ''}`}
-              />
+                className={`pl-10 w-full border-t-0 border-l-0 border-r-0 border-b border-black-300 rounded-none   focus:border-2 outline-none focus:ring-transparent  ${errors.name ? 'border-red-500' : ''}`}
+                />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -153,14 +155,22 @@ export default function SignUp() {
                 {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
               {errors.password && <span className="text-red-500 text-sm mt-1">{errors.password}</span>}
+            <p className="self-end mt-4 text-center text-xs text-black-500 dark:text-white-500">
+            Already have an account?{' '}
+            <Link 
+              to="/signin" 
+              className="font-medium text-black-300 dark:text-white-700 hover:text-neutral-500"
+            >
+              Sign in
+            </Link>
+          </p>
             </div>
-
-            <Button 
-  type="submit" 
-  className="w-full bg-black-200 hover:bg-black-300 dark:bg-white text-white dark:text-black-200 
-    dark:hover:bg-white-800 transition-all duration-300 rounded-xl py-3"
-  disabled={isLoading}
->
+            <div className="flex justify-center w-full ">
+            <Button
+    type="submit"
+    className=" w-1/2 rounded-md bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
+    disabled={isLoading}
+  >
   {isLoading ? (
     <motion.div
       initial={{ opacity: 0 }}
@@ -178,9 +188,10 @@ export default function SignUp() {
   )}
 </Button>
 
+</div>
           </form>
 
-          <div className="relative my-8">
+          <div className="relative my-5 mt-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-black-300/10 dark:border-white-500/10" />
             </div>
@@ -191,26 +202,22 @@ export default function SignUp() {
             </div>
           </div>
 
+
+          <div className="flex justify-center w-full">
+
           <Button
             type="button"
             variant="outline"
             onClick={() => googleLogin()}
-            className="w-full bg-black-100/5 dark:bg-white-500/5 hover:bg-black-100/10 dark:hover:bg-white-500/10 
-              text-black-300 dark:text-white-700 transition-all duration-300 rounded-xl py-3"
+            className=" border-none w-1/2 rounded-md bg-light-primary text-dark-primary hover:bg-dark-primary hover:text-light-primary transition-all duration-300"
+
           >
-            <Chrome className="mr-2 h-5 w-5" />
+            <FcGoogle className="mr-2 h-5 w-5" />
             Google
           </Button>
+          </div>
 
-          <p className="mt-6 text-center text-sm text-black-500 dark:text-white-500">
-            Already have an account?{' '}
-            <Link 
-              to="/signin" 
-              className="font-medium text-black-300 dark:text-white-700 hover:text-light-accent dark:hover:text-dark-accent"
-            >
-              Sign in
-            </Link>
-          </p>
+        
         </motion.div>
       </Card>
     </motion.div>
