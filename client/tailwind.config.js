@@ -6,6 +6,12 @@ export default {
     extend: {
       fontFamily: {
         generalsans: ["General Sans", "sans-serif"],
+        'sf-light': ['SF Pro Text Light', 'sans-serif'],
+      'sf-regular': ['SF Pro Text Regular', 'sans-serif'],
+      'sf-medium': ['SF Pro Text Medium', 'sans-serif'],
+      'sf-semibold': ['SF Pro Text Semibold', 'sans-serif'],
+      'sf-bold': ['SF Pro Text Bold', 'sans-serif'],
+      'sf-heavy': ['SF Pro Text Heavy', 'sans-serif'],
 
       },
       colors: {

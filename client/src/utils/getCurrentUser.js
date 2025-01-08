@@ -1,6 +1,6 @@
-
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
 };
 
 export default getCurrentUser;

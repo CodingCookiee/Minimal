@@ -80,7 +80,7 @@ export default function SignUp() {
         const { data } = await axiosInstance.post('/auth/google', {
           token: tokenResponse.access_token
         });
-        toast.success('Welcome to Minimal!');
+        toast.success('Welcome to Minimal');
         navigate('/');
       } catch (error) {
         toast.error('Google authentication failed');
@@ -95,7 +95,7 @@ export default function SignUp() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen flex items-center justify-center bg-light-primary dark:bg-dark-primary px-4"
+      className=" mt-10 h-screen flex items-center justify-center  px-4"
     >
       <Card className="w-full max-w-md  border-none">
         <motion.div 
@@ -159,7 +159,7 @@ export default function SignUp() {
             Already have an account?{' '}
             <Link 
               to="/signin" 
-              className="font-medium text-black-300 dark:text-white-700 hover:text-neutral-500"
+              className="font-medium text-[15px] text-neutral-950 hover:text-neutral-500"
             >
               Sign in
             </Link>

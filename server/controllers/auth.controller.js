@@ -37,15 +37,16 @@ export const googleAuth = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
   try {
-    await authService.logout(req.cookies.refreshToken);
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-    res.status(200).json({ message: "Logged Out Successfully" });
+      const refreshToken = req.cookies.refreshToken;
+      await authService.logout(refreshToken);
+      res.clearCookie("accessToken");
+      res.clearCookie("refreshToken");
+      res.status(200).json({ message: "Logged Out Successfully" });
   } catch (error) {
-    console.log('Logout Error', error.message);
-    next(error);
+      next(error);
   }
 };
+
 
 export const forgotPassword = async (req, res, next) => {
   try {

@@ -4,6 +4,7 @@ import { generateAccessToken, generateRefreshToken, storeRefreshToken, setCookie
 import { sendResetPasswordEmail, sendWelcomeEmail } from '../utils/email.utils.js';
 import createError from '../utils/createError.utils.js';
 import { OAuth2Client } from 'google-auth-library';
+import jwt from 'jsonwebtoken';
 
 
 export const authService = {
@@ -70,11 +71,16 @@ export const authService = {
 
   logout: async function(refreshToken) {
     if (!refreshToken) {
-      throw createError(401, "Refresh Token is Missing");
+        throw createError(401, "No refresh token found");
     }
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    await redis.del(`refreshToken:${decoded.userId}`);
-  },
+    try {
+        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        await redis.del(`refreshToken:${decoded.userId}`);
+    } catch (error) {
+        throw createError(401, "Invalid refresh token");
+    }
+},
+
 
   initiatePasswordReset: async function(email) {
     const user = await User.findOne({ email });

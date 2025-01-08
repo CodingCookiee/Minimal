@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* font layers */
+@layer base {
+  /* Light */
+  .font-light {
+    font-family: 'SF Pro Text';
+    font-weight: 300;
+  }
+
+  /* Regular */
+  .font-regular {
+    font-family: 'SF Pro Text';
+    font-weight: 400;
+  }
+
+  /* Medium */
+  .font-medium {
+    font-family: 'SF Pro Text';
+    font-weight: 500;
+  }
+
+  /* Semibold */
+  .font-semibold {
+    font-family: 'SF Pro Text';
+    font-weight: 600;
+  }
+
+  /* Bold */
+  .font-bold {
+    font-family: 'SF Pro Text';
+    font-weight: 700;
+  }
+
+  /* Heavy */
+  .font-heavy {
+    font-family: 'SF Pro Text';
+    font-weight: 800;
+  }
+}
+
+
+
+
+
 
  /* Modified CSS Reset */
 /* Box-sizing */

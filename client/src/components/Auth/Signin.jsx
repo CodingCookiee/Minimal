@@ -43,7 +43,10 @@ export default function SignIn() {
 
     try {
       const { data } = await axiosInstance.post("/auth/signin", formData);
-      toast.success("Welcome back to Minimal!");
+        localStorage.setItem('user', JSON.stringify(data.user));
+        
+        
+      toast.success("Welcome back to Minimal");
       navigate("/");
     } catch (error) {
       console.log("Client Error Response:", error.response);
@@ -63,6 +66,11 @@ export default function SignIn() {
         const { data } = await axiosInstance.post("/auth/google", {
           token: tokenResponse.access_token,
         });
+    
+         localStorage.setItem('user', JSON.stringify(data.user));
+         
+       
+
         toast.success("Welcome to Minimal!");
         navigate("/");
       } catch (error) {
@@ -78,7 +86,7 @@ export default function SignIn() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className=" min-h-screen flex items-center justify-center bg-light-primary dark:bg-dark-primary px-4"
+      className=" mt-10 h-screen flex items-center justify-center bg-light-primary dark:bg-dark-primary px-4"
     >
       <Card className="w-full border-none max-w-md">
         <motion.div

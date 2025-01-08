@@ -6,6 +6,15 @@ import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import AccountPage from "./pages/AccountPage";
+import CartPage from "./pages/CartPage";
+import CategoryPage from "./pages/CategoryPage";
+import AdminPage from "./pages/AdminPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import PaymentCancelPage from "./pages/PaymentCancelPage";
+
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -54,6 +63,34 @@ const App = () => {
         {
           path : "/reset-password",
           element : <ResetPasswordPage />
+        },
+        {
+          path : "/account",
+          element : <AccountPage />
+        },
+        {
+          path : "/cart",
+          element : <CartPage />
+        },
+        {
+          path : "/category/:category",
+          element : <CategoryPage />
+        },
+        {
+          path : "/admin",
+          element : <AdminPage />
+        },
+        {
+          path : "/checkout",
+          element : <CheckoutPage />
+        },
+        {
+          path : "/payment/success",
+          element : <PaymentSuccessPage />
+        },
+        {
+          path : "/payment/cancel",
+          element : <PaymentCancelPage />
         }
         
       ],
