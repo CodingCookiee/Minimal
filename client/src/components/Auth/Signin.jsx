@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button, Input, Card } from "../ui";
-import {  ArrowRight, Mail, LockKeyhole, Eye, EyeOff } from "lucide-react";
+import { ArrowRight, Mail, LockKeyhole, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axios.js";
@@ -26,10 +26,8 @@ export default function SignIn() {
       newErrors.email = "Please enter a valid email";
     }
 
-    
     if (!formData.password) {
-      newErrors.password =
-        "Please enter your password to signin";
+      newErrors.password = "Please enter your password to signin";
     }
 
     setErrors(newErrors);
@@ -43,9 +41,8 @@ export default function SignIn() {
 
     try {
       const { data } = await axiosInstance.post("/auth/signin", formData);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
-        
+      localStorage.setItem("user", JSON.stringify(data.user));
+
       toast.success("Welcome back to Minimal");
       navigate("/");
     } catch (error) {
@@ -66,10 +63,8 @@ export default function SignIn() {
         const { data } = await axiosInstance.post("/auth/google", {
           token: tokenResponse.access_token,
         });
-    
-         localStorage.setItem('user', JSON.stringify(data.user));
-         
-       
+
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         toast.success("Welcome to Minimal!");
         navigate("/");
@@ -125,15 +120,21 @@ export default function SignIn() {
 
             <div className="space-y-2">
               <div className="relative">
-              <LockKeyhole className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
-  <Input
-    type={showPassword ? 'text' : 'password'}
-    placeholder="Password"
-    value={formData.password}
-    onChange={(e) => setFormData({...formData, password: e.target.value})}
-    className={`pl-10 w-full border-t-0 border-l-0 border-r-0 border-b border-black-300 rounded-none focus:border-2 outline-none focus:ring-transparent ${errors.password ? 'border-red-500' : ''}`}
-  />
-  {errors.password && <span className="text-red-500 text-sm mt-1">{errors.password}</span>}
+                <LockKeyhole className="absolute left-3 top-3.5 h-5 w-5 text-black-500 dark:text-white-500" />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  className={`pl-10 w-full border-t-0 border-l-0 border-r-0 border-b border-black-300 rounded-none focus:border-2 outline-none focus:ring-transparent ${errors.password ? "border-red-500" : ""}`}
+                />
+                {errors.password && (
+                  <span className="text-red-500 text-sm mt-1">
+                    {errors.password}
+                  </span>
+                )}
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}

@@ -1,25 +1,23 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import SignUp from '../components/Auth/SignUp';
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import SignUp from "../components/Auth/SignUp";
 
 export default function SignUpPage() {
-  const [authStatus, setAuthStatus] = useState('loading');
+  const [authStatus, setAuthStatus] = useState("loading");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = document.cookie.includes('accessToken');
+    const accessToken = document.cookie.includes("accessToken");
     if (accessToken) {
-      setAuthStatus('authenticated');
-      navigate('/');
+      setAuthStatus("authenticated");
+      navigate("/");
     } else {
-      setAuthStatus('unauthenticated');
+      setAuthStatus("unauthenticated");
     }
   }, [navigate]);
-  
 
-  if (authStatus === 'loading') {
+  if (authStatus === "loading") {
     return (
       <div className="flex items-center justify-center min-h-screen bg-light-primary dark:bg-dark-primary">
         <motion.div
@@ -31,7 +29,7 @@ export default function SignUpPage() {
     );
   }
 
-  if (authStatus === 'authenticated') {
+  if (authStatus === "authenticated") {
     return null;
   }
 

@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
         },
         message: (props) =>
           `${props.value} is not a valid name! Name must contain only letters and spaces.`,
-      }
+      },
     },
     email: {
       type: String,
@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema(
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         },
         message: (props) => `${props.value} is not a valid email!`,
+      },
     },
-  },
     profilePicture: {
       type: String,
       default: "https://via.placeholder.com/150",
@@ -61,6 +61,46 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      },
+    ],
+    address: {
+      name: {
+        type: String,
+        default: "",
+      },
+      address1: {
+        type: String,
+        default: "",
+      },
+      address2: {
+        type: String,
+        default: "",
+      },
+      city: {
+        type: String,
+        default: "",
+      },
+      country: {
+        type: String,
+        default: "",
+      },
+      postalCode: {
+        type: String,
+        default: "",
+      },
+      phone: {
+        type: String,
+        default: "",
+      },
+      isDefault: {
+        type: Boolean,
+        default: false,
+      },
+    },
   },
   {
     timestamps: true,

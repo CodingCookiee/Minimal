@@ -29,7 +29,7 @@ const couponSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Add compound index

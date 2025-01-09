@@ -13,13 +13,9 @@ import AdminPage from "./pages/AdminPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentCancelPage from "./pages/PaymentCancelPage";
+import AddAddressPage from "./pages/AddAddressPage";
 
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
@@ -53,46 +49,49 @@ const App = () => {
           element: <SigninPage />,
         },
         {
-          path : "/signup",
-          element : <SignupPage />
+          path: "/signup",
+          element: <SignupPage />,
         },
         {
-          path : "/forgot-password",
-          element : <ForgotPasswordPage />
+          path: "/forgot-password",
+          element: <ForgotPasswordPage />,
         },
         {
-          path : "/reset-password",
-          element : <ResetPasswordPage />
+          path: "/reset-password",
+          element: <ResetPasswordPage />,
         },
         {
-          path : "/account",
-          element : <AccountPage />
+          path: "/account",
+          element: <AccountPage />,
         },
         {
-          path : "/cart",
-          element : <CartPage />
+          path: "/cart",
+          element: <CartPage />,
         },
         {
-          path : "/category/:category",
-          element : <CategoryPage />
+          path: "/category/:category",
+          element: <CategoryPage />,
         },
         {
-          path : "/admin",
-          element : <AdminPage />
+          path: "/admin",
+          element: <AdminPage />,
         },
         {
-          path : "/checkout",
-          element : <CheckoutPage />
+          path: "/checkout",
+          element: <CheckoutPage />,
         },
         {
-          path : "/payment/success",
-          element : <PaymentSuccessPage />
+          path: "/payment/success",
+          element: <PaymentSuccessPage />,
         },
         {
-          path : "/payment/cancel",
-          element : <PaymentCancelPage />
-        }
-        
+          path: "/payment/cancel",
+          element: <PaymentCancelPage />,
+        },
+        {
+          path: "/add-address",
+          element: <AddAddressPage />,
+        },
       ],
     },
   ]);

@@ -1,28 +1,22 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { redis } from "../lib/redis.js";
 
 export const generateAccessToken = (userId) => {
-  return jwt.sign(
-    { userId }, 
-    process.env.ACCESS_TOKEN_SECRET, 
-    { expiresIn: "15m" }
-  );
+  return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1d",
+  });
 };
 
 export const generateRefreshToken = (userId) => {
-  return jwt.sign(
-    { userId }, 
-    process.env.REFRESH_TOKEN_SECRET, 
-    { expiresIn: "7d" }
-  );
+  return jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: "7d",
+  });
 };
 
 export const generateResetToken = (userId) => {
-  return jwt.sign(
-    { userId },
-    process.env.RESET_PASSWORD_SECRET,
-    { expiresIn: "15m" }
-  );
+  return jwt.sign({ userId }, process.env.RESET_PASSWORD_SECRET, {
+    expiresIn: "15m",
+  });
 };
 
 export const storeRefreshToken = async (userId, refreshToken) => {
@@ -30,7 +24,7 @@ export const storeRefreshToken = async (userId, refreshToken) => {
     `refreshToken:${userId}`,
     refreshToken,
     "EX",
-    7 * 24 * 60 * 60
+    7 * 24 * 60 * 60,
   );
 };
 
@@ -39,14 +33,14 @@ export const setCookies = (res, accessToken, refreshToken) => {
     httpOnly: true,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
-    maxAge: 15 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000,
   });
-  
+
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
-    maxAge: 7 * 24 * 60 * 60 * 1000
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };
 

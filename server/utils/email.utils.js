@@ -1,14 +1,14 @@
-import { createTransport } from 'nodemailer';
+import { createTransport } from "nodemailer";
 
 const createTransporter = () => {
   return createTransport({
     host: process.env.EMAIL_HOST,
     port: parseInt(process.env.EMAIL_PORT),
-    secure: process.env.EMAIL_SECURE === 'true',
+    secure: process.env.EMAIL_SECURE === "true",
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      pass: process.env.EMAIL_PASS,
+    },
   });
 };
 
@@ -39,8 +39,8 @@ export const sendResetPasswordEmail = async (email, resetToken) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Password Reset - Minimal',
-    html: generateResetPasswordTemplate(resetUrl)
+    subject: "Password Reset - Minimal",
+    html: generateResetPasswordTemplate(resetUrl),
   };
 
   await transporter.verify();
@@ -49,11 +49,11 @@ export const sendResetPasswordEmail = async (email, resetToken) => {
 
 export const sendWelcomeEmail = async (email, name) => {
   const transporter = createTransporter();
-  
+
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: 'Welcome to Minimal',
+    subject: "Welcome to Minimal",
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h1 style="color: #333; text-align: center;">Welcome to Minimal!</h1>
@@ -61,7 +61,7 @@ export const sendWelcomeEmail = async (email, name) => {
         <p>Thank you for joining Minimal. We're excited to have you on board!</p>
         <p>Best regards,<br>Minimal Team</p>
       </div>
-    `
+    `,
   };
 
   await transporter.verify();

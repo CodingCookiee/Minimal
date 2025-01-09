@@ -1,52 +1,53 @@
-import {useState} from 'react';
-import {motion} from 'framer-motion';
-import { Mail, ArrowRight } from 'lucide-react';
-import { Card, Button , Input, CardContent,  CardHeader } from "../components/ui";
-import { toast } from 'react-toastify';
-import axiosInstance from '../utils/axios.js';
-
-
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, ArrowRight } from "lucide-react";
+import { Card, Button, Input, CardContent, CardHeader } from "../components/ui";
+import { toast } from "react-toastify";
+import axiosInstance from "../utils/axios.js";
 
 const ForgotPasswordPage = () => {
-    const [email, setEmail] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setIsLoading(true);
-      try {
-          const response = await axiosInstance.post('/auth/forgot-password', { email });
-          if (response?.data) {
-              toast.success('Reset link sent to your email');
-          }
-      } catch (error) {
-        console.log('Client Error Response:', error.response);
-        const errorMessage = typeof error.response.data === 'string' 
-          ? error.response.data 
-          : error.response.data?.message || 'Failed to send reset link, please try again';
-        toast.error(errorMessage);
-      } finally {
-        setIsLoading(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await axiosInstance.post("/auth/forgot-password", {
+        email,
+      });
+      if (response?.data) {
+        toast.success("Reset link sent to your email");
       }
-  }
-  
+    } catch (error) {
+      console.log("Client Error Response:", error.response);
+      const errorMessage =
+        typeof error.response.data === "string"
+          ? error.response.data
+          : error.response.data?.message ||
+            "Failed to send reset link, please try again";
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    return (
-        <motion.div
-        initial={{ opacity: 0, y:20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className='flex items-center justify-center h-screen min-h-screen bg-light-primary dark:bg-dark-primary '
-        >
-           <Card className='w-[400px] shadow-xl'>
-           <CardHeader>
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex items-center justify-center h-screen min-h-screen bg-light-primary dark:bg-dark-primary "
+    >
+      <Card className="w-[400px] shadow-xl">
+        <CardHeader>
           <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-black-100 to-neutral-400 dark:from-violet-700 dark:to-white bg-clip-text text-transparent">
             Reset Password
           </h1>
           <p className="text-sm text-black-500 dark:text-white-500 text-center">
             Enter your email to receive a reset link
           </p>
-          </CardHeader>
-          <CardContent>
+        </CardHeader>
+        <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
               <Mail className="absolute left-3 top-3 h-5 w-5 text-black-500 dark:text-white-500" />
@@ -60,12 +61,12 @@ const ForgotPasswordPage = () => {
               />
             </div>
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-dark-primary text-light-primary hover:text-dark-primary hover:bg-light-primary"
               disabled={isLoading}
             >
-               {isLoading ? (
+              {isLoading ? (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -83,11 +84,9 @@ const ForgotPasswordPage = () => {
             </Button>
           </form>
         </CardContent>
-          
-        </Card>
-      </motion.div>
-    );
-
-}
+      </Card>
+    </motion.div>
+  );
+};
 
 export default ForgotPasswordPage;

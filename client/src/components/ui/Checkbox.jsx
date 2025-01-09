@@ -1,5 +1,5 @@
-import * as React from "react"
-import { cn } from "../../utils/cn"
+import * as React from "react";
+import { cn } from "../../utils/cn";
 
 const Checkbox = React.forwardRef(({ className, ...props }, ref) => {
   return (
@@ -7,13 +7,13 @@ const Checkbox = React.forwardRef(({ className, ...props }, ref) => {
       type="checkbox"
       className={cn(
         "h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary",
-        className
+        className,
       )}
       ref={ref}
       {...props}
     />
-  )
-})
-Checkbox.displayName = "Checkbox"
+  );
+});
+Checkbox.displayName = "Checkbox";
 
-export { Checkbox }
+export { Checkbox };

@@ -8,10 +8,12 @@ import {
   refreshToken,
   googleAuth,
 } from "../controllers/auth.controller.js";
-import { validateSignup, validatePasswordReset } from "../middleware/validation.middleware.js";
+import {
+  validateSignup,
+  validatePasswordReset,
+} from "../middleware/validation.middleware.js";
 
 const router = express.Router();
-
 
 router.post("/signup", validateSignup, signup);
 router.post("/signin", signin);

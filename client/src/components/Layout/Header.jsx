@@ -9,47 +9,73 @@ import getCurrentUser from "../../utils/getCurrentUser.js";
 import { toast } from "react-toastify";
 
 const Header = () => {
-    const location = useLocation(); 
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
 
-
- 
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    
-    if (user) {
-        const parsedUser = JSON.parse(user);
-        setCurrentUser(parsedUser);
-        setIsAdmin(parsedUser.role === 'admin');
-    }
-}, [location]);
+    const user = localStorage.getItem("user");
 
-const handleSignOut = async () => {
-    try {
-        await axiosInstance.post("/auth/logout", {}, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        toast.success("Logged out successfully");
-        
-        localStorage.removeItem("user");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setCurrentUser(parsedUser);
+      setIsAdmin(parsedUser.role === "admin");
+    }
+  }, [location]);
+
+  // UI update after user state changes
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      const user = localStorage.getItem("user");
+      if (!user) {
         setCurrentUser(null);
         setIsAdmin(false);
-        setIsProfileOpen(false);
-        
+        return;
+      }
+
+      const interval = setInterval(() => {
+        const currentTime = new Date().getTime();
+        const tokenExpiration = new Date(JSON.parse(user).exp * 1000);
+
+        if (currentTime > tokenExpiration) {
+          localStorage.removeItem("user");
+          setCurrentUser(null);
+          setIsAdmin(false);
+          setIsProfileOpen(false);
+        }
+      }, 60000);
+
+      return () => clearInterval(interval);
+    };
+
+    checkTokenExpiration();
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await axiosInstance.post(
+        "/auth/logout",
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      toast.success("Logged out successfully");
+
+      localStorage.removeItem("user");
+      setCurrentUser(null);
+      setIsAdmin(false);
+      setIsProfileOpen(false);
     } catch (error) {
-        console.log('Logout error:', error);
-       
+      console.log("Logout error:", error);
     }
-};
-
-
+  };
 
   return (
     <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent backdrop-blur-md">

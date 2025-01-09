@@ -6,13 +6,12 @@ import createError from "../utils/createError.utils.js";
 export const createProduct = async (req, res, next) => {
   try {
     const { name, description, price, category, image, stock } = req.body;
-    
-    
+
     let cloudinaryResponse = null;
     if (image) {
       cloudinaryResponse = await cloudinary.uploader.upload(image, {
         upload_preset: "minimal",
-        timeout: 60000 // 60 seconds timeout
+        timeout: 60000, // 60 seconds timeout
       });
     }
 
@@ -23,7 +22,7 @@ export const createProduct = async (req, res, next) => {
       category,
       image: cloudinaryResponse?.secure_url || "",
       stock,
-      rating: 4.5
+      rating: 4.5,
     });
 
     const savedProduct = await product.save();
@@ -32,7 +31,7 @@ export const createProduct = async (req, res, next) => {
   } catch (err) {
     console.error("Error Creating Product:", {
       message: err.message,
-      stack: err.stack
+      stack: err.stack,
     });
     next(createError(500, `Product creation failed: ${err.message}`));
   }
@@ -47,7 +46,6 @@ export const getAllProducts = async (req, res, next) => {
     next(createError(500, "Internal Server Error"));
   }
 };
-
 
 export const getFeaturedProducts = async (req, res, next) => {
   try {
@@ -80,9 +78,6 @@ export const getProductsByCategory = async (req, res, next) => {
     next(createError(500, "Internal Server Error"));
   }
 };
-
-
-
 
 export const getRecommendedProducts = async (req, res, next) => {
   try {
@@ -117,27 +112,29 @@ export const toggleFeaturedProduct = async (req, res, next) => {
 
     product.isFeatured = !product.isFeatured;
     const updatedProduct = await product.save();
-    
+
     // Send response immediately after toggle
     res.status(200).json(updatedProduct);
 
     // Update cache in background
     const featuredProducts = await Product.find({ isFeatured: true }).lean();
-    await redis.set("featuredProducts", JSON.stringify(featuredProducts), "EX", 60);
-    
+    await redis.set(
+      "featuredProducts",
+      JSON.stringify(featuredProducts),
+      "EX",
+      60,
+    );
   } catch (err) {
     console.error("Error Toggling Featured Product", err.message);
     next(createError(500, "Internal Server Error"));
   }
 };
 
-
-
 export const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
-    
+
     if (!product) {
       return next(createError(404, "Product not found"));
     }
@@ -150,7 +147,6 @@ export const deleteProduct = async (req, res, next) => {
 
     await Product.findByIdAndDelete(id);
     res.status(200).json({ message: "Product deleted successfully" });
-    
   } catch (err) {
     console.error("Error Deleting Product", err.message);
     next(createError(500, "Internal Server Error"));

@@ -12,8 +12,7 @@ export const authenticateUser = async (req, res, next) => {
 
     try {
       const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-const user = await User.findById(decoded.userId).select("-password");
-
+      const user = await User.findById(decoded.userId).select("-password");
 
       if (!user) {
         return next(createError(401, "User not found"));
@@ -35,12 +34,10 @@ const user = await User.findById(decoded.userId).select("-password");
 };
 
 export const authenticateAdmin = (req, res, next) => {
-  console.log('Admin check:', req.user.role);
+  console.log("Admin check:", req.user.role);
   if (req.user && req.user.role === "admin") {
     next();
   } else {
     return next(createError(403, "Access Denied - Admin Only"));
   }
 };
-
-

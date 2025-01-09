@@ -11,21 +11,22 @@ const port = parseInt(process.env.PORT || "3000", 10);
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-  headers: ['Content-Type', 'Authorization']
-}));
-
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    headers: ["Content-Type", "Authorization"],
+  }),
+);
 
 // Routes
 app.use("/api/auth", routes.authRoutes);
-app.use('/api/user', routes.userRoutes);
-app.use('/api/product', routes.productRoutes);
-app.use('/api/coupon', routes.couponRoutes);
-app.use('/api/cart', routes.cartRoutes);
-app.use('/api/payment', routes.paymentRoutes);
-app.use('/api/analytics', routes.analyticsRoutes);
+app.use("/api/user", routes.userRoutes);
+app.use("/api/product", routes.productRoutes);
+app.use("/api/coupon", routes.couponRoutes);
+app.use("/api/cart", routes.cartRoutes);
+app.use("/api/payment", routes.paymentRoutes);
+app.use("/api/analytics", routes.analyticsRoutes);
 app.get("/", (req, res) => {
   res.send("The Server is running : Use /api to Run Tests");
 });
