@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axios";
+import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import {
   User,
@@ -84,11 +85,16 @@ const AddAddressPage = () => {
       return response.data;
     },
     onSuccess: () => {
+      toast.success("Address added successfully");
       setTimeout(() => {
         setIsSubmitting(false);
         queryClient.invalidateQueries(["user"]);
         navigate("/account");
       }, 100);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+      setIsSubmitting(false);
     },
   });
 

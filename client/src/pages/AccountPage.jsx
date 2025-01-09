@@ -18,7 +18,6 @@ const AccountPage = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("details");
-  const [buttonLoading, setButtonLoading] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   const { data: userData, accountLoading: isLoading } = useQuery({
@@ -38,11 +37,10 @@ const AccountPage = () => {
       queryClient.invalidateQueries(["user"]);
       setShowDeleteDialog(false);
     },
+    onError: (error) => {
+      console.log(error);
+    },
   });
-
-  const handleDeleteAddress = () => {
-    setShowDeleteDialog(true);
-  };
 
   const renderContent = () => {
     switch (activeTab) {

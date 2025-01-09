@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, Search, UserRound, ShoppingBag, X } from "lucide-react";
 import { RiAdminLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -66,6 +67,7 @@ const Header = () => {
           },
         },
       );
+      navigate("/");
       toast.success("Logged out successfully");
 
       localStorage.removeItem("user");
