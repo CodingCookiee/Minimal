@@ -20,7 +20,7 @@ export default function ResetPassword() {
 
     // Check for empty fields
     if (!password || !confirmPassword) {
-      newErrors.password = "Both password fields are required";
+      newErrors.password = "Password filed cannot be empty";
       setErrors(newErrors);
       return false;
     }

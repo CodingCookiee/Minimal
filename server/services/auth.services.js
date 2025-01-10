@@ -114,7 +114,13 @@ export const authService = {
       throw createError(404, "User not found, please try again");
     }
 
+    // Check if new password matches the current one
+    const isSamePassword = await user.comparePassword(newPassword);
+    if (isSamePassword) {
+      throw createError(400, "New password must be different from your current one");
+    }
+
     user.password = newPassword;
     await user.save();
-  },
-};
+}
+}

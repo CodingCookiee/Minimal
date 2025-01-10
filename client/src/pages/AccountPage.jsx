@@ -23,6 +23,9 @@ import {
   LockKeyhole,
   Eye,
   EyeOff,
+  SquareUser, 
+  ShoppingBasket, 
+  BookUser
 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useUser } from "../utils/UserContext";
@@ -89,30 +92,38 @@ const AccountPage = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    const formData = new FormData(document.querySelector("form"));
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    if (!name || name.length < 5) {
+    const formData = new FormData(document.querySelector('form'));
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const password = formData.get('password');
+  
+  // Only validate name if it's different from current name
+  if (name !== userData?.name) {
+    if (name.length < 5) {
       newErrors.name = "Name must be at least 5 characters";
     }
+  }
 
+  // Only validate email if it's different from current email
+  if (email !== userData?.email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       newErrors.email = "Please enter a valid email";
     }
+  }
 
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    if (password && !passwordRegex.test(password)) {
-      newErrors.password =
-        "Password must contain at least 8 characters, including uppercase, lowercase, numbers and special characters (!@#$%^&*)";
+  // Only validate password if one is provided
+  if (password && password.trim()) {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      newErrors.password = "Password must contain at least 8 characters, including uppercase, lowercase, numbers and special characters (!@#$%^&*)";
     }
-
+  }
+  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -435,25 +446,37 @@ const AccountPage = () => {
       className="min-h-screen p-8"
     >
       <div className="max-w-4xl mx-auto mt-24">
-        <div className="tabs flex gap-4 mb-8 font-sf-semibold">
+        <div className="tabs flex gap-10 mb-8 font-sf-semibold ">
+          <div className="flex flex-col relative">
+          <SquareUser className="absolute left-0 top-0 h-5 w-5  text-black-500 dark:text-white-500" />
           <button
             onClick={() => setActiveTab("details")}
-            className={`tab ${activeTab === "details" ? "active" : ""}`}
+            className={`tab ml-6 ${activeTab === "details" ? "active" : ""}`}
           >
             Account Details
           </button>
+         
+          </div>
+          <div className="flex flex-col relative">
+          <ShoppingBasket className="absolute left-0 top-0 h-5 w-5  text-black-500 dark:text-white-500" />
           <button
             onClick={() => setActiveTab("orders")}
-            className={`tab ${activeTab === "orders" ? "active" : ""}`}
+            className={`tab ml-6 ${activeTab === "orders" ? "active" : ""}`}
           >
             Orders
           </button>
+         
+          </div>
+          <div className="flex flex-col relative">
+          <BookUser className="absolute left-0 top-0 h-5 w-5  text-black-500 dark:text-white-500" />
           <button
             onClick={() => setActiveTab("address")}
-            className={`tab ${activeTab === "address" ? "active" : ""}`}
+            className={`tab ml-6 ${activeTab === "address" ? "active" : ""}`}
           >
             Address
           </button>
+         
+          </div>
         </div>
 
         <AnimatePresence mode="wait">

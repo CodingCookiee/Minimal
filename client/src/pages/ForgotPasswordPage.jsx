@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
 import { Card, Button, Input, CardContent, CardHeader } from "../components/ui";
@@ -6,6 +7,7 @@ import { toast } from "react-toastify";
 import axiosInstance from "../utils/axios.js";
 
 const ForgotPasswordPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -32,6 +34,7 @@ const ForgotPasswordPage = () => {
       });
       if (response?.data) {
         toast.success("Reset link sent to your email");
+        navigate("/signin");
       }
     } catch (error) {
       console.log("Client Error Response:", error.response);
