@@ -20,15 +20,24 @@ export const updateProfile = async (req, res, next) => {
 
     // Check if new values are different from current ones
     if (name && name === user.name) {
-      throw createError(400, "Please use a different name than your current one");
+      throw createError(
+        400,
+        "Please use a different name than your current one",
+      );
     }
 
     if (email && email === user.email) {
-      throw createError(400, "Please use a different email than your current one");
+      throw createError(
+        400,
+        "Please use a different email than your current one",
+      );
     }
 
-    if (password && await user.comparePassword(password)) {
-      throw createError(400, "New password must be different from your current one");
+    if (password && (await user.comparePassword(password))) {
+      throw createError(
+        400,
+        "New password must be different from your current one",
+      );
     }
 
     if (name) user.name = name;

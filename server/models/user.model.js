@@ -31,20 +31,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://via.placeholder.com/150",
     },
-   password: {
-  type: String,
-  required: [true, "Password is required"],
-  validate: {
-    validator: function(v) {
-      // Only validate password if it's being modified and isn't hashed
-      if (this.isModified('password') && !v.startsWith('$2a$')) {
-        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(v);
-      }
-      return true;
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      validate: {
+        validator: function (v) {
+          // Only validate password if it's being modified and isn't hashed
+          if (this.isModified("password") && !v.startsWith("$2a$")) {
+            return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+              v,
+            );
+          }
+          return true;
+        },
+        message:
+          "Password must be at least 8 characters long and include at least one letter, one number, and one special character.",
+      },
     },
-    message: 'Password must be at least 8 characters long and include at least one letter, one number, and one special character.'
-  }
-},
     role: {
       type: String,
       enum: ["user", "admin"],
