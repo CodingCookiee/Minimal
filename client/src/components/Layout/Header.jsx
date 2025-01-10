@@ -5,46 +5,30 @@ import { RiAdminLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../../utils/axios.js";
 import { Link } from "react-router-dom";
-import getCurrentUser from "../../utils/getCurrentUser.js";
 import { toast } from "react-toastify";
+import { useUser } from "../../utils/UserContext";  
 
 const Header = () => {
+  const { currentUser, updateUser } = useUser();
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(getCurrentUser());
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      setCurrentUser(parsedUser);
-      setIsAdmin(parsedUser.role === "admin");
-    }
-  }, [location]);
+  const isAdmin = currentUser?.role === "admin";
 
   useEffect(() => {
     const checkTokenExpiration = () => {
-      const user = localStorage.getItem("user");
-
-      if (!user) {
-        setCurrentUser(null);
-        setIsAdmin(false);
-        setIsProfileOpen(false);
+      if (!currentUser) {
         return;
       }
 
       const currentTime = new Date().getTime();
-      const tokenExpiration = new Date(JSON.parse(user).exp * 1000);
+      const tokenExpiration = new Date(currentUser.exp * 1000);
 
       if (currentTime > tokenExpiration) {
-        localStorage.removeItem("user");
-        setCurrentUser(null);
-        setIsAdmin(false);
+        updateUser(null);
         setIsProfileOpen(false);
         navigate("/");
         return;
@@ -53,9 +37,7 @@ const Header = () => {
       const interval = setInterval(() => {
         const newCurrentTime = new Date().getTime();
         if (newCurrentTime > tokenExpiration) {
-          localStorage.removeItem("user");
-          setCurrentUser(null);
-          setIsAdmin(false);
+          updateUser(null);
           setIsProfileOpen(false);
           navigate("/");
           clearInterval(interval);
@@ -66,35 +48,26 @@ const Header = () => {
     };
 
     checkTokenExpiration();
-  }, [navigate]);
+  }, [currentUser, navigate, updateUser]);
 
   const handleSignOut = async () => {
     try {
-      await axiosInstance.post(
-        "/auth/logout",
-        {},
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
+      await axiosInstance.post("/auth/logout", {}, {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" }
+      });
+      updateUser(null);
+      setIsProfileOpen(false);
       navigate("/");
       toast.success("Logged out successfully");
-
-      localStorage.removeItem("user");
-      setCurrentUser(null);
-      setIsAdmin(false);
-      setIsProfileOpen(false);
     } catch (error) {
-      console.log("Logout error:", error);
+      console.error("Logout error:", error);
     }
   };
 
   return (
     <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent backdrop-blur-md">
-      <nav className="flex items-center justify-between px  mx-auto">
+      <nav className="flex items-center justify-between px mx-auto">
         <div className="flex items-center">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -104,7 +77,7 @@ const Header = () => {
           </button>
 
           <Link to="/" className="flex items-center absolute left-12 top-6">
-            <img src="/brand-name.svg" alt="Logo" className="h-20 " />
+            <img src="/brand-name.svg" alt="Logo" className="h-20" />
           </Link>
         </div>
 

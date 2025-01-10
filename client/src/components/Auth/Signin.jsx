@@ -7,8 +7,10 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axios.js";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import { useUser } from "../../utils/UserContext";
 
 export default function SignIn() {
+  const { updateUser } = useUser();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -41,8 +43,7 @@ export default function SignIn() {
 
     try {
       const { data } = await axiosInstance.post("/auth/signin", formData);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
+      updateUser(data.user);
       toast.success("Welcome back to Minimal");
       navigate("/");
     } catch (error) {
@@ -63,9 +64,7 @@ export default function SignIn() {
         const { data } = await axiosInstance.post("/auth/google", {
           token: tokenResponse.access_token,
         });
-
-        localStorage.setItem("user", JSON.stringify(data.user));
-
+        updateUser(data.user);
         toast.success("Welcome to Minimal!");
         navigate("/");
       } catch (error) {

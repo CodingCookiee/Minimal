@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.get("/profile", authenticateUser, getProfile);
-router.patch("/profile", authenticateUser, updateProfile);
+router.put("/profile", authenticateUser, updateProfile);
 router.post("/address", authenticateUser, addAddress);
 router.put("/address", authenticateUser, editAddress);
 router.delete("/address/:addressId", authenticateUser, deleteAddress);

@@ -11,21 +11,31 @@ export const getProfile = async (req, res, next) => {
 
 export const updateProfile = async (req, res, next) => {
   try {
-    const { name, email, password, profilePicture } = req.body;
+    const { name, email, password } = req.body;
+    
     const user = await User.findById(req.user._id);
     if (!user) {
       throw createError(404, "User not found");
     }
-    user.name = name || user.name;
-    user.email = email || user;
-    user.password = password || user.password;
-    user.profilePicture = profilePicture || user.profilePicture;
-    await user.save();
-    res.status(200).json(user);
+
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (password && password.trim()) {
+      user.password = password;
+    }
+
+    const updatedUser = await user.save();
+    const userResponse = updatedUser.toObject();
+    delete userResponse.password;
+
+    res.status(200).json(userResponse);
   } catch (err) {
     next(err);
   }
 };
+
+
+
 
 export const addAddress = async (req, res, next) => {
   try {
