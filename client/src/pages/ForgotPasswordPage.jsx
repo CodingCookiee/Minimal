@@ -8,9 +8,24 @@ import axiosInstance from "../utils/axios.js";
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     setIsLoading(true);
     try {
       const response = await axiosInstance.post("/auth/forgot-password", {
@@ -36,9 +51,9 @@ const ForgotPasswordPage = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex items-center justify-center h-screen min-h-screen bg-light-primary dark:bg-dark-primary "
+      className=" flex items-center justify-center h-screen min-h-screen "
     >
-      <Card className="w-[400px] shadow-xl">
+      <Card className="w-[400px] ">
         <CardHeader>
           <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-black-100 to-neutral-400 dark:from-violet-700 dark:to-white bg-clip-text text-transparent">
             Reset Password
@@ -48,7 +63,7 @@ const ForgotPasswordPage = () => {
           </p>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div className="relative">
               <Mail className="absolute left-3 top-3 h-5 w-5 text-black-500 dark:text-white-500" />
               <Input
@@ -56,14 +71,15 @@ const ForgotPasswordPage = () => {
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 w-full bg-black-100/5 dark:bg-white-500/5 border-0 focus:ring-2 ring-black-300/20 dark:ring-white-500/20"
+                className={`pl-10 w-full border-t-0 border-l-0 border-r-0 border-b border-black-300 rounded-none focus:border-2 outline-none focus:ring-transparent ${errors.email ? "border-red-500" : ""}`}
                 required
               />
+              <small className="text-red-500">{errors.email}</small>
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-dark-primary text-light-primary hover:text-dark-primary hover:bg-light-primary"
+              className="!mt-7 w-full font-sf-medium rounded-none bg-dark-primary text-light-primary hover:text-dark-primary hover:bg-light-primary"
               disabled={isLoading}
             >
               {isLoading ? (

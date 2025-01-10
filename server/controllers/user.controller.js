@@ -47,6 +47,25 @@ export const addAddress = async (req, res, next) => {
   }
 };
 
+export const editAddress = async (req, res, next) => {
+  try {
+    const addressData = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { address: addressData },
+      { new: true },
+    );
+    if (!user) {
+      throw createError(404, "User not found");
+    }
+    res.status(200).json({ user });
+    next();
+  }
+    catch (err) {
+    next(err);
+  }
+};
+
 export const deleteAddress = async (req, res, next) => {
   try {
     const user = await User.findByIdAndUpdate(

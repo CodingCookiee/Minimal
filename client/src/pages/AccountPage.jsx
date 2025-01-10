@@ -12,7 +12,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "../components/ui";
-import { BadgePlus, Trash2, CircleX } from "lucide-react";
+import { BadgePlus, Trash2, CircleX, Pencil } from "lucide-react";
 
 const AccountPage = () => {
   const queryClient = useQueryClient();
@@ -47,7 +47,7 @@ const AccountPage = () => {
       case "orders":
         return (
           <div className="orders-container">
-            <h2 className="text-xl font-bold mb-4">Order History</h2>
+            <h2 className="text-4xl font-bold mb-4">Order History</h2>
             {userData?.orders?.length > 0 ? (
               userData.orders.map((order) => (
                 <div key={order._id} className="order-item">
@@ -84,60 +84,48 @@ const AccountPage = () => {
       case "address":
         return (
           <div className="address-container">
-            <h2 className="text-xl font-bold mb-4">Shipping Address</h2>
+            <h2 className="text-4xl font-bold mb-4">Shipping Address</h2>
+            <Button
+              type="submit"
+              className="rounded-none mt-2.5 mb-5 font-sf-medium bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
+              onClick={() => navigate("/add-address")}
+            >
+              <span className="flex items-center justify-center">
+                Add a new address
+                <BadgePlus className="ml-2 mb-1 h-4 w-4" />
+              </span>
+            </Button>
             {userData?.address ? (
               <div>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">Name:</b>{" "}
-                  {userData.address.name}
-                </p>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">Address:</b>{" "}
-                  {userData.address.address1}
-                </p>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">Address 2:</b>{" "}
-                  {userData.address.address2}
-                </p>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">City:</b>{" "}
-                  {userData.address.city}
-                </p>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">Country:</b>{" "}
-                  {userData.address.country}
-                </p>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">Postal Code:</b>{" "}
-                  {userData.address.postalCode}
-                </p>
-                <p>
-                  <b className="text-md font-sf-light mr-2.5">Phone:</b>{" "}
-                  {userData.address.phone}
-                </p>
+                <p className='font-sf-light'>{userData.address.name}</p>
+                <p className='font-sf-light'>{userData.address.address1}</p>
+                <p className='font-sf-light'>{userData.address.address2}</p>
+                <p className='font-sf-light'>{userData.address.city}</p>
+                <p className='font-sf-light'>{userData.address.country}</p>
+                <p className='font-sf-light'>{userData.address.postalCode}</p>
+                <p className='font-sf-light'>{userData.address.phone}</p>
               </div>
             ) : (
               <p>You haven&apos;t added any addresses yet.</p>
             )}
             <div className="flex justify-start gap-2.5">
               <Button
-                type="submit"
-                className="mt-5 rounded-md bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
-                onClick={() => navigate("/add-address")}
+                type="button"
+                className="mt-5 font-sf-medium rounded-none bg-neutral-900 text-light-primary hover:bg-neutral-800 transition-all duration-300"
+                onClick={() => navigate("/edit-address")}
               >
                 <span className="flex items-center justify-center">
-                  Add a new address
-                  <BadgePlus className="ml-2 mb-1 h-4 w-4" />
+                  Edit
+                  <Pencil className="ml-2 mb-1 h-4 w-4" />
                 </span>
               </Button>
-
               <Button
                 type="button"
-                className="mt-5 rounded-md bg-red-700 text-light-primary hover:bg-red-600 transition-all duration-300"
+                className="mt-5 font-sf-medium rounded-none bg-red-700 text-light-primary hover:bg-red-600 transition-all duration-300"
                 onClick={() => setShowDeleteDialog(true)}
               >
                 <span className="flex items-center justify-center">
-                  Delete Address
+                  Delete
                   <Trash2 className="ml-2 mb-1 h-4 w-4" />
                 </span>
               </Button>
@@ -183,7 +171,7 @@ const AccountPage = () => {
       default:
         return (
           <div className="details-container">
-            <h2 className="text-xl font-bold mb-4">Account Details</h2>
+            <h2 className="text-4xl font-bold mb-4">Account Details</h2>
             <p>Name: {userData?.name}</p>
             <p>Email: {userData?.email}</p>
           </div>
@@ -198,7 +186,7 @@ const AccountPage = () => {
       className="min-h-screen p-8"
     >
       <div className="max-w-4xl mx-auto mt-24">
-        <div className="tabs flex gap-4 mb-8">
+        <div className="tabs flex gap-4 mb-8 font-sf-semibold">
           <button
             onClick={() => setActiveTab("details")}
             className={`tab ${activeTab === "details" ? "active" : ""}`}

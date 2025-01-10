@@ -159,7 +159,7 @@ export default function SignIn() {
             <div className="flex justify-center w-full ">
               <Button
                 type="submit"
-                className=" w-1/2 rounded-md bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
+                className=" w-1/2 font-sf-medium rounded-none bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -196,7 +196,7 @@ export default function SignIn() {
               type="button"
               variant="outline"
               onClick={() => googleLogin()}
-              className=" border-none w-1/2 rounded-md bg-light-primary text-dark-primary hover:bg-dark-primary hover:text-light-primary transition-all duration-300"
+              className=" border-none w-1/2 font-sf-medium rounded-none bg-light-primary text-dark-primary hover:bg-dark-primary hover:text-light-primary transition-all duration-300"
             >
               <FcGoogle className="mr-2 h-5 w-5" />
               Google

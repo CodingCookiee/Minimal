@@ -27,25 +27,38 @@ const Header = () => {
     }
   }, [location]);
 
-  // UI update after user state changes
   useEffect(() => {
     const checkTokenExpiration = () => {
       const user = localStorage.getItem("user");
+
       if (!user) {
         setCurrentUser(null);
         setIsAdmin(false);
+        setIsProfileOpen(false);
+        return;
+      }
+
+      const currentTime = new Date().getTime();
+      const tokenExpiration = new Date(JSON.parse(user).exp * 1000);
+
+      if (currentTime > tokenExpiration) {
+        localStorage.removeItem("user");
+        setCurrentUser(null);
+        setIsAdmin(false);
+        setIsProfileOpen(false);
+        navigate("/");
         return;
       }
 
       const interval = setInterval(() => {
-        const currentTime = new Date().getTime();
-        const tokenExpiration = new Date(JSON.parse(user).exp * 1000);
-
-        if (currentTime > tokenExpiration) {
+        const newCurrentTime = new Date().getTime();
+        if (newCurrentTime > tokenExpiration) {
           localStorage.removeItem("user");
           setCurrentUser(null);
           setIsAdmin(false);
           setIsProfileOpen(false);
+          navigate("/");
+          clearInterval(interval);
         }
       }, 60000);
 
@@ -53,7 +66,7 @@ const Header = () => {
     };
 
     checkTokenExpiration();
-  }, []);
+  }, [navigate]);
 
   const handleSignOut = async () => {
     try {
@@ -65,7 +78,7 @@ const Header = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       navigate("/");
       toast.success("Logged out successfully");

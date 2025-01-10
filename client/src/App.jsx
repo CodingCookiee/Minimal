@@ -14,6 +14,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentCancelPage from "./pages/PaymentCancelPage";
 import AddAddressPage from "./pages/AddAddressPage";
+import EditAddressPage from "./pages/EditAddressPage";
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -92,6 +93,10 @@ const App = () => {
           path: "/add-address",
           element: <AddAddressPage />,
         },
+        {
+          path: "/edit-address",
+          element: <EditAddressPage />,
+        }
       ],
     },
   ]);
