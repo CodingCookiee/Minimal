@@ -10,7 +10,6 @@ const ForgotPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-
   const validateForm = () => {
     const newErrors = {};
 

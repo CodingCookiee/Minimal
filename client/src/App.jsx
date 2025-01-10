@@ -96,7 +96,7 @@ const App = () => {
         {
           path: "/edit-address",
           element: <EditAddressPage />,
-        }
+        },
       ],
     },
   ]);

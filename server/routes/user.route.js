@@ -14,6 +14,6 @@ router.get("/profile", authenticateUser, getProfile);
 router.patch("/profile", authenticateUser, updateProfile);
 router.post("/address", authenticateUser, addAddress);
 router.put("/address", authenticateUser, editAddress);
-router.delete("/address", authenticateUser, deleteAddress);
+router.delete("/address/:addressId", authenticateUser, deleteAddress);
 
 export default router;

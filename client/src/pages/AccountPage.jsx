@@ -13,12 +13,14 @@ import {
   DialogFooter,
 } from "../components/ui";
 import { BadgePlus, Trash2, CircleX, Pencil } from "lucide-react";
+import { toast } from "react-toastify";
 
 const AccountPage = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("details");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [addressToDelete, setAddressToDelete] = useState(null);
 
   const { data: userData, accountLoading: isLoading } = useQuery({
     queryKey: ["user"],
@@ -29,25 +31,39 @@ const AccountPage = () => {
   });
 
   const { mutate: deleteAddress } = useMutation({
-    mutationFn: async () => {
-      const response = await axiosInstance.delete("/user/address");
+    mutationFn: async (addressId) => {
+      const response = await axiosInstance.delete(`/user/address/${addressId}`);
       return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["user"]);
-      setShowDeleteDialog(false);
+      toast.success("Address deleted successfully");
     },
     onError: (error) => {
-      console.log(error);
+      toast.error(error.response?.data?.message || "Error deleting address");
     },
   });
+
+  const handleDeleteClick = (addressId) => {
+    setAddressToDelete(addressId);
+    setShowDeleteDialog(true);
+  };
+
+  const handleDeleteAddress = () => {
+    if (addressToDelete) {
+      deleteAddress(addressToDelete);
+      setShowDeleteDialog(false);
+    }
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case "orders":
         return (
           <div className="orders-container">
-            <h2 className="text-3xl font-sf-heavy font-bold mb-4">Order History</h2>
+            <h2 className="text-3xl font-sf-heavy font-bold mb-4">
+              Order History
+            </h2>
             {userData?.orders?.length > 0 ? (
               userData.orders.map((order) => (
                 <div key={order._id} className="order-item">
@@ -76,7 +92,9 @@ const AccountPage = () => {
                 </div>
               ))
             ) : (
-              <p>You haven&apos;t placed any orders yet.</p>
+              <p className="font-sf-light">
+                You haven't placed any orders yet.
+              </p>
             )}
           </div>
         );
@@ -84,10 +102,12 @@ const AccountPage = () => {
       case "address":
         return (
           <div className="address-container">
-            <h2 className="text-3xl font-sf-heavy font-bold mb-4">Shipping Address</h2>
+            <h2 className="text-3xl font-sf-heavy font-bold mb-4">
+              Shipping Addresses
+            </h2>
             <Button
               type="submit"
-              className="rounded-none mt-2.5 mb-5 font-sf-medium bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
+              className="rounded-none mt-2.5 mb-5 font-sf-light text-xs uppercase bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
               onClick={() => navigate("/add-address")}
             >
               <span className="flex items-center justify-center">
@@ -95,42 +115,55 @@ const AccountPage = () => {
                 <BadgePlus className="ml-2 mb-1 h-4 w-4" />
               </span>
             </Button>
-            {userData?.address ? (
-              <div>
-                <p className='font-sf-light'>{userData.address.name}</p>
-                <p className='font-sf-light'>{userData.address.address1}</p>
-                <p className='font-sf-light'>{userData.address.address2}</p>
-                <p className='font-sf-light'>{userData.address.city}</p>
-                <p className='font-sf-light'>{userData.address.country}</p>
-                <p className='font-sf-light'>{userData.address.postalCode}</p>
-                <p className='font-sf-light'>{userData.address.phone}</p>
-              </div>
-            ) : (
-              <p>You haven&apos;t added any addresses yet.</p>
-            )}
-            <div className="flex justify-start gap-2.5">
-              <Button
-                type="button"
-                className="mt-5 font-sf-medium rounded-none bg-neutral-900 text-light-primary hover:bg-neutral-800 transition-all duration-300"
-                onClick={() => navigate("/edit-address")}
-              >
-                <span className="flex items-center justify-center">
-                  Edit
-                  <Pencil className="ml-2 mb-1 h-4 w-4" />
-                </span>
-              </Button>
-              <Button
-                type="button"
-                className="mt-5 font-sf-medium rounded-none bg-red-700 text-light-primary hover:bg-red-600 transition-all duration-300"
-                onClick={() => setShowDeleteDialog(true)}
-              >
-                <span className="flex items-center justify-center">
-                  Delete
-                  <Trash2 className="ml-2 mb-1 h-4 w-4" />
-                </span>
-              </Button>
-            </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {userData?.addresses?.length > 0 ? (
+                userData.addresses.map((address) => (
+                  <div key={address._id} className=" p-4 ">
+                    {address.isDefault && (
+                      <span className=" text-xl font-sf-heavy font-bold  py-1 mb-2 inline-block">
+                        Default
+                      </span>
+                    )}
+                    <p className="font-sf-light">{address.name}</p>
+                    <p className="font-sf-light">{address.address1}</p>
+                    <p className="font-sf-light">{address.address2}</p>
+                    <p className="font-sf-light">{address.city}</p>
+                    <p className="font-sf-light">{address.country}</p>
+                    <p className="font-sf-light">{address.postalCode}</p>
+                    <p className="font-sf-light">{address.phone}</p>
+
+                    <div className="flex justify-start gap-2.5 mt-4">
+                      <Button
+                        type="button"
+                        className="font-extralight text-lg p-0"
+                        onClick={() => navigate(`/edit-address/${address._id}`)}
+                      >
+                        <span className="flex items-center justify-center">
+                          Edit
+                          <Pencil className="ml-2 mb-1 h-4 w-4" />
+                        </span>
+                      </Button>
+                      <Button
+                        type="button"
+                        className="font-extralight text-lg p-0 ml-8"
+                        onClick={() => handleDeleteClick(address._id)}
+                      >
+                        <span className="flex items-center justify-center">
+                          Delete
+                          <Trash2 className="ml-2 mb-1 h-4 w-4" />
+                        </span>
+                      </Button>
+                    </div>
+                    <div className="mt-2.5 border-[0.5px] border-neutral-500"></div>
+                  </div>
+                ))
+              ) : (
+                <p className="font-sf-light">
+                  You haven't added any shipping address yet.
+                </p>
+              )}
+            </div>
             <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
               <DialogContent>
                 <DialogHeader>
@@ -148,16 +181,16 @@ const AccountPage = () => {
                     <Button
                       variant="destructive"
                       className="bg-red-700 text-light-primary hover:bg-red-600 transition-all duration-300"
-                      onClick={() => {
-                        deleteAddress();
-                        setShowDeleteDialog(false);
-                      }}
+                      onClick={handleDeleteAddress}
                     >
                       Delete
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => setShowDeleteDialog(false)}
+                      onClick={() => {
+                        setShowDeleteDialog(false);
+                        setAddressToDelete(null);
+                      }}
                     >
                       Cancel
                     </Button>
@@ -171,9 +204,11 @@ const AccountPage = () => {
       default:
         return (
           <div className="details-container">
-            <h2 className="text-3xl font-sf-heavy font-bold mb-4">Account Details</h2>
-            <p>Name: {userData?.name}</p>
-            <p>Email: {userData?.email}</p>
+            <h2 className="text-3xl font-sf-heavy font-bold mb-4">
+              Account Details
+            </h2>
+            <p className="font-sf-light"> {userData?.name}</p>
+            <p className="font-sf-light"> {userData?.email}</p>
           </div>
         );
     }

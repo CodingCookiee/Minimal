@@ -78,7 +78,7 @@ const Header = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       navigate("/");
       toast.success("Logged out successfully");

@@ -93,7 +93,11 @@ const AddAddressPage = () => {
       }, 100);
     },
     onError: (error) => {
-      toast.error(error.response.data.message);
+      if (error.response?.status === 400) {
+        toast.error("You have reached the maximum number of addresses.");
+      } else {
+        toast.error(error.response?.data?.message || "Error adding address");
+      }
       setIsSubmitting(false);
     },
   });

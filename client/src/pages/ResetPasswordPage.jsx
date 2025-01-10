@@ -17,42 +17,41 @@ export default function ResetPassword() {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     // Check for empty fields
     if (!password || !confirmPassword) {
       newErrors.password = "Both password fields are required";
       setErrors(newErrors);
       return false;
     }
-  
+
     // Password length check
     if (password.length < 8) {
       newErrors.password = "Password must be at least 8 characters long";
       setErrors(newErrors);
       return false;
     }
-  
+
     // Password strength validation
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/;
     if (!passwordRegex.test(password)) {
-      newErrors.password = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+      newErrors.password =
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
       setErrors(newErrors);
       return false;
     }
-  
+
     // Password match check
     if (password !== confirmPassword) {
       newErrors.password = "Passwords do not match";
       setErrors(newErrors);
       return false;
     }
-  
+
     setErrors({});
     return true;
   };
-  
-  
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();

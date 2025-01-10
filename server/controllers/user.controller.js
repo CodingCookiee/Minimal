@@ -30,18 +30,35 @@ export const updateProfile = async (req, res, next) => {
 export const addAddress = async (req, res, next) => {
   try {
     const addressData = req.body;
-
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { address: addressData },
-      { new: true },
-    );
+    const user = await User.findById(req.user._id);
 
     if (!user) {
       throw createError(404, "User not found");
     }
 
-    res.status(200).json({ user });
+    if (user.addresses.length >= 3) {
+      throw createError(
+        400,
+        "You have reached the maximum number of addresses.",
+      );
+    }
+
+    // If this is marked as default, unmark other addresses first
+    if (addressData.isDefault) {
+      await User.updateOne(
+        { _id: req.user._id },
+        { $set: { "addresses.$[].isDefault": false } },
+      );
+    }
+
+    // Then add the new address
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { $push: { addresses: addressData } },
+      { new: true, runValidators: false },
+    );
+
+    res.status(200).json({ user: updatedUser });
   } catch (err) {
     next(err);
   }
@@ -60,29 +77,18 @@ export const editAddress = async (req, res, next) => {
     }
     res.status(200).json({ user });
     next();
-  }
-    catch (err) {
+  } catch (err) {
     next(err);
   }
 };
 
 export const deleteAddress = async (req, res, next) => {
   try {
+    const { addressId } = req.params;
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      {
-        address: {
-          name: "",
-          address1: "",
-          address2: "",
-          city: "",
-          country: "",
-          postalCode: "",
-          phone: "",
-          isDefault: false,
-        },
-      },
-      { new: true },
+      { $pull: { addresses: { _id: addressId } } },
+      { new: true, runValidators: false },
     );
 
     if (!user) {

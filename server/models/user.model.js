@@ -67,40 +67,40 @@ const userSchema = new mongoose.Schema(
         ref: "Order",
       },
     ],
-    address: {
-      name: {
-        type: String,
-        default: "",
+    addresses: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        address1: {
+          type: String,
+          required: true,
+        },
+        address2: {
+          type: String,
+        },
+        city: {
+          type: String,
+          required: true,
+        },
+        country: {
+          type: String,
+          required: true,
+        },
+        postalCode: {
+          type: String,
+        },
+        phone: {
+          type: String,
+          required: true,
+        },
+        isDefault: {
+          type: Boolean,
+          default: false,
+        },
       },
-      address1: {
-        type: String,
-        default: "",
-      },
-      address2: {
-        type: String,
-        default: "",
-      },
-      city: {
-        type: String,
-        default: "",
-      },
-      country: {
-        type: String,
-        default: "",
-      },
-      postalCode: {
-        type: String,
-        default: "",
-      },
-      phone: {
-        type: String,
-        default: "",
-      },
-      isDefault: {
-        type: Boolean,
-        default: false,
-      },
-    },
+    ],
   },
   {
     timestamps: true,
