@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../../utils/axios.js";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useUser } from "../../utils/UserContext";  
+import { useUser } from "../../utils/UserContext";
 
 const Header = () => {
   const { currentUser, updateUser } = useUser();
@@ -52,10 +52,14 @@ const Header = () => {
 
   const handleSignOut = async () => {
     try {
-      await axiosInstance.post("/auth/logout", {}, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" }
-      });
+      await axiosInstance.post(
+        "/auth/logout",
+        {},
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
       updateUser(null);
       setIsProfileOpen(false);
       navigate("/");

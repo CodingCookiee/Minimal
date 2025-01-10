@@ -117,12 +117,12 @@ const AccountPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    
+
     const formData = new FormData(e.target);
     const data = {
-      name: formData.get('name') || undefined,
-      email: formData.get('email') || undefined,
-      password: formData.get('password')?.trim() || undefined
+      name: formData.get("name") || undefined,
+      email: formData.get("email") || undefined,
+      password: formData.get("password")?.trim() || undefined,
     };
 
     updateProfile(data, {
@@ -130,7 +130,7 @@ const AccountPage = () => {
         await axiosInstance.post("/auth/logout");
         updateUser(null);
         navigate("/signin");
-      }
+      },
     });
   };
 

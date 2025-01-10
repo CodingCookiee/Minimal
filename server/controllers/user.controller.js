@@ -12,7 +12,7 @@ export const getProfile = async (req, res, next) => {
 export const updateProfile = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    
+
     const user = await User.findById(req.user._id);
     if (!user) {
       throw createError(404, "User not found");
@@ -33,9 +33,6 @@ export const updateProfile = async (req, res, next) => {
     next(err);
   }
 };
-
-
-
 
 export const addAddress = async (req, res, next) => {
   try {
