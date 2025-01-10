@@ -108,7 +108,7 @@ export default function SignUp() {
           className="p-8"
         >
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-black-100 to-black-300 dark:from-white-700 dark:to-white bg-clip-text text-transparent">
+            <h1 className="text-3xl font-sf-heavy font-bold bg-gradient-to-r from-black-100 to-black-300 dark:from-white-700 dark:to-white bg-clip-text text-transparent">
               Create Account
             </h1>
             <p className="text-black-500 dark:text-white-500 mt-2">
@@ -178,11 +178,11 @@ export default function SignUp() {
                   {errors.password}
                 </span>
               )}
-              <p className="self-end mt-4 text-center text-xs text-black-500 dark:text-white-500">
+              <p className="self-end mt-4 text-sm text-gray-700 font-sf-light">
                 Already have an account?{" "}
                 <Link
                   to="/signin"
-                  className="font-medium text-[15px] text-neutral-950 hover:text-neutral-500"
+                  className="font-sf-light text-[15px] text-neutral-950 hover:text-neutral-500"
                 >
                   Sign in
                 </Link>

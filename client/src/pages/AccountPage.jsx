@@ -47,7 +47,7 @@ const AccountPage = () => {
       case "orders":
         return (
           <div className="orders-container">
-            <h2 className="text-4xl font-bold mb-4">Order History</h2>
+            <h2 className="text-3xl font-sf-heavy font-bold mb-4">Order History</h2>
             {userData?.orders?.length > 0 ? (
               userData.orders.map((order) => (
                 <div key={order._id} className="order-item">
@@ -84,7 +84,7 @@ const AccountPage = () => {
       case "address":
         return (
           <div className="address-container">
-            <h2 className="text-4xl font-bold mb-4">Shipping Address</h2>
+            <h2 className="text-3xl font-sf-heavy font-bold mb-4">Shipping Address</h2>
             <Button
               type="submit"
               className="rounded-none mt-2.5 mb-5 font-sf-medium bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
@@ -171,7 +171,7 @@ const AccountPage = () => {
       default:
         return (
           <div className="details-container">
-            <h2 className="text-4xl font-bold mb-4">Account Details</h2>
+            <h2 className="text-3xl font-sf-heavy font-bold mb-4">Account Details</h2>
             <p>Name: {userData?.name}</p>
             <p>Email: {userData?.email}</p>
           </div>

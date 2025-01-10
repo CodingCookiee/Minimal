@@ -55,7 +55,7 @@ const ForgotPasswordPage = () => {
     >
       <Card className="w-[400px] ">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-black-100 to-neutral-400 dark:from-violet-700 dark:to-white bg-clip-text text-transparent">
+          <h1 className="text-3xl font-sf-heavy font-bold text-center bg-gradient-to-r from-black-100 to-neutral-400 dark:from-violet-700 dark:to-white bg-clip-text text-transparent">
             Reset Password
           </h1>
           <p className="text-sm text-black-500 dark:text-white-500 text-center">

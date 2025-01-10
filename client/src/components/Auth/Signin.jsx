@@ -91,7 +91,7 @@ export default function SignIn() {
           className="p-8"
         >
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-black-100 to-black-300 dark:from-white-700 dark:to-white bg-clip-text text-transparent">
+            <h1 className="text-3xl font-sf-heavy font-bold bg-gradient-to-r from-black-100 to-black-300 dark:from-white-700 dark:to-white bg-clip-text text-transparent">
               Welcome Back
             </h1>
             <p className="text-black-500 dark:text-white-500 mt-2">
@@ -153,7 +153,7 @@ export default function SignIn() {
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-end text-sm text-gray-700 	">
+            <div className="flex items-center justify-end text-sm text-gray-700 font-sf-light">
               <Link to="/forgot-password">forgot password?</Link>
             </div>
             <div className="flex justify-center w-full ">
@@ -207,7 +207,7 @@ export default function SignIn() {
             Don't have an account?{" "}
             <Link
               to="/signup"
-              className="font-medium text-black-300 dark:text-white-700 hover:text-neutral-500"
+              className="font-sf-light text-black-300 dark:text-white-700 hover:text-neutral-500"
             >
               Sign up
             </Link>
