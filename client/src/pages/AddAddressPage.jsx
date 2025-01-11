@@ -135,7 +135,7 @@ const AddAddressPage = () => {
       className="min-h-screen mt-16 flex items-center justify-center p-4 container mx-auto max-w-screen-xl"
     >
       <div className="max-w-md w-full p-4 sm:p-6 md:p-8">
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6">
+        <h1 className=" font-sf-heavy  mb-4 sm:text-2xl md:text-3xl font-bold text-center sm:mb-6">
           Add Shipping Address
         </h1>
 
@@ -272,13 +272,13 @@ const AddAddressPage = () => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex items-center justify-center"
+                    className="flex items-center justify-center "
                   >
-                    <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
+                    <div className="font-sf-light text-xs h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
                     Adding Address ...
                   </motion.div>
                 ) : (
-                  <span className="flex items-center justify-center">
+                  <span className="font-sf-light text-sm flex items-center justify-center">
                     Add Address
                     <BadgePlus className="ml-2 h-4 w-4" />
                   </span>
@@ -289,7 +289,7 @@ const AddAddressPage = () => {
                 type="button"
                 variant="outline"
                 onClick={() => navigate("/account")}
-                className="w-full sm:w-1/2 rounded-md bg-light-primary text-dark-primary"
+                className="font-sf-light text-sm w-full sm:w-1/2 border-none bg-light-primary text-dark-primary"
               >
                 Cancel
               </Button>
