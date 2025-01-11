@@ -16,7 +16,6 @@ export * from "./CouponCard";
 export * from "./CreateProductForm";
 export * from "./FeaturedProduct";
 export * from "./Loading";
-export * from "./OrderSummary";
 export * from "./ProductCard";
 export * from "./ProductList";
 export * from "./Recommended";

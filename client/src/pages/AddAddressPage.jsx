@@ -265,7 +265,7 @@ const AddAddressPage = () => {
             <div className="flex flex-col sm:flex-row justify-between gap-4 mt-6">
               <Button
                 type="submit"
-                className="w-full sm:w-1/2 rounded-md bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary transition-all duration-300"
+                className="w-full sm:w-1/2 bg-dark-primary text-light-primary hover:bg-dark-secondary  transition-all duration-300"
                 disabled={isLoading || isSubmitting}
               >
                 {isLoading || isSubmitting ? (
@@ -278,7 +278,7 @@ const AddAddressPage = () => {
                     Adding Address ...
                   </motion.div>
                 ) : (
-                  <span className="font-sf-light text-sm flex items-center justify-center">
+                  <span className=" font-sf-light text-sm flex items-center justify-center">
                     Add Address
                     <BadgePlus className="ml-2 h-4 w-4" />
                   </span>
