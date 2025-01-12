@@ -20,35 +20,27 @@ const Header = () => {
 
   useEffect(() => {
     const checkTokenExpiration = () => {
-      if (!currentUser) {
-        return;
-      }
-
-      const currentTime = new Date().getTime();
-      const tokenExpiration = new Date(currentUser.exp * 1000);
-
-      if (currentTime > tokenExpiration) {
-        updateUser(null);
-        setIsProfileOpen(false);
-        navigate("/");
-        return;
-      }
-
-      const interval = setInterval(() => {
-        const newCurrentTime = new Date().getTime();
-        if (newCurrentTime > tokenExpiration) {
+      if (!currentUser || !currentUser.expiresAt) return;
+  
+      const checkExpiration = () => {
+        const currentTime = new Date().getTime();
+        if (currentTime >= currentUser.expiresAt) {
           updateUser(null);
           setIsProfileOpen(false);
           navigate("/");
-          clearInterval(interval);
+          toast.info("Session expired. Please sign in again.");
         }
-      }, 60000);
-
+      };
+  
+      checkExpiration(); // Check immediately
+      const interval = setInterval(checkExpiration, 60000); // Check every minute
+  
       return () => clearInterval(interval);
     };
-
+  
     checkTokenExpiration();
   }, [currentUser, navigate, updateUser]);
+  
 
   const handleSignOut = async () => {
     try {

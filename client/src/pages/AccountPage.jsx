@@ -9,6 +9,7 @@ import { ShippingAddresses } from "../components/Account/ShippingAddresses";
 import { SquareUser, ShoppingBasket, BookUser } from "lucide-react";
 import { toast } from "react-toastify";
 import { useUser } from "../utils/UserContext";
+import { withAuth } from "../utils/withAuth";
 
 const AccountPage = () => {
   const { updateUser } = useUser();
@@ -231,4 +232,6 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default withAuth(AccountPage);
+
+
