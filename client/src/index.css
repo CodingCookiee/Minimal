@@ -147,3 +147,18 @@ ul[role='list'] {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #0E0E10; /* Darker grey on hover for thumb */
 }
+
+/* Swiper Classes */
+.swiper-pagination-bullet {
+  background-color: transparent !important;
+  border: 2px solid #FFFFFF !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+
+
+

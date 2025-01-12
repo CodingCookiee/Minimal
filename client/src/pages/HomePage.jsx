@@ -1,26 +1,23 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, EffectCreative, Mousewheel } from "swiper/modules";
+import {
+  Pagination,
+  EffectCreative,
+  Mousewheel,
+  Autoplay,
+} from "swiper/modules";
 import "swiper/css/mousewheel";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useSliderControl } from "../utils/useSliderControl";
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState("men");
   const [isLastSlide, setIsLastSlide] = useState(false);
-
-  useEffect(() => {
-    const handleWheel = (e) => {
-      if (!isLastSlide) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [isLastSlide]);
+  const { swiperRef } = useSliderControl(isLastSlide);
 
   const categorySlides = {
     men: [
@@ -151,29 +148,45 @@ const HomePage = () => {
               <Swiper
                 direction="vertical"
                 effect="creative"
-                watchSlidesProgress={true}
+                mousewheel={true}
+                speed={2000}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                  waitForTransition: true,
+                }}
                 creativeEffect={{
                   prev: {
                     translate: [0, "-100%", 0],
-                    scale: 1,
-                    origin: "center bottom",
+                    scale: 0.95,
+                    opacity: 0,
+                    transition: {
+                      duration: 1000,
+                      easing: "ease-in-out",
+                    },
                   },
                   next: {
                     translate: [0, "100%", 0],
-                    scale: 1,
-                    origin: "center top",
+                    scale: 0.95,
+                    opacity: 0,
+                    transition: {
+                      duration: 1000,
+                      easing: "ease-in-out",
+                    },
                   },
                 }}
                 pagination={{
                   clickable: true,
                   renderBullet: (index, className) => {
-                    return `<span class="${className} w-0.5 h-8 bg-black/20 dark:bg-white/20 rounded-none hover:bg-black/80 dark:hover:bg-white/80 transition-colors"></span>`;
+                    return `<span class="${className} w-0.5 h-8  transition-colors"></span>`;
                   },
                 }}
+                ref={swiperRef}
                 onSlideChange={(swiper) => {
                   setIsLastSlide(swiper.isEnd);
                 }}
-                modules={[EffectCreative, Pagination, Mousewheel]}
+                modules={[EffectCreative, Pagination, Mousewheel, Autoplay]}
                 className="h-full [perspective:1200px]"
               >
                 {categorySlides[activeCategory].map((slide, index) => (
@@ -182,7 +195,7 @@ const HomePage = () => {
                     className="h-full [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
                   >
                     <div className="relative h-full group">
-                      <picture className="h-full block">
+                      <picture className="h-full block ">
                         <source
                           media="(max-width: 768px)"
                           srcSet={slide.mobileImage}
@@ -190,7 +203,7 @@ const HomePage = () => {
                         <img
                           src={slide.image}
                           alt={slide.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          className=" w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                       </picture>
 
