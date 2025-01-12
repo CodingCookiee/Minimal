@@ -9,7 +9,10 @@ export const withAuth = (WrappedComponent) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (currentUser?.expiresAt && new Date().getTime() >= currentUser.expiresAt) {
+      if (
+        currentUser?.expiresAt &&
+        new Date().getTime() >= currentUser.expiresAt
+      ) {
         updateUser(null);
         navigate("/");
         toast.info("Session expired. Please sign in again.");
@@ -17,7 +20,7 @@ export const withAuth = (WrappedComponent) => {
     }, [currentUser, navigate, updateUser]);
 
     if (!currentUser) {
-      navigate('/signin');
+      navigate("/signin");
       return null;
     }
 
@@ -25,10 +28,10 @@ export const withAuth = (WrappedComponent) => {
   }
 
   WithAuthComponent.displayName = `WithAuth(${getDisplayName(WrappedComponent)})`;
-  
+
   return WithAuthComponent;
 };
 
 function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }

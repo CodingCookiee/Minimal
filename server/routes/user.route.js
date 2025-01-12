@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/profile", authenticateUser, getProfile);
 router.put("/profile", authenticateUser, updateProfile);
 router.post("/address", authenticateUser, addAddress);
-router.put("/address", authenticateUser, editAddress);
+router.put("/address/:addressId", authenticateUser, editAddress);
 router.delete("/address/:addressId", authenticateUser, deleteAddress);
 
 export default router;

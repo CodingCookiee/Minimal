@@ -95,17 +95,33 @@ export const addAddress = async (req, res, next) => {
 
 export const editAddress = async (req, res, next) => {
   try {
+    const { addressId } = req.params;
     const addressData = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { address: addressData },
+
+    // If this is marked as default, unmark other addresses first
+    if (addressData.isDefault) {
+      await User.updateOne(
+        { _id: req.user._id },
+        { $set: { "addresses.$[].isDefault": false } },
+      );
+    }
+
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.user._id,
+        "addresses._id": addressId,
+      },
+      {
+        $set: { "addresses.$": addressData },
+      },
       { new: true },
     );
+
     if (!user) {
-      throw createError(404, "User not found");
+      throw createError(404, "Address not found");
     }
-    res.status(200).json({ user });
-    next();
+
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }

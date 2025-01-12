@@ -233,5 +233,3 @@ const AccountPage = () => {
 };
 
 export default withAuth(AccountPage);
-
-

@@ -94,7 +94,7 @@ const App = () => {
           element: <AddAddressPage />,
         },
         {
-          path: "/edit-address",
+          path: "/edit-address/:addressId",
           element: <EditAddressPage />,
         },
       ],

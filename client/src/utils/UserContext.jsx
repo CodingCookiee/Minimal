@@ -11,7 +11,7 @@ export function UserProvider({ children }) {
   const updateUser = (userData) => {
     if (userData) {
       // token expiration time when storing user data
-      const expiresAt = new Date().getTime() + (24 * 60 * 60 * 1000); // 1 day
+      const expiresAt = new Date().getTime() + 24 * 60 * 60 * 1000; // 1 day
       const userWithExpiration = { ...userData, expiresAt };
       localStorage.setItem("user", JSON.stringify(userWithExpiration));
       setCurrentUser(userWithExpiration);
