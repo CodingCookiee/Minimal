@@ -72,9 +72,12 @@ const Header = () => {
           </button>
 
           <Link to="/" className="flex items-center absolute left-12 top-2.5">
-  <img src="/brand-name.svg" alt="Logo" className="h-20" />
-</Link>
-
+            <img
+              src="/brand-name.svg"
+              alt="Logo"
+              className="lg:h-20 md:h-16 h-12"
+            />
+          </Link>
         </div>
 
         <AnimatePresence>
@@ -83,14 +86,16 @@ const Header = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 mt-5 flex flex-col rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-md  shadow-lg py-2"
+              className=" absolute top-full left-0 mt-5 flex flex-col rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-sm
+
+ shadow-lg "
             >
-              <div className="flex flex-col items-center justify-center ">
+              <div className="flex flex-col items-center justify-center w-full ">
                 {["Men", "Women", "Kids"].map((category) => (
                   <Link
                     key={category}
                     to={`/category/${category.toLowerCase()}`}
-                    className="px-4 py-2 font-sf w-full text-base sm:text-lg hover:bg-light-primary transition-colors "
+                    className="py-4 px-32 font-sf w-full text-base sm:text-lg hover:bg-light-primary transition-colors "
                   >
                     {category}
                   </Link>
@@ -120,7 +125,7 @@ const Header = () => {
                   <input
                     type="text"
                     placeholder="Search products..."
-                    className="w-full p-2 rounded-xl bg-light-primary dark:bg-dark-primary border border-black-300 focus:outline-none focus:border-neutral-300 text-sm sm:text-base"
+                    className="backdrop-blur-lg w-full p-2 rounded-xl bg-light-primary/80 dark:bg-dark-primary/80 border border-black-300 focus:outline-none focus:border-neutral-300 text-sm sm:text-base"
                     autoFocus
                   />
                 </motion.div>
@@ -142,7 +147,9 @@ const Header = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute right-0 mt-2 w-48 rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-md  shadow-lg py-2"
+                  className="absolute right-0 mt-2 w-48 rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-lg
+
+  shadow-lg py-2"
                 >
                   {currentUser ? (
                     <>

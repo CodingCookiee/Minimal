@@ -8,7 +8,6 @@ import "swiper/css/pagination";
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState("men");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const categorySlides = {
     men: [
@@ -101,15 +100,15 @@ const HomePage = () => {
   };
 
   return (
-    <div className="h-screen flex bg-light-primary dark:bg-dark-primary">
-      {/* Left Navigation Panel */}
-      <div className="mt-36 bg-transparent w-[30%] sm:w-[30%] lg:w-[20%] h-[80%]">
-        <div className="h-full flex flex-col gap-0 justify-center">
+    <div className="flex lg:flex-row flex-col h-screen">
+      {/* Navigation Panel */}
+      <div className="lg:w-[20%] w-full flex lg:flex-col items-center flex-row justify-center bg-transparent">
+        <div className="flex lg:flex-col flex-row w-full">
           {Object.keys(categorySlides).map((category) => (
             <motion.div
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`cursor-pointer h-1/3 flex items-center justify-center group relative ${
+              className={`cursor-pointer lg:mt-0 mt-24 flex-1 lg:py-16 py-4 flex items-center justify-center group relative ${
                 activeCategory === category
                   ? "bg-dark-primary text-light-primary dark:bg-light-primary dark:text-dark-primary"
                   : "bg-light-primary text-dark-primary dark:bg-dark-primary dark:text-light-primary"
@@ -118,10 +117,10 @@ const HomePage = () => {
               transition={{ duration: 0.2 }}
             >
               <div className="relative z-10 text-center">
-                <span className="font-sf-heavy text-base sm:text-xl lg:text-3xl tracking-wider block">
+                <span className="font-sf-heavy text-sm sm:text-base lg:text-xl tracking-wider block ">
                   {category.toUpperCase()}
                 </span>
-                <span className="font-sf-light text-[10px] sm:text-xs lg:text-sm tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="font-sf-light text-[8px] sm:text-[10px] lg:text-sm tracking-widest opacity-0 group-hover:opacity-100 transition-opacity lg:rotate-[-90deg] lg:mt-4">
                   VIEW COLLECTION
                 </span>
               </div>
@@ -132,7 +131,7 @@ const HomePage = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="h-full w-full">
+      <div className="flex-1 h-full overflow-hidden">
         <Swiper
           direction="vertical"
           effect="creative"
@@ -157,7 +156,10 @@ const HomePage = () => {
                 className="relative h-full group"
               >
                 <picture className="h-full">
-                  <source media="(max-width: 768px)" srcSet={slide.mobileImage} />
+                  <source
+                    media="(max-width: 768px)"
+                    srcSet={slide.mobileImage}
+                  />
                   <img
                     src={slide.image}
                     alt={slide.title}
