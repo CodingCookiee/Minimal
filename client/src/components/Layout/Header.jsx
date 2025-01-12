@@ -61,7 +61,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent backdrop-blur-md">
+    <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent">
       <nav className="flex items-center justify-between px mx-auto">
         <div className="flex items-center">
           <button
@@ -71,9 +71,10 @@ const Header = () => {
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <Link to="/" className="flex items-center absolute left-12 top-6">
-            <img src="/brand-name.svg" alt="Logo" className="h-20" />
-          </Link>
+          <Link to="/" className="flex items-center absolute left-12 top-2.5">
+  <img src="/brand-name.svg" alt="Logo" className="h-20" />
+</Link>
+
         </div>
 
         <AnimatePresence>
@@ -82,14 +83,14 @@ const Header = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 w-full bg-transparent py-4 sm:py-8"
+              className="absolute top-full left-0 mt-5 flex flex-col rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-md  shadow-lg py-2"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto text-center">
+              <div className="flex flex-col items-center justify-center ">
                 {["Men", "Women", "Kids"].map((category) => (
                   <Link
                     key={category}
                     to={`/category/${category.toLowerCase()}`}
-                    className="font-sf text-base sm:text-lg hover:text-neutral-400 transition-colors py-2"
+                    className="px-4 py-2 font-sf w-full text-base sm:text-lg hover:bg-light-primary transition-colors "
                   >
                     {category}
                   </Link>
@@ -141,7 +142,7 @@ const Header = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2"
+                  className="absolute right-0 mt-2 w-48 rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-md  shadow-lg py-2"
                 >
                   {currentUser ? (
                     <>
