@@ -157,7 +157,7 @@ const Header = () => {
                             <Link
                               key={subcat.title}
                               to={subcat.path}
-                              className="block px-8 py-2.5 backdrop-blur-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/50 dark:hover:bg-dark-secondary/50 transition-colors"
+                              className="block ml-12  px-8 py-2.5 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40  transition-colors"
                             >
                               {subcat.title}
                             </Link>
