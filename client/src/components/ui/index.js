@@ -20,3 +20,4 @@ export * from "./ProductCard";
 export * from "./ProductList";
 export * from "./Recommended";
 export * from "./Dialog";
+export * from "./Loading";
