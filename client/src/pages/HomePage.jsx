@@ -61,7 +61,7 @@ const HomePage = () => {
                 mousewheel={true}
                 speed={2000}
                 autoplay={{
-                  delay: 5000,
+                  delay: 3000,
                   disableOnInteraction: false,
                   pauseOnMouseEnter: true,
                   waitForTransition: true,
