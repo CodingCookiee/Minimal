@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -13,46 +13,20 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useSliderControl } from "../utils/useSliderControl";
 import { Loading } from "../components/ui/Loading";
-import { fetchHMCategories } from "../utils/H&MAPI";
+import { menCategories } from "../constants/menCategories";
+import { womenCategories } from "../constants/womenCategories";
+import { saleCategories } from "../constants/saleCategories";
 
 const HomePage = () => {
-  const [activeCategory, setActiveCategory] = useState("ladies");
+  const [activeCategory, setActiveCategory] = useState('men');
   const [isLastSlide, setIsLastSlide] = useState(false);
-  const [categories, setCategories] = useState({});
-  const [loading, setLoading] = useState(true);
   const { swiperRef } = useSliderControl(isLastSlide);
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const response = await fetchHMCategories();
-        const categoriesData = {};
-
-        response.data.forEach((category) => {
-          if (["ladies", "men", "kids"].includes(category.departmentName)) {
-            const validSubcategories = category.subcategory.filter(
-              (sub) => sub.imagePath,
-            );
-            if (validSubcategories.length > 0) {
-              categoriesData[category.departmentName] = validSubcategories;
-            }
-          }
-        });
-
-        setCategories(categoriesData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch categories:", error);
-        setLoading(false);
-      }
-    };
-
-    loadCategories();
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
+  const categories = {
+    men: menCategories,
+    women: womenCategories,
+    sales: saleCategories
+  };
 
   return (
     <div className="h-screen overflow-hidden relative">
@@ -124,40 +98,37 @@ const HomePage = () => {
                 modules={[EffectCreative, Pagination, Mousewheel, Autoplay]}
                 className="h-full [perspective:1200px]"
               >
-                {categories[activeCategory]?.map((slide, index) => (
-                  <SwiperSlide
-                    key={index}
-                    className="h-full [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
-                  >
-                    <div className="relative h-full group">
-                      <picture className=" block object-cover ">
-                        <img
-                          src={slide.imagePath}
-                          alt={slide.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </picture>
+                {Object.values(categories[activeCategory]).map((category, index) => (
+                  category.map((item) => (
+                    <SwiperSlide
+                      key={item.title}
+                      className="h-full [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
+                    >
+                      <div className="relative h-full group">
+                        <picture className="block object-cover">
+                          <img
+                            src={item.imagePath[0]}
+                            alt={item.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          />
+                        </picture>
 
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
 
-                      <div className="absolute bottom-10 sm:bottom-16 lg:bottom-20 left-6 sm:left-12 lg:left-20 z-10">
-                        <h2 className="font-sf-heavy text-xl sm:text-3xl lg:text-4xl text-white mb-2">
-                          {slide.title}
-                        </h2>
-                        <p className="font-sf-light text-sm sm:text-base text-white/80 mb-4 sm:mb-6">
-                          {slide.preamble || "Discover the Collection"}
-                        </p>
-                        <a
-                          href={slide.path}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider"
-                        >
-                          Explore Collection
-                        </a>
+                        <div className="absolute bottom-10 sm:bottom-16 lg:bottom-20 left-6 sm:left-12 lg:left-20 z-10">
+                          <h2 className="font-sf-heavy text-xl sm:text-3xl lg:text-4xl text-white mb-2">
+                            {item.title}
+                          </h2>
+                          <p className="font-sf-light text-sm sm:text-base text-white/80 mb-4 sm:mb-6">
+                            {item.description}
+                          </p>
+                          <button className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider">
+                            Explore Collection
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
+                    </SwiperSlide>
+                  ))
                 ))}
               </Swiper>
 
