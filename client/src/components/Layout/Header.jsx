@@ -14,10 +14,9 @@ import axiosInstance from "../../utils/axios.js";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUser } from "../../utils/UserContext";
-import { menCategories } from '../../constants/menCategories.js'
-import { womenCategories } from '../../constants/womenCategories.js'
-import { saleCategories } from '../../constants/saleCategories.js'
-
+import { menCategories } from "../../constants/menCategories.js";
+import { womenCategories } from "../../constants/womenCategories.js";
+import { saleCategories } from "../../constants/saleCategories.js";
 
 const Header = () => {
   const { currentUser, updateUser } = useUser();
@@ -26,23 +25,17 @@ const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-
   const isAdmin = currentUser?.role === "admin";
 
- 
   const categories = [
     {
       name: "Men",
-      subcategories: Object.keys(menCategories)
+      subcategories: Object.keys(menCategories),
     },
     {
       name: "Women",
-      subcategories: Object.keys(womenCategories)
+      subcategories: Object.keys(womenCategories),
     },
-    {
-      name: "Sales & Clearance",
-      subcategories: Object.keys(saleCategories)
-    }
   ];
 
   useEffect(() => {
@@ -87,7 +80,6 @@ const Header = () => {
     }
   };
 
-
   return (
     <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent">
       <nav className="flex items-center justify-between px mx-auto">
@@ -117,56 +109,53 @@ const Header = () => {
               transition={{ duration: 0.2, ease: "easeOut" }}
               className="lg:w-[20%] absolute top-full left-0 mt-5 flex flex-col bg-light-primary/90 backdrop-blur-md shadow-xl border border-neutral-200/20 dark:border-neutral-800/20 w-72 sm:w-96"
             >
-             <div className="flex flex-col items-center justify-center w-full py-2">
-  {categories.map((category) => (
-    <div
-      key={category.name}
-      className="relative w-full"
-    >
-      <button
-        
-        className="py-3 px-6 font-sf w-full text-base sm:text-lg hover:bg-light-secondary transition-colors flex items-center justify-between cursor-pointer"
-      >
-        <span>
-          {category.name}
-        </span>
-      </button>
+              <div className="flex flex-col items-center justify-center w-full py-2">
+                {categories.map((category) => (
+                  <div key={category.name} className="relative w-full">
+                    <button className="py-3 px-6 font-sf w-full text-base sm:text-lg hover:bg-light-secondary transition-colors flex items-center justify-between cursor-pointer">
+                      <span>{category.name}</span>
+                    </button>
 
-      <AnimatePresence>
-        
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
-          >
-            {category.subcategories.map((subcat) => (
-              <Link
-                key={subcat}
-                to={`/${category.name.toLowerCase()}/${subcat}`}
-                className="block ml-12 px-8 py-2.5 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
-              >
-                {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
-              </Link>
-            ))}
-          </motion.div>
-        
-      </AnimatePresence>
-    </div>
-  ))}
+                    <AnimatePresence>
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
+                      >
+                        {category.subcategories.map((subcat) => (
+                          <Link
+                            key={subcat}
+                            to={`/${category.name.toLowerCase()}/${subcat}`}
+                            className="block ml-12 px-8 py-2.5 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                          >
+                            {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                ))}
 
-  <div className="mx-4 my-2 w-full border-t border-neutral-800"></div>
+                <div className="mx-4 my-2 w-full border-t border-neutral-800"></div>
 
-  <Link
-    to={`/category/sales-and-clearance`}
-    className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group"
-  >
-    <span>New Arrivals</span>
-    <span className="text-red-500">★</span>
-  </Link>
-</div>
+                <div className="w-full cursor-pointer">
+                  <div className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group">
+                    <span>Sales & Clearance</span>
+                  </div>
 
+                  {Object.keys(saleCategories).map((category) => (
+                    <Link
+                      key={category}
+                      to={`/sales-and-clearance/${category.toLowerCase()}`}
+                      className="block ml-12 px-8 py-2.5 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                    >
+                      {category}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
