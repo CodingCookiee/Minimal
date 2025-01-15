@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, EffectCreative, Mousewheel, Autoplay } from "swiper/modules";
+import {
+  Pagination,
+  EffectCreative,
+  Mousewheel,
+  Autoplay,
+} from "swiper/modules";
 import "swiper/css/mousewheel";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -22,17 +27,18 @@ const HomePage = () => {
       try {
         const response = await fetchHMCategories();
         const categoriesData = {};
-        
-        response.data.forEach(category => {
+
+        response.data.forEach((category) => {
           if (["ladies", "men", "kids"].includes(category.departmentName)) {
-            const validSubcategories = category.subcategory.filter(sub => sub.imagePath);
+            const validSubcategories = category.subcategory.filter(
+              (sub) => sub.imagePath,
+            );
             if (validSubcategories.length > 0) {
               categoriesData[category.departmentName] = validSubcategories;
             }
-        
           }
         });
-        
+
         setCategories(categoriesData);
         setLoading(false);
       } catch (error) {

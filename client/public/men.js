@@ -49,208 +49,181 @@ import StraightRegularJeans3 from "./Men/Jeans/Straight_Regular_Jeans/9895bda40e
 import StraightRegularJeans4 from "./Men/Jeans/Straight_Regular_Jeans/hmgoepprod.jpeg";
 
 // Importing all the files from Men/Shirts
-import LooseFitTShirtWhite1 from './Men/Shirts/Loose_Fit_T-shirt_-_White/0bac14d13c0e42593c33dd440b153324db9.jpg';
-import LooseFitTShirtWhite2 from './Men/Shirts/Loose_Fit_T-shirt_-_White/56cd0c194b1c459d915e86f2b2759fc6e62.jpg';
-import LooseFitTShirtWhite3 from './Men/Shirts/Loose_Fit_T-shirt_-_White/prod.jpg';
+import LooseFitTShirtWhite1 from "./Men/Shirts/Loose_Fit_T-shirt_-_White/0bac14d13c0e42593c33dd440b153324db9.jpg";
+import LooseFitTShirtWhite2 from "./Men/Shirts/Loose_Fit_T-shirt_-_White/56cd0c194b1c459d915e86f2b2759fc6e62.jpg";
+import LooseFitTShirtWhite3 from "./Men/Shirts/Loose_Fit_T-shirt_-_White/prod.jpg";
 
-import MenTBrown1 from './Men/Shirts/Men_T_Brown/27371510657af76474658acf192817bd863.jpg';
-import MenTBrown2 from './Men/Shirts/Men_T_Brown/ede376565f53b7e3836b3dec4d7c1f55c58.jpg';
-import MenTBrown3 from './Men/Shirts/Men_T_Brown/prod.jpg';
+import MenTBrown1 from "./Men/Shirts/Men_T_Brown/27371510657af76474658acf192817bd863.jpg";
+import MenTBrown2 from "./Men/Shirts/Men_T_Brown/ede376565f53b7e3836b3dec4d7c1f55c58.jpg";
+import MenTBrown3 from "./Men/Shirts/Men_T_Brown/prod.jpg";
 
-import MenTDarkBrown1 from './Men/Shirts/Men_T_Dark_Brown/70ee415f6a1ff566d89ed2c9b16d6a489c5.jpg';
-import MenTDarkBrown2 from './Men/Shirts/Men_T_Dark_Brown/f7c89b07fd99d63a14a99e618d155a1fc31.jpg';
-import MenTDarkBrown3 from './Men/Shirts/Men_T_Dark_Brown/prod.jpg';
+import MenTDarkBrown1 from "./Men/Shirts/Men_T_Dark_Brown/70ee415f6a1ff566d89ed2c9b16d6a489c5.jpg";
+import MenTDarkBrown2 from "./Men/Shirts/Men_T_Dark_Brown/f7c89b07fd99d63a14a99e618d155a1fc31.jpg";
+import MenTDarkBrown3 from "./Men/Shirts/Men_T_Dark_Brown/prod.jpg";
 
-import RegularFitCorduroyShirtBurgundy1 from './Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/4be824ba666985961e75439971483c7796a.jpg';
-import RegularFitCorduroyShirtBurgundy2 from './Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/96e5a00a3e94eeaffb97dc410dfe304465f.jpg';
-import RegularFitCorduroyShirtBurgundy3 from './Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/e2d919a2a36619b9c746e16736f3ac1b90d.jpg';
-import RegularFitCorduroyShirtBurgundy4 from './Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/prod.jpg';
+import RegularFitCorduroyShirtBurgundy1 from "./Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/4be824ba666985961e75439971483c7796a.jpg";
+import RegularFitCorduroyShirtBurgundy2 from "./Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/96e5a00a3e94eeaffb97dc410dfe304465f.jpg";
+import RegularFitCorduroyShirtBurgundy3 from "./Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/e2d919a2a36619b9c746e16736f3ac1b90d.jpg";
+import RegularFitCorduroyShirtBurgundy4 from "./Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/prod.jpg";
 
-import RegularFitFeltedOvershirtNavyBlue1 from './Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/1a08c7e5979278e3227628d9055a3b60647.jpg';
-import RegularFitFeltedOvershirtNavyBlue2 from './Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/3336173869c79f7325590f8c903aaab83ac.jpg';
-import RegularFitFeltedOvershirtNavyBlue3 from './Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/bf0cdd3a100642a0c6fc0b7fa25185fa21c.jpg';
-import RegularFitFeltedOvershirtNavyBlue4 from './Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/hmgoepprod.jpeg';
+import RegularFitFeltedOvershirtNavyBlue1 from "./Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/1a08c7e5979278e3227628d9055a3b60647.jpg";
+import RegularFitFeltedOvershirtNavyBlue2 from "./Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/3336173869c79f7325590f8c903aaab83ac.jpg";
+import RegularFitFeltedOvershirtNavyBlue3 from "./Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/bf0cdd3a100642a0c6fc0b7fa25185fa21c.jpg";
+import RegularFitFeltedOvershirtNavyBlue4 from "./Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/hmgoepprod.jpeg";
 
-import RegularFitFeltedOvershirtWhite1 from './Men/Shirts/Regular_Fit_Felted_overshirt_White/a2253b013dfc8f1ca53192d67dda7cd03207d9a5.jpg';
-import RegularFitFeltedOvershirtWhite2 from './Men/Shirts/Regular_Fit_Felted_overshirt_White/prod.jpg';
+import RegularFitFeltedOvershirtWhite1 from "./Men/Shirts/Regular_Fit_Felted_overshirt_White/a2253b013dfc8f1ca53192d67dda7cd03207d9a5.jpg";
+import RegularFitFeltedOvershirtWhite2 from "./Men/Shirts/Regular_Fit_Felted_overshirt_White/prod.jpg";
 
-import RegularFitTexturedPoloShirtBlack1 from './Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/2a9d16448b4ba50488733bc542772aa1477.jpg';
-import RegularFitTexturedPoloShirtBlack2 from './Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/6370710db344d5290f370d5eaa2ad11af28.jpg';
-import RegularFitTexturedPoloShirtBlack3 from './Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/hmgoepprod.jpeg';
+import RegularFitTexturedPoloShirtBlack1 from "./Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/2a9d16448b4ba50488733bc542772aa1477.jpg";
+import RegularFitTexturedPoloShirtBlack2 from "./Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/6370710db344d5290f370d5eaa2ad11af28.jpg";
+import RegularFitTexturedPoloShirtBlack3 from "./Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/hmgoepprod.jpeg";
 
-import ShirtsForMenCasualSmartShirtBlack1 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/0de1a00ab6b508549b343200285dc390b9b4.jpg';
-import ShirtsForMenCasualSmartShirtBlack2 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/a834ba4473e5276559efe8604a08c77a6973.jpg';
-import ShirtsForMenCasualSmartShirtBlack3 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/c8d5af9e8ed79363fac5831921f0a145fd02.jpg';
-import ShirtsForMenCasualSmartShirtBlack4 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/prod.jpg';
+import ShirtsForMenCasualSmartShirtBlack1 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/0de1a00ab6b508549b343200285dc390b9b4.jpg";
+import ShirtsForMenCasualSmartShirtBlack2 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/a834ba4473e5276559efe8604a08c77a6973.jpg";
+import ShirtsForMenCasualSmartShirtBlack3 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/c8d5af9e8ed79363fac5831921f0a145fd02.jpg";
+import ShirtsForMenCasualSmartShirtBlack4 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/prod.jpg";
 
-import ShirtsForMenCasualSmartShirtGrey1 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/68574ee51428689db0936e61f16faf3535b9.jpg';
-import ShirtsForMenCasualSmartShirtGrey2 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/ae2547f110405a5f358f1425e3704987671d.jpg';
-import ShirtsForMenCasualSmartShirtGrey3 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/ae8ad39a78fbc6945915523b51ed57d5f5f2.jpg';
-import ShirtsForMenCasualSmartShirtGrey4 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/prod.jpg';
+import ShirtsForMenCasualSmartShirtGrey1 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/68574ee51428689db0936e61f16faf3535b9.jpg";
+import ShirtsForMenCasualSmartShirtGrey2 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/ae2547f110405a5f358f1425e3704987671d.jpg";
+import ShirtsForMenCasualSmartShirtGrey3 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/ae8ad39a78fbc6945915523b51ed57d5f5f2.jpg";
+import ShirtsForMenCasualSmartShirtGrey4 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/prod.jpg";
 
-import ShirtsForMenCasualSmartShirtNavyBlue1 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/db29af9f0c4cf03de87b956de7d46aa3fcb1.jpg';
-import ShirtsForMenCasualSmartShirtNavyBlue2 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/fdc30a31988dbc04d621b2590d5611575c09.jpg';
-import ShirtsForMenCasualSmartShirtNavyBlue3 from './Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/prod.jpg';
+import ShirtsForMenCasualSmartShirtNavyBlue1 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/db29af9f0c4cf03de87b956de7d46aa3fcb1.jpg";
+import ShirtsForMenCasualSmartShirtNavyBlue2 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/fdc30a31988dbc04d621b2590d5611575c09.jpg";
+import ShirtsForMenCasualSmartShirtNavyBlue3 from "./Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/prod.jpg";
 
-import SlimFitEasyIronShirtBlack1 from './Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/a94cb6af4e37b45a9e618c70bba6c017773.jpg';
-import SlimFitEasyIronShirtBlack2 from './Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/c004eb83aa0c5c591532e6354c622ae7682.jpg';
-import SlimFitEasyIronShirtBlack3 from './Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/hmgoepprod.jpeg';
+import SlimFitEasyIronShirtBlack1 from "./Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/a94cb6af4e37b45a9e618c70bba6c017773.jpg";
+import SlimFitEasyIronShirtBlack2 from "./Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/c004eb83aa0c5c591532e6354c622ae7682.jpg";
+import SlimFitEasyIronShirtBlack3 from "./Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/hmgoepprod.jpeg";
 
-import SlimFitPoloShirtBlack1 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Black/1b9a40df036db9f0eeaf83ccda1a5c1445f.jpg';
-import SlimFitPoloShirtBlack2 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Black/948bfefe7c1ed1325234f9a04a749a8f227.jpg';
-import SlimFitPoloShirtBlack3 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Black/hmgoepprod.jpeg';
+import SlimFitPoloShirtBlack1 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Black/1b9a40df036db9f0eeaf83ccda1a5c1445f.jpg";
+import SlimFitPoloShirtBlack2 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Black/948bfefe7c1ed1325234f9a04a749a8f227.jpg";
+import SlimFitPoloShirtBlack3 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Black/hmgoepprod.jpeg";
 
-import SlimFitPoloShirtDarkTurquoise1 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/8bed4a468d20454e0a37e8d9ede5feb6029.jpg';
-import SlimFitPoloShirtDarkTurquoise2 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/c9640c0709f816d2a2665035de22bf90ffc.jpg';
-import SlimFitPoloShirtDarkTurquoise3 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/hmgoepprod.jpeg';
+import SlimFitPoloShirtDarkTurquoise1 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/8bed4a468d20454e0a37e8d9ede5feb6029.jpg";
+import SlimFitPoloShirtDarkTurquoise2 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/c9640c0709f816d2a2665035de22bf90ffc.jpg";
+import SlimFitPoloShirtDarkTurquoise3 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/hmgoepprod.jpeg";
 
-import SlimFitPoloShirtForestGreen1 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/590177cdf35a40ae111a60939d9a9d67a8c.jpg';
-import SlimFitPoloShirtForestGreen2 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/df8354baae26ed147ac537a2c6824321597.jpg';
-import SlimFitPoloShirtForestGreen3 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/hmgoepprod.jpeg';
+import SlimFitPoloShirtForestGreen1 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/590177cdf35a40ae111a60939d9a9d67a8c.jpg";
+import SlimFitPoloShirtForestGreen2 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/df8354baae26ed147ac537a2c6824321597.jpg";
+import SlimFitPoloShirtForestGreen3 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/hmgoepprod.jpeg";
 
-import SlimFitPoloShirtNavyBlue1 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/157809064feb6056145bbfd65af62128be74.jpg';
-import SlimFitPoloShirtNavyBlue2 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/fa0bf757bd60fd5be16bf3d6c86711038d06.jpg';
-import SlimFitPoloShirtNavyBlue3 from './Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/hmgoepprod.jpeg';
+import SlimFitPoloShirtNavyBlue1 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/157809064feb6056145bbfd65af62128be74.jpg";
+import SlimFitPoloShirtNavyBlue2 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/fa0bf757bd60fd5be16bf3d6c86711038d06.jpg";
+import SlimFitPoloShirtNavyBlue3 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/hmgoepprod.jpeg";
 
 // Exporting all the imports as men
-export const men = {
-  jeans: {
-    BaggyJeansDarkDenimGrey: [
-      BaggyJeansDarkDenimGrey1,
-      BaggyJeansDarkDenimGrey2,
-    ],
-    BaggyJeansPaleDenimBlue: [
-      BaggyJeansPaleDenimBlue1,
-      BaggyJeansPaleDenimBlue2,
-      BaggyJeansPaleDenimBlue3,
-    ],
-    EmbroideredRigidSlimJeans: [
-      EmbroideredRigidSlimJeans1,
-      EmbroideredRigidSlimJeans2,
-      EmbroideredRigidSlimJeans3,
-    ],
-    LooseCargoJeansLightDenimBlue: [
-      LooseCargoJeansLightDenimBlue1,
-      LooseCargoJeansLightDenimBlue2,
-      LooseCargoJeansLightDenimBlue3,
-    ],
-    LooseJeansDarkDenimBlue: [
-      LooseJeansDarkDenimBlue1,
-      LooseJeansDarkDenimBlue2,
-      LooseJeansDarkDenimBlue3,
-    ],
-    RegularJeansDarkDenimGrey: [
-      RegularJeansDarkDenimGrey1,
-      RegularJeansDarkDenimGrey2,
-      RegularJeansDarkDenimGrey3,
-    ],
-    RegularJeansLightDenimBlue: [
-      RegularJeansLightDenimBlue1,
-      RegularJeansLightDenimBlue2,
-      RegularJeansLightDenimBlue3,
-    ],
-    RegularTaperedJeansLightDenim: [
-      RegularTaperedJeansLightDenim1,
-      RegularTaperedJeansLightDenim2,
-      RegularTaperedJeansLightDenim3,
-    ],
-    RelaxedJeansBlack: [
-      RelaxedJeansBlack1,
-      RelaxedJeansBlack2,
-      RelaxedJeansBlack3,
-    ],
-    RigidSlimFitJeans: [
-      RigidSlimFitJeans1,
-      RigidSlimFitJeans2,
-      RigidSlimFitJeans3,
-      RigidSlimFitJeans4,
-    ],
-    SlimCroppedJeans: [SlimCroppedJeans1, SlimCroppedJeans2, SlimCroppedJeans3],
-    StraightRegularJeans: [
-      StraightRegularJeans1,
-      StraightRegularJeans2,
-      StraightRegularJeans3,
-      StraightRegularJeans4,
-    ],
-  },
-  shirts: {
-    LooseFitTShirtWhite: [
-      LooseFitTShirtWhite1,
-      LooseFitTShirtWhite2,
-      LooseFitTShirtWhite3,
-    ],
-    MenTBrown: [
-      MenTBrown1,
-      MenTBrown2,
-      MenTBrown3,
-    ],
-    MenTDarkBrown: [
-      MenTDarkBrown1,
-      MenTDarkBrown2,
-      MenTDarkBrown3,
-    ],
-    RegularFitCorduroyShirtBurgundy: [
-      RegularFitCorduroyShirtBurgundy1,
-      RegularFitCorduroyShirtBurgundy2,
-      RegularFitCorduroyShirtBurgundy3,
-      RegularFitCorduroyShirtBurgundy4,
-    ],
-    RegularFitFeltedOvershirtNavyBlue: [
-      RegularFitFeltedOvershirtNavyBlue1,
-      RegularFitFeltedOvershirtNavyBlue2,
-      RegularFitFeltedOvershirtNavyBlue3,
-      RegularFitFeltedOvershirtNavyBlue4,
-    ],
-    RegularFitFeltedOvershirtWhite: [
-      RegularFitFeltedOvershirtWhite1,
-      RegularFitFeltedOvershirtWhite2,
-    ],
-    RegularFitTexturedPoloShirtBlack: [
-      RegularFitTexturedPoloShirtBlack1,
-      RegularFitTexturedPoloShirtBlack2,
-      RegularFitTexturedPoloShirtBlack3,
-    ],
-    ShirtsForMenCasualSmartShirtBlack: [
-      ShirtsForMenCasualSmartShirtBlack1,
-      ShirtsForMenCasualSmartShirtBlack2,
-      ShirtsForMenCasualSmartShirtBlack3,
-      ShirtsForMenCasualSmartShirtBlack4,
-    ],
-    ShirtsForMenCasualSmartShirtGrey: [
-      ShirtsForMenCasualSmartShirtGrey1,
-      ShirtsForMenCasualSmartShirtGrey2,
-      ShirtsForMenCasualSmartShirtGrey3,
-      ShirtsForMenCasualSmartShirtGrey4,
-    ],
-    ShirtsForMenCasualSmartShirtNavyBlue: [
-      ShirtsForMenCasualSmartShirtNavyBlue1,
-      ShirtsForMenCasualSmartShirtNavyBlue2,
-      ShirtsForMenCasualSmartShirtNavyBlue3,
-    ],
-    SlimFitEasyIronShirtBlack: [
-      SlimFitEasyIronShirtBlack1,
-      SlimFitEasyIronShirtBlack2,
-      SlimFitEasyIronShirtBlack3,
-    ],
-    SlimFitPoloShirtBlack: [
-      SlimFitPoloShirtBlack1,
-      SlimFitPoloShirtBlack2,
-      SlimFitPoloShirtBlack3,
-    ],
-    SlimFitPoloShirtDarkTurquoise: [
-      SlimFitPoloShirtDarkTurquoise1,
-      SlimFitPoloShirtDarkTurquoise2,
-      SlimFitPoloShirtDarkTurquoise3,
-    ],
-    SlimFitPoloShirtForestGreen: [
-      SlimFitPoloShirtForestGreen1,
-      SlimFitPoloShirtForestGreen2,
-      SlimFitPoloShirtForestGreen3,
-    ],
-    SlimFitPoloShirtNavyBlue: [
-      SlimFitPoloShirtNavyBlue1,
-      SlimFitPoloShirtNavyBlue2,
-      SlimFitPoloShirtNavyBlue3,
-    ],
-  },
+export  {
+  
+    BaggyJeansDarkDenimGrey1,
+    BaggyJeansDarkDenimGrey2,
+
+    BaggyJeansPaleDenimBlue1,
+    BaggyJeansPaleDenimBlue2,
+    BaggyJeansPaleDenimBlue3,
+
+    EmbroideredRigidSlimJeans1,
+    EmbroideredRigidSlimJeans2,
+    EmbroideredRigidSlimJeans3,
+
+    LooseCargoJeansLightDenimBlue1,
+    LooseCargoJeansLightDenimBlue2,
+    LooseCargoJeansLightDenimBlue3,
+
+    LooseJeansDarkDenimBlue1,
+    LooseJeansDarkDenimBlue2,
+    LooseJeansDarkDenimBlue3,
+
+    RegularJeansDarkDenimGrey1,
+    RegularJeansDarkDenimGrey2,
+    RegularJeansDarkDenimGrey3,
+
+    RegularJeansLightDenimBlue1,
+    RegularJeansLightDenimBlue2,
+    RegularJeansLightDenimBlue3,
+
+    RegularTaperedJeansLightDenim1,
+    RegularTaperedJeansLightDenim2,
+    RegularTaperedJeansLightDenim3,
+
+    RelaxedJeansBlack1,
+    RelaxedJeansBlack2,
+    RelaxedJeansBlack3,
+
+    RigidSlimFitJeans1,
+    RigidSlimFitJeans2,
+    RigidSlimFitJeans3,
+    RigidSlimFitJeans4,
+    SlimCroppedJeans1,
+    SlimCroppedJeans2,
+    SlimCroppedJeans3,
+
+    StraightRegularJeans1,
+    StraightRegularJeans2,
+    StraightRegularJeans3,
+    StraightRegularJeans4,
+  
+    LooseFitTShirtWhite1,
+    LooseFitTShirtWhite2,
+    LooseFitTShirtWhite3,
+
+    MenTBrown1,
+    MenTBrown2,
+    MenTBrown3,
+
+    MenTDarkBrown1,
+    MenTDarkBrown2,
+    MenTDarkBrown3,
+
+    RegularFitCorduroyShirtBurgundy1,
+    RegularFitCorduroyShirtBurgundy2,
+    RegularFitCorduroyShirtBurgundy3,
+    RegularFitCorduroyShirtBurgundy4,
+
+    RegularFitFeltedOvershirtNavyBlue1,
+    RegularFitFeltedOvershirtNavyBlue2,
+    RegularFitFeltedOvershirtNavyBlue3,
+    RegularFitFeltedOvershirtNavyBlue4,
+
+    RegularFitFeltedOvershirtWhite1,
+    RegularFitFeltedOvershirtWhite2,
+
+    RegularFitTexturedPoloShirtBlack1,
+    RegularFitTexturedPoloShirtBlack2,
+    RegularFitTexturedPoloShirtBlack3,
+
+    ShirtsForMenCasualSmartShirtBlack1,
+    ShirtsForMenCasualSmartShirtBlack2,
+    ShirtsForMenCasualSmartShirtBlack3,
+    ShirtsForMenCasualSmartShirtBlack4,
+
+    ShirtsForMenCasualSmartShirtGrey1,
+    ShirtsForMenCasualSmartShirtGrey2,
+    ShirtsForMenCasualSmartShirtGrey3,
+    ShirtsForMenCasualSmartShirtGrey4,
+
+    ShirtsForMenCasualSmartShirtNavyBlue1,
+    ShirtsForMenCasualSmartShirtNavyBlue2,
+    ShirtsForMenCasualSmartShirtNavyBlue3,
+
+    SlimFitEasyIronShirtBlack1,
+    SlimFitEasyIronShirtBlack2,
+    SlimFitEasyIronShirtBlack3,
+
+    SlimFitPoloShirtBlack1,
+    SlimFitPoloShirtBlack2,
+    SlimFitPoloShirtBlack3,
+
+    SlimFitPoloShirtDarkTurquoise1,
+    SlimFitPoloShirtDarkTurquoise2,
+    SlimFitPoloShirtDarkTurquoise3,
+
+    SlimFitPoloShirtForestGreen1,
+    SlimFitPoloShirtForestGreen2,
+    SlimFitPoloShirtForestGreen3,
+
+    SlimFitPoloShirtNavyBlue1,
+    SlimFitPoloShirtNavyBlue2,
+    SlimFitPoloShirtNavyBlue3,
+  
 };

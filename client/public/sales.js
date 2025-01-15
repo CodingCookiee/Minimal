@@ -112,19 +112,16 @@ import SuperCroppedVNeckShirtWithKnottedHem1 from "./Sales/Women/Super_Cropped_V
 import SuperCroppedVNeckShirtWithKnottedHem2 from "./Sales/Women/Super_Cropped_V-Neck_Shirt_With_Knotted_Hem/10002.jpg";
 import SuperCroppedVNeckShirtWithKnottedHem3 from "./Sales/Women/Super_Cropped_V-Neck_Shirt_With_Knotted_Hem/10003.jpg";
 
-export const salesImages = {
-  Men: {
-    BasicPopoverShirtNavyBlue: [
+export  {
+ 
       BasicPopoverShirtNavyBlue1,
       BasicPopoverShirtNavyBlue2,
       BasicPopoverShirtNavyBlue3,
-    ],
-    BasicPopoverShirtWhite: [
+  
       BasicPopoverShirtWhite1,
       BasicPopoverShirtWhite2,
       BasicPopoverShirtWhite3,
-    ],
-    LooseFitPrintedTShirt: [
+
       LooseFitPrintedTShirt1,
       LooseFitPrintedTShirt2,
       LooseFitPrintedTShirt3,
@@ -132,24 +129,20 @@ export const salesImages = {
       LooseFitPrintedTShirt5,
       LooseFitPrintedTShirt6,
       LooseFitPrintedTShirt7,
-    ],
-    LooseFitShortSleevedShirt: [
+
       LooseFitShortSleevedShirt1,
       LooseFitShortSleevedShirt2,
-    ],
-    PatternedResortShirt: [
+ 
       PatternedResortShirt1,
       PatternedResortShirt2,
       PatternedResortShirt3,
       PatternedResortShirt4,
       PatternedResortShirt5,
       PatternedResortShirt6,
-    ],
-    PatternedResortShirtBlack: [
+ 
       PatternedResortShirtBlack1,
       PatternedResortShirtBlack2,
-    ],
-    RegularFitHoodie: [
+
       RegularFitHoodie1,
       RegularFitHoodie2,
       RegularFitHoodie3,
@@ -157,90 +150,68 @@ export const salesImages = {
       RegularFitHoodie5,
       RegularFitHoodie6,
       RegularFitHoodie7,
-    ],
-    RegularFitPrintedTShirt: [
+  
       RegularFitPrintedTShirt1,
       RegularFitPrintedTShirt2,
-    ],
-    RegularFitTShirt: [RegularFitTShirt1, RegularFitTShirt2],
-    RegularFitWaffledTShirt: [
+   RegularFitTShirt1, RegularFitTShirt2,
       RegularFitWaffledTShirt1,
       RegularFitWaffledTShirt2,
-    ],
-    SloganTShirtBlack: [SloganTShirtBlack1, SloganTShirtBlack2],
-    SloganTShirtBrown: [
+   SloganTShirtBlack1, SloganTShirtBlack2,
       SloganTShirtBrown1,
       SloganTShirtBrown2,
       SloganTShirtBrown3,
-    ],
-    StraightTrousers: [StraightTrousers1, StraightTrousers2],
-  },
-  Women: {
-    BasicBasicTShirt: [
+   StraightTrousers1, StraightTrousers2,
+// Women
       BasicBasicTShirt1,
       BasicBasicTShirt2,
       BasicBasicTShirt3,
       BasicBasicTShirt4,
       BasicBasicTShirt5,
       BasicBasicTShirt6,
-    ],
-    BasicOversizedTShirt: [BasicOversizedTShirt1, BasicOversizedTShirt2],
-    CableKnitCroppedCardigan: [
+  BasicOversizedTShirt1, BasicOversizedTShirt2,
       CableKnitCroppedCardiganNavyBlue,
       CableKnitCroppedCardiganWhite,
-    ],
-    CrewNeckStripedCroppedSweater: [
+  
       CrewNeckStripedCroppedSweater1,
       CrewNeckStripedCroppedSweater2,
       CrewNeckStripedCroppedSweater3,
-    ],
-    CroppedBasicPlushSweaterBeige: [
+   
       CroppedBasicPlushSweaterBeige1,
       CroppedBasicPlushSweaterBeige2,
       CroppedBasicPlushSweaterBeige3,
-    ],
-    CroppedBasicPlushSweaterNavyBlue: [
+
       CroppedBasicPlushSweaterNavyBlue1,
       CroppedBasicPlushSweaterNavyBlue2,
       CroppedBasicPlushSweaterNavyBlue3,
       CroppedBasicPlushSweaterNavyBlue4,
-    ],
-    CroppedSuedeBomberJacket: [
+   
       CroppedSuedeBomberJacket1,
       CroppedSuedeBomberJacket2,
       CroppedSuedeBomberJacket3,
-    ],
-    EmbellishedCrewNeckSweatshirt: [
+ 
       EmbellishedCrewNeckSweatshirt1,
       EmbellishedCrewNeckSweatshirt2,
-    ],
-    HighRiseSkinnyJeans: [
+ 
       HighRiseSkinnyJeans1,
       HighRiseSkinnyJeans2,
       HighRiseSkinnyJeans3,
       HighRiseSkinnyJeans4,
-    ],
-    HighRiseSkinnyPants: [
+  
       HighRiseSkinnyPants1,
       HighRiseSkinnyPants2,
       HighRiseSkinnyPants3,
-    ],
-    PoloCollarSweatshirtWithEmbellishment: [
+ 
       PoloCollarSweatshirtWithEmbellishment1,
       PoloCollarSweatshirtWithEmbellishment2,
       PoloCollarSweatshirtWithEmbellishment3,
       PoloCollarSweatshirtWithEmbellishment4,
-    ],
-    StripedSweater: [StripedSweater1, StripedSweater2, StripedSweater3],
-    SuperCroppedEmbellishedTShirt: [
+StripedSweater1, StripedSweater2, StripedSweater3,
       SuperCroppedEmbellishedTShirt1,
       SuperCroppedEmbellishedTShirt2,
       SuperCroppedEmbellishedTShirt3,
-    ],
-    SuperCroppedVNeckShirtWithKnottedHem: [
+   
       SuperCroppedVNeckShirtWithKnottedHem1,
       SuperCroppedVNeckShirtWithKnottedHem2,
       SuperCroppedVNeckShirtWithKnottedHem3,
-    ],
-  },
+ 
 };

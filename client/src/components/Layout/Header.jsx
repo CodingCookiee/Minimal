@@ -26,10 +26,9 @@ const Header = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState({});
-  const [newArrivalsCount,  setNewArrivalsCount] = useState(0);
-  
-  const isAdmin = currentUser?.role === "admin";
+  const [newArrivalsCount, setNewArrivalsCount] = useState(0);
 
+  const isAdmin = currentUser?.role === "admin";
 
   const toggleDropdown = (categoryName) => {
     setIsOpen((prev) => ({
@@ -37,7 +36,6 @@ const Header = () => {
       [categoryName]: !prev[categoryName],
     }));
   };
-
 
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -70,7 +68,7 @@ const Header = () => {
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       updateUser(null);
       setIsProfileOpen(false);
@@ -88,8 +86,8 @@ const Header = () => {
         // Filter to get only the relevant categories
         const relevantCategories = data.data.filter((category) =>
           ["men", "ladies", "kids/girls", "kids/boys"].includes(
-            category.departmentName
-          )
+            category.departmentName,
+          ),
         );
         setCategories(relevantCategories);
       } catch (err) {
@@ -111,7 +109,7 @@ const Header = () => {
         console.error("Failed to fetch new arrivals count:", err);
       }
     };
-  
+
     getNewArrivalsCount();
   }, []);
 
@@ -191,7 +189,9 @@ const Header = () => {
                   className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group"
                 >
                   <span>New Arrivals</span>
-                  <span className="text-red-500">{newArrivalsCount > 0 ? newArrivalsCount : '★'}</span>
+                  <span className="text-red-500">
+                    {newArrivalsCount > 0 ? newArrivalsCount : "★"}
+                  </span>
                 </Link>
               </div>
             </motion.div>
