@@ -14,7 +14,10 @@ import axiosInstance from "../../utils/axios.js";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUser } from "../../utils/UserContext";
-import { fetchHMCategories, fetchNewArrivals } from "../../utils/H&MAPI.js";
+import { menCategories } from '../../constants/menCategories.js'
+import { womenCategories } from '../../constants/womenCategories.js'
+import { saleCategories } from '../../constants/saleCategories.js'
+
 
 const Header = () => {
   const { currentUser, updateUser } = useUser();
@@ -22,20 +25,25 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [isOpen, setIsOpen] = useState({});
-  const [newArrivalsCount, setNewArrivalsCount] = useState(0);
+
 
   const isAdmin = currentUser?.role === "admin";
 
-  const toggleDropdown = (categoryName) => {
-    setIsOpen((prev) => ({
-      ...prev,
-      [categoryName]: !prev[categoryName],
-    }));
-  };
+ 
+  const categories = [
+    {
+      name: "Men",
+      subcategories: Object.keys(menCategories)
+    },
+    {
+      name: "Women",
+      subcategories: Object.keys(womenCategories)
+    },
+    {
+      name: "Sales & Clearance",
+      subcategories: Object.keys(saleCategories)
+    }
+  ];
 
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -79,39 +87,6 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const data = await fetchHMCategories();
-        // Filter to get only the relevant categories
-        const relevantCategories = data.data.filter((category) =>
-          ["men", "ladies", "kids/girls", "kids/boys"].includes(
-            category.departmentName,
-          ),
-        );
-        setCategories(relevantCategories);
-      } catch (err) {
-        setError("Failed to fetch categories");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getCategories();
-  }, []);
-
-  useEffect(() => {
-    const getNewArrivalsCount = async () => {
-      try {
-        const data = await fetchNewArrivals();
-        setNewArrivalsCount(data.numberOfHits);
-      } catch (err) {
-        console.error("Failed to fetch new arrivals count:", err);
-      }
-    };
-
-    getNewArrivalsCount();
-  }, []);
 
   return (
     <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent">

@@ -124,7 +124,7 @@ import {
   WideTwillTrousersBlack1,
   WideTwillTrousersBlack2,
   WideTwillTrousersBlack3,
-} from "/women.js";
+} from "./women.js";
 
 export const womenCategories = {
   jeans: [
