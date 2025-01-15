@@ -1,6 +1,6 @@
 // Importing all the files from Men/Jeans
-import BaggyJeansDarkDenimGrey1 from "./Men/Jeans/Baggy_Jeans_-_Dark_denim_grey/53ccbdb5175538aa0fa92f1524828b2eb53.jpg";
-import BaggyJeansDarkDenimGrey2 from "./Men/Jeans/Baggy_Jeans_-_Dark_denim_grey/hmgoepprod.jpeg";
+import BaggyJeansDarkDenimGrey1 from './Men/Jeans/Baggy_Jeans_-_Dark_denim_grey/53ccbdb5175538aa0fa92f1524828b2eb53.jpg';
+import BaggyJeansDarkDenimGrey2 from './Men/Jeans/Baggy_Jeans_-_Dark_denim_grey/hmgoepprod.jpeg';
 
 import BaggyJeansPaleDenimBlue1 from "./Men/Jeans/Baggy_Jeans_-_Pale_denim_blue/0e3a8aaf81ec9bd92338f4aaf21784b7443.jpg";
 import BaggyJeansPaleDenimBlue2 from "./Men/Jeans/Baggy_Jeans_-_Pale_denim_blue/91eaba6a5ea4df2cba256917a612417f005.jpg";
@@ -114,7 +114,6 @@ import SlimFitPoloShirtNavyBlue3 from "./Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_b
 
 // Exporting all the imports as men
 export  {
-  
     BaggyJeansDarkDenimGrey1,
     BaggyJeansDarkDenimGrey2,
 

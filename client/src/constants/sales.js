@@ -1,10 +1,10 @@
 // Importing all the files from Sales/Men
-import BasicPopoverShirtNavyBlue1 from "./Sales/Men/Basic_Popover_Shirt/Navy_Blue/10004.jpg";
-import BasicPopoverShirtNavyBlue2 from "./Sales/Men/Basic_Popover_Shirt/Navy_Blue/10005.jpg";
-import BasicPopoverShirtNavyBlue3 from "./Sales/Men/Basic_Popover_Shirt/Navy_Blue/10006.jpg";
-import BasicPopoverShirtWhite1 from "./Sales/Men/Basic_Popover_Shirt/White/10001.jpg";
-import BasicPopoverShirtWhite2 from "./Sales/Men/Basic_Popover_Shirt/White/10002.jpg";
-import BasicPopoverShirtWhite3 from "./Sales/Men/Basic_Popover_Shirt/White/10003.jpg";
+import BasicPopoverShirtNavyBlue1 from '../Sales/Men/Basic_Popover_Shirt/Navy_Blue/10004.jpg';
+import BasicPopoverShirtNavyBlue2 from '../Sales/Men/Basic_Popover_Shirt/Navy_Blue/10005.jpg';
+import BasicPopoverShirtNavyBlue3 from '../Sales/Men/Basic_Popover_Shirt/Navy_Blue/10006.jpg';
+import BasicPopoverShirtWhite1 from '../Sales/Men/Basic_Popover_Shirt/White/10001.jpg';
+import BasicPopoverShirtWhite2 from '../Sales/Men/Basic_Popover_Shirt/White/10002.jpg';
+import BasicPopoverShirtWhite3 from '../Sales/Men/Basic_Popover_Shirt/White/10003.jpg';
 
 import LooseFitPrintedTShirt1 from "./Sales/Men/Loose_Fit_Printed_T-shirt/0309b2177ef3541839fbae5df42b5865e04.jpg";
 import LooseFitPrintedTShirt2 from "./Sales/Men/Loose_Fit_Printed_T-shirt/0ff7cb4f5e067334cac0c2d9b16d85ce9b8.jpg";
@@ -114,14 +114,13 @@ import SuperCroppedVNeckShirtWithKnottedHem3 from "./Sales/Women/Super_Cropped_V
 
 export  {
  
-      BasicPopoverShirtNavyBlue1,
-      BasicPopoverShirtNavyBlue2,
-      BasicPopoverShirtNavyBlue3,
-  
-      BasicPopoverShirtWhite1,
-      BasicPopoverShirtWhite2,
-      BasicPopoverShirtWhite3,
-
+   BasicPopoverShirtNavyBlue1,
+   BasicPopoverShirtNavyBlue2,
+   BasicPopoverShirtNavyBlue3,
+   BasicPopoverShirtWhite1,
+   BasicPopoverShirtWhite2,
+   BasicPopoverShirtWhite3,
+   
       LooseFitPrintedTShirt1,
       LooseFitPrintedTShirt2,
       LooseFitPrintedTShirt3,

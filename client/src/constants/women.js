@@ -1,8 +1,8 @@
 // Importing all the files from Women/Jeans
-import BaggyBoyFriendJeans1 from "./Women/Jeans/Baggy_Boy_Friend_Jeans/10002.jpg";
-import BaggyBoyFriendJeans2 from "./Women/Jeans/Baggy_Boy_Friend_Jeans/10003.jpg";
-import BaggyBoyFriendJeans3 from "./Women/Jeans/Baggy_Boy_Friend_Jeans/10004.jpg";
-import BaggyBoyFriendJeans4 from "./Women/Jeans/Baggy_Boy_Friend_Jeans/prod.jpg";
+import BaggyBoyFriendJeans1 from "../Women/Jeans/Baggy_Boy_Friend_Jeans/10002.jpg";
+import BaggyBoyFriendJeans2 from '../Women/Jeans/Baggy_Boy_Friend_Jeans/10003.jpg';
+import BaggyBoyFriendJeans3 from '../Women/Jeans/Baggy_Boy_Friend_Jeans/10004.jpg';
+import BaggyBoyFriendJeans4 from '../Women/Jeans/Baggy_Boy_Friend_Jeans/prod.jpg';
 
 import BasicMomFitJeans1 from "./Women/Jeans/Basic_Mom_Fit_Jeans/10002.jpg";
 import BasicMomFitJeans2 from "./Women/Jeans/Basic_Mom_Fit_Jeans/10003.jpg";
