@@ -88,7 +88,7 @@ import {
   SuperCroppedVNeckShirtWithKnottedHem1,
   SuperCroppedVNeckShirtWithKnottedHem2,
   SuperCroppedVNeckShirtWithKnottedHem3,
-} from './sales.js';
+} from "../../public/sales.js";
 
 export const saleCategories = {
   Men: [

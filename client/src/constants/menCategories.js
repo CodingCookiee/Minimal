@@ -84,7 +84,7 @@ import {
   SlimFitPoloShirtNavyBlue1,
   SlimFitPoloShirtNavyBlue2,
   SlimFitPoloShirtNavyBlue3,
-} from "./men.js";
+} from "../../public/men.js";
 
 export const menCategories = {
   jeans: [
