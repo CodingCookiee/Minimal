@@ -1,122 +1,60 @@
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Pagination,
-  EffectCreative,
-  Mousewheel,
-  Autoplay,
-} from "swiper/modules";
+import { Pagination, EffectCreative, Mousewheel, Autoplay } from "swiper/modules";
 import "swiper/css/mousewheel";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useSliderControl } from "../utils/useSliderControl";
+import { Loading } from "../components/ui/Loading";
+import { fetchHMCategories } from "../utils/H&MAPI";
 
 const HomePage = () => {
-  const [activeCategory, setActiveCategory] = useState("men");
+  const [activeCategory, setActiveCategory] = useState("ladies");
   const [isLastSlide, setIsLastSlide] = useState(false);
+  const [categories, setCategories] = useState({});
+  const [loading, setLoading] = useState(true);
   const { swiperRef } = useSliderControl(isLastSlide);
 
-  const categorySlides = {
-    men: [
-      {
-        image:
-          "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=560&h=900",
-        title: "Premium Essentials",
-        subtitle: "2025 Collection",
-        link: "/category/men-essentials",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=560&h=900",
-        title: "Premium Essentials",
-        subtitle: "New Arrivals",
-        link: "/category/men-essentials",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=560&h=900",
-        title: "Premium Essentials",
-        subtitle: "New Arrivals",
-        link: "/category/men-essentials",
-      },
-    ],
-    women: [
-      {
-        image:
-          "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=560&h=900",
-        title: "Women's Collection",
-        subtitle: "Discover More",
-        link: "/category/women",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=560&h=900",
-        title: "Women's Collection",
-        subtitle: "Discover More",
-        link: "/category/women",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=560&h=900",
-        title: "Women's Collection",
-        subtitle: "Discover More",
-        link: "/category/women",
-      },
-    ],
-    kids: [
-      {
-        image:
-          "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=560&h=900",
-        title: "Kids Collection",
-        subtitle: "New Season",
-        link: "/category/kids",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=560&h=900",
-        title: "Kids Collection",
-        subtitle: "New Season",
-        link: "/category/kids",
-      },
-      {
-        image:
-          "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=1920&h=900",
-        mobileImage:
-          "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=560&h=900",
-        title: "Kids Collection",
-        subtitle: "New Season",
-        link: "/category/kids",
-      },
-    ],
-  };
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const response = await fetchHMCategories();
+        const categoriesData = {};
+        
+        response.data.forEach(category => {
+          if (["ladies", "men", "kids"].includes(category.departmentName)) {
+            const validSubcategories = category.subcategory.filter(sub => sub.imagePath);
+            if (validSubcategories.length > 0) {
+              categoriesData[category.departmentName] = validSubcategories;
+            }
+        
+          }
+        });
+        
+        setCategories(categoriesData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+        setLoading(false);
+      }
+    };
+
+    loadCategories();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="h-screen overflow-hidden relative">
       <div className="h-screen sticky top-0 z-10">
         <div className="flex lg:flex-row flex-col h-screen">
-          {/* Navigation Panel */}
           <div className="lg:w-[20%] w-full flex lg:flex-col items-center flex-row justify-center bg-transparent">
             <div className="flex lg:flex-col flex-row w-full">
-              {Object.keys(categorySlides).map((category) => (
+              {Object.keys(categories).map((category) => (
                 <motion.div
                   key={category}
                   onClick={() => setActiveCategory(category)}
@@ -142,7 +80,6 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Main Content Area */}
           <div className="flex-1 h-full overflow-hidden">
             <div className="swiper-container relative h-full">
               <Swiper
@@ -161,25 +98,17 @@ const HomePage = () => {
                     translate: [0, "-100%", 0],
                     scale: 0.95,
                     opacity: 0,
-                    transition: {
-                      duration: 1000,
-                      easing: "ease-in-out",
-                    },
                   },
                   next: {
                     translate: [0, "100%", 0],
                     scale: 0.95,
                     opacity: 0,
-                    transition: {
-                      duration: 1000,
-                      easing: "ease-in-out",
-                    },
                   },
                 }}
                 pagination={{
                   clickable: true,
                   renderBullet: (index, className) => {
-                    return `<span class="${className} w-0.5 h-8  transition-colors"></span>`;
+                    return `<span class="${className} w-0.5 h-8 transition-colors"></span>`;
                   },
                 }}
                 ref={swiperRef}
@@ -189,21 +118,17 @@ const HomePage = () => {
                 modules={[EffectCreative, Pagination, Mousewheel, Autoplay]}
                 className="h-full [perspective:1200px]"
               >
-                {categorySlides[activeCategory].map((slide, index) => (
+                {categories[activeCategory]?.map((slide, index) => (
                   <SwiperSlide
                     key={index}
                     className="h-full [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
                   >
                     <div className="relative h-full group">
-                      <picture className="h-full block ">
-                        <source
-                          media="(max-width: 768px)"
-                          srcSet={slide.mobileImage}
-                        />
+                      <picture className=" block object-cover ">
                         <img
-                          src={slide.image}
+                          src={slide.imagePath}
                           alt={slide.title}
-                          className=" w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                       </picture>
 
@@ -214,10 +139,12 @@ const HomePage = () => {
                           {slide.title}
                         </h2>
                         <p className="font-sf-light text-sm sm:text-base text-white/80 mb-4 sm:mb-6">
-                          {slide.subtitle}
+                          {slide.preamble || "Discover the Collection"}
                         </p>
                         <a
-                          href={slide.link}
+                          href={slide.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider"
                         >
                           Explore Collection

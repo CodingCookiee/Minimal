@@ -14,7 +14,7 @@ import axiosInstance from "../../utils/axios.js";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUser } from "../../utils/UserContext";
-import { fetchHMCategories } from "../../utils/H&MAPI.js";
+import { fetchHMCategories, fetchNewArrivals } from "../../utils/H&MAPI.js";
 
 const Header = () => {
   const { currentUser, updateUser } = useUser();
@@ -26,6 +26,10 @@ const Header = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState({});
+  const [newArrivalsCount,  setNewArrivalsCount] = useState(0);
+  
+  const isAdmin = currentUser?.role === "admin";
+
 
   const toggleDropdown = (categoryName) => {
     setIsOpen((prev) => ({
@@ -34,7 +38,6 @@ const Header = () => {
     }));
   };
 
-  const isAdmin = currentUser?.role === "admin";
 
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -97,6 +100,19 @@ const Header = () => {
     };
 
     getCategories();
+  }, []);
+
+  useEffect(() => {
+    const getNewArrivalsCount = async () => {
+      try {
+        const data = await fetchNewArrivals();
+        setNewArrivalsCount(data.numberOfHits);
+      } catch (err) {
+        console.error("Failed to fetch new arrivals count:", err);
+      }
+    };
+  
+    getNewArrivalsCount();
   }, []);
 
   return (
@@ -175,7 +191,7 @@ const Header = () => {
                   className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group"
                 >
                   <span>New Arrivals</span>
-                  <span className="text-red-500">★</span>
+                  <span className="text-red-500">{newArrivalsCount > 0 ? newArrivalsCount : '★'}</span>
                 </Link>
               </div>
             </motion.div>
