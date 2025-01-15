@@ -15,7 +15,7 @@ import { useSliderControl } from "../utils/useSliderControl";
 import { homeCarouselData } from "../constants/homeCarousel";
 
 const HomePage = () => {
-  const [activeCategory, setActiveCategory] = useState('men');
+  const [activeCategory, setActiveCategory] = useState("men");
   const [isLastSlide, setIsLastSlide] = useState(false);
   const { swiperRef } = useSliderControl(isLastSlide);
 
@@ -39,7 +39,9 @@ const HomePage = () => {
                 >
                   <div className="relative z-10 text-center">
                     <span className="font-sf-heavy text-sm sm:text-base lg:text-xl tracking-wider block">
-                      {category === 'sales' ? 'SALES & CLEARANCE' : category.toUpperCase()}
+                      {category === "sales"
+                        ? "SALES & CLEARANCE"
+                        : category.toUpperCase()}
                     </span>
                     <span className="font-sf-light text-[8px] sm:text-[10px] lg:text-sm tracking-widest opacity-0 group-hover:opacity-100 transition-opacity lg:rotate-[-90deg] lg:mt-4">
                       VIEW COLLECTION
@@ -92,10 +94,10 @@ const HomePage = () => {
                 {homeCarouselData[activeCategory].map((slide) => (
                   <SwiperSlide
                     key={slide.title}
-                    className="h-full [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
+                    className="h-screen [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
                   >
                     <div className="relative h-full group">
-                      <picture className="block object-cover">
+                      <picture className="block h-full object-cover">
                         <img
                           src={slide.imagePath}
                           alt={slide.title}

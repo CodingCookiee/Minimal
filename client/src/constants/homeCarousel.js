@@ -1,69 +1,46 @@
 export const homeCarouselData = {
-    men: [
-      {
-        imagePath: "/homeCarousel/shirt_collection_1.jpg",
-        title: "Modern Casual Collection",
-        description: "Effortless style for the contemporary man"
-      },
-      {
-        imagePath: "/homeCarousel/shirt_collection_2.jpg", 
-        title: "Premium Formal Wear",
-        description: "Sophisticated suits and blazers for every occasion"
-      },
-      {
-        imagePath: "/homeCarousel/jeans_collection_1.jpg",
-        title: "Summer Essentials",
-        description: "Light and breathable pieces for warm days"
-      },
-      {
-        imagePath: "/homeCarousel/jeans_collection_1.jpg",
-        title: "Winter Collection",
-        description: "Cozy and stylish outerwear for the cold season"
-      }
-    ],
-    women: [
-      {
-        imagePath: "/carousel/women/women-elegant-collection.jpg",
-        title: "Elegant Collection",
-        description: "Timeless pieces for the modern woman"
-      },
-      {
-        imagePath: "/carousel/women/women-casual-chic.jpg",
-        title: "Casual Chic",
-        description: "Effortlessly stylish everyday wear"
-      },
-      {
-        imagePath: "/carousel/women/women-summer-dresses.jpg",
-        title: "Summer Dresses",
-        description: "Light and flowing designs for warm days"
-      },
-      {
-        imagePath: "/carousel/women/women-winter-fashion.jpg",
-        title: "Winter Fashion",
-        description: "Cozy and fashionable winter essentials"
-      }
-    ],
-    sales: [
-      {
-        imagePath: "/carousel/sales/seasonal-sale.jpg",
-        title: "Seasonal Sale",
-        description: "Up to 50% off on selected items"
-      },
-      {
-        imagePath: "/carousel/sales/clearance-collection.jpg",
-        title: "Clearance Collection",
-        description: "Final reductions on premium styles"
-      },
-      {
-        imagePath: "/carousel/sales/flash-deals.jpg",
-        title: "Flash Deals",
-        description: "Limited time offers on trending pieces"
-      },
-      {
-        imagePath: "/carousel/sales/special-offers.jpg",
-        title: "Special Offers",
-        description: "Exclusive deals on luxury items"
-      }
-    ]
-  };
-  
+  men: [
+    {
+      imagePath: "/homeCarousel/men_jeans_collection_1.jpg",
+      title: "Denim Essentials",
+      description: "Classic jeans with modern fits",
+    },
+    {
+      imagePath: "/homeCarousel/franco-figueroa-LCaFLqWa3bE-unsplash.jpg",
+      title: "Premium Denim",
+      description: "Sophisticated styles for every occasion",
+    },
+    {
+      imagePath: "/homeCarousel/brooke-cagle-wKOKidNT14w-unsplash.jpg",
+      title: "Signature Shirts",
+      description: "Refined designs for the modern gentleman",
+    },
+    {
+      imagePath: "/homeCarousel/pexels-vunyakurochkin-9969460.jpg",
+      title: "Premium Shirt Collection",
+      description: "Timeless elegance in every detail",
+    },
+  ],
+  women: [
+    {
+      imagePath: "/homeCarousel/women_causal_fashion_dress.jpg",
+      title: "Modern Casual Collection",
+      description: "Effortless style for the contemporary woman",
+    },
+    {
+      imagePath: "/homeCarousel/women_jeans_collection_1.jpg",
+      title: "Denim Collection",
+      description: "Contemporary fits for every body",
+    },
+    {
+      imagePath: "/homeCarousel/pexels-cottonbro-4066293.jpg",
+      title: "Premium Denim",
+      description: "Stylish and comfortable designs",
+    },
+    {
+      imagePath: "/homeCarousel/women_shirt_collection_1.jpg",
+      title: "Signature Shirts",
+      description: "Elegant designs for the modern woman",
+    },
+  ],
+};
