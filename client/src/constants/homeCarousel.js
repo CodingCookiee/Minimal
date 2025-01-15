@@ -23,8 +23,8 @@ export const homeCarouselData = {
   ],
   women: [
     {
-      imagePath: "/homeCarousel/women_causal_fashion_dress.jpg",
-      title: "Modern Casual Collection",
+      imagePath: "/homeCarousel/full-length-portrait-girl.jpg",
+      title: "Modern Fashion Collection",
       description: "Effortless style for the contemporary woman",
     },
     {
@@ -38,7 +38,7 @@ export const homeCarouselData = {
       description: "Stylish and comfortable designs",
     },
     {
-      imagePath: "/homeCarousel/women_shirt_collection_1.jpg",
+      imagePath: "/homeCarousel/dario-valenzuela-fur0DImZFl0-unsplash.jpg",
       title: "Signature Shirts",
       description: "Elegant designs for the modern woman",
     },
