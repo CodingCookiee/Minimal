@@ -117,24 +117,32 @@ const Header = () => {
                     </button>
 
                     <AnimatePresence>
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
-                      >
-                        {category.subcategories.map((subcat) => (
-                          <Link
-                            key={subcat}
-                            to={`/${category.name.toLowerCase()}/${subcat}`}
-                            className="block  px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
-                          >
-                            {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ duration: 0.2 }}
+        className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
+      >
+        <Link
+          to={`/${category.name.toLowerCase()}`}
+          className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          View All
+        </Link>
+        {category.subcategories.map((subcat) => (
+          <Link
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+            key={subcat}
+            to={`/${category.name.toLowerCase()}/${subcat}`}
+            className="block px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+          >
+            {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
+          </Link>
+        ))}
+      </motion.div>
+    </AnimatePresence>
                   </div>
                 ))}
 
@@ -144,11 +152,19 @@ const Header = () => {
                   <div className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group">
                     <span>Sales & Clearance</span>
                   </div>
+                  <Link
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+          to='/sales'
+          className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+        >
+          View All
+        </Link>
 
                   {Object.keys(saleCategories).map((category) => (
                     <Link
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
                       key={category}
-                      to={`/sales-and-clearance/${category.toLowerCase()}`}
+                      to={`/sales/${category.toLowerCase()}`}
                       className="block w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                     >
                       {category}

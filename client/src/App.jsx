@@ -85,45 +85,46 @@ const App = () => {
           element: <CategoryPage />,
         },
         {
-          path: "/category/men",
+          path: "/men",
           element: <MenPage />,
         },
         {
-          path: "/category/women",
-          element: <WomenPage />,
-        },
-        {
-          path: "/category/sale",
-          element: <SalePage />,
-        },
-        {
-          path: "/category/men/jeans",
+          path: "/men/jeans",
           element: <MenJeansPage />,
         },
         {
-          path: "/category/men/shirts",
+          path: "/men/shirts",
           element: <MenShirtsPage />,
         },
         {
-          path: "/category/women/jeans",
+          path: "/women",
+          element: <WomenPage />,
+        },
+        {
+          path: "/women/jeans",
           element: <WomenJeansPage />,
         },
         {
-          path: "/category/women/shirts",
+          path: "/women/shirts",
           element: <WomenShirtsPage />,
         },
         {
-          path: "/category/women/trousers",
+          path: "/women/trousers",
           element: <WomenTrousersPage />,
         },
         {
-          path: "/category/sale/men",
+          path: "/sales",
+          element: <SalePage />,
+        },
+        {
+          path: "/sales/men",
           element: <MenSalePage />,
         },
         {
-          path: "/category/sale/women",
+          path: "/sales/women",
           element: <WomenSalePage />,
         },
+        
         {
           path: "/admin",
           element: <AdminPage />,

@@ -125,9 +125,9 @@ const HomePage = () => {
                           {slide.description}
                         </p>
                         <button 
-                          onClick={() => {
-                            navigate(`/products/${slide.category}`);
-                          }}
+                           onClick={() => {
+    navigate(slide.category);
+  }}
                           className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider"
                         >
                           Explore Collection
