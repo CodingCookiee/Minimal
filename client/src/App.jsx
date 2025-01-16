@@ -15,6 +15,17 @@ import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentCancelPage from "./pages/PaymentCancelPage";
 import AddAddressPage from "./pages/AddAddressPage";
 import EditAddressPage from "./pages/EditAddressPage";
+import MenPage from "./pages/categories/MenPage";
+import WomenPage from "./pages/categories/WomenPage";
+import SalePage from "./pages/categories/SalePage";
+import MenJeansPage from "./pages/categories/men/MenJeansPage";
+import MenShirtsPage from "./pages/categories/men/MenShirtsPage";
+import WomenJeansPage from "./pages/categories/women/WomenJeansPage";
+import WomenShirtsPage from "./pages/categories/women/WomenShirtsPage";
+import WomenTrousersPage from "./pages/categories/women/WomenTrousersPage";
+import MenSalePage from "./pages/categories/sale/MenSalePage";
+import WomenSalePage from "./pages/categories/sale/WomenSalePage";
+
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -72,6 +83,46 @@ const App = () => {
         {
           path: "/category/:category",
           element: <CategoryPage />,
+        },
+        {
+          path: "/category/men",
+          element: <MenPage />,
+        },
+        {
+          path: "/category/women",
+          element: <WomenPage />,
+        },
+        {
+          path: "/category/sale",
+          element: <SalePage />,
+        },
+        {
+          path: "/category/men/jeans",
+          element: <MenJeansPage />,
+        },
+        {
+          path: "/category/men/shirts",
+          element: <MenShirtsPage />,
+        },
+        {
+          path: "/category/women/jeans",
+          element: <WomenJeansPage />,
+        },
+        {
+          path: "/category/women/shirts",
+          element: <WomenShirtsPage />,
+        },
+        {
+          path: "/category/women/trousers",
+          element: <WomenTrousersPage />,
+        },
+        {
+          path: "/category/sale/men",
+          element: <MenSalePage />,
+        },
+        {
+          path: "/category/sale/women",
+          element: <WomenSalePage />,
         },
         {
           path: "/admin",

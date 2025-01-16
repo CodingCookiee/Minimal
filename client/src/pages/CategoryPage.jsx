@@ -1,16 +1,11 @@
-import Men from "./categories/Men";
-import Women from "./categories/Women";
-import Kids from "./categories/Kids";
+import React from 'react';
 
 const CategoryPage = () => {
   return (
     <div>
-      <h1>Category</h1>
-      <Men />
-      <Women />
-      <Kids />
+      <h1>Category Page</h1>
     </div>
   );
-};
+}
 
 export default CategoryPage;

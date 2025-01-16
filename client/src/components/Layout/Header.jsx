@@ -128,7 +128,7 @@ const Header = () => {
                           <Link
                             key={subcat}
                             to={`/${category.name.toLowerCase()}/${subcat}`}
-                            className="block ml-12 px-8 py-2.5 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                            className="block  px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                           >
                             {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
                           </Link>
@@ -138,7 +138,7 @@ const Header = () => {
                   </div>
                 ))}
 
-                <div className="mx-4 my-2 w-full border-t border-neutral-800"></div>
+                <div className=" w-full border-t border-neutral-800"></div>
 
                 <div className="w-full cursor-pointer">
                   <div className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group">
@@ -149,7 +149,7 @@ const Header = () => {
                     <Link
                       key={category}
                       to={`/sales-and-clearance/${category.toLowerCase()}`}
-                      className="block ml-12 px-8 py-2.5 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                      className="block w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                     >
                       {category}
                     </Link>

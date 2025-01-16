@@ -13,8 +13,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useSliderControl } from "../utils/useSliderControl";
 import { homeCarouselData } from "../constants/homeCarousel";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("men");
   const [isLastSlide, setIsLastSlide] = useState(false);
   const { swiperRef } = useSliderControl(isLastSlide);
@@ -114,7 +116,12 @@ const HomePage = () => {
                         <p className="font-sf-light text-sm sm:text-base text-white/80 mb-4 sm:mb-6">
                           {slide.description}
                         </p>
-                        <button className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider">
+                        <button 
+                       onClick={() => {
+    const category = slide.category || 'men'; 
+    navigate(`/products/${category}`);
+}}
+                        className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider">
                           Explore Collection
                         </button>
                       </div>
