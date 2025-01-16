@@ -21,7 +21,7 @@ const ProductCard = ({ product, viewType }) => {
 
   const cardStyles = viewType === 'grid' 
     ? 'flex flex-col'
-    : 'flex flex-col gap-5 items-center';
+    : 'flex flex-col gap-5 lg:w-2/3 lg:mx-auto';
 
   return (
     <motion.div 
@@ -30,8 +30,16 @@ const ProductCard = ({ product, viewType }) => {
       animate={{ opacity: 1 }}
       whileHover={{ y: -5 }}
     >
+   <div className="relative">
+    {product.discountPercentage && (
+      <span className="absolute top-2.5 right-2.5 px-4 py-1.5 text-xs font-sf-medium text-light-primary bg-red-700 rounded z-10">
+        -{product.discountPercentage}
+      </span>
+    )}
+  
       {/* Image Carousel */}
-      <div className={viewType === 'grid' ? 'w-full' : 'w-full'}>
+      <div className={viewType === 'grid' ? 'w-full' : 'w-full '}>
+
       <Swiper
       modules={[Navigation, Pagination]}
       navigation
@@ -65,6 +73,7 @@ const ProductCard = ({ product, viewType }) => {
       ))}
     </Swiper>
       </div>
+  </div>
 
       {/* Product Info */}
       <div className={viewType === 'grid' ? 'mt-4' : 'w-full'}>
@@ -77,9 +86,23 @@ const ProductCard = ({ product, viewType }) => {
               {product.subtitle}
             </p>
           </div>
-          <span className="font-sf-heavy text-md ">
-            {product.price}
-          </span>
+          <div className="text-right">
+    {product.discountedPrice ? (
+      <>
+        <span className="block text-sm line-through text-gray-500">
+          {product.price}
+        </span>
+        <span className="font-sf-medium text-lg text-neutral-900">
+          {product.discountedPrice}
+        </span>
+      
+      </>
+    ) : (
+      <span className="font-sf-medium text-lg">
+        {product.price}
+      </span>
+    )}
+  </div>
         </div>
 
         <p className="mt-2 font-sf-light text-sm text-gray-700 dark:text-gray-400">
@@ -90,18 +113,20 @@ const ProductCard = ({ product, viewType }) => {
         <div className="mt-4">
           <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
           <div className="flex gap-2">
-            {product.colors.map((color) => (
-              <button
-                key={color}
-                onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color 
-                    ? 'border-dark-secondary dark:border-light-secondary' 
-                    : 'border-transparent'
-                }`}
-                style={{ backgroundColor: color.toLowerCase() }}
-              />
-            ))}
+          {product.colors.map((color) => (
+  <button
+    key={color}
+    onClick={() => setSelectedColor(color)}
+    className={`w-6 h-6 rounded-full border-2 ${
+      selectedColor === color 
+        ? 'border-dark-primary dark:border-light-primary' 
+        : 'border-transparent'
+    }`}
+    style={{ backgroundColor: color.toLowerCase() }}
+  />
+))}
+
+
           </div>
         </div>
 

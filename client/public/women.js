@@ -39,7 +39,7 @@ import WideBeltedJeansLightDenimBlue4 from "./Women/Jeans/Wide_belted_jeans_-_Li
 import WideBeltedJeansLightDenimWhite1 from "./Women/Jeans/Wide_belted_jeans_-_Light_denim_white/2e924bd975f5216e1ed649dbeebb11754879a87c.jpg?url";
 import WideBeltedJeansLightDenimWhite2 from "./Women/Jeans/Wide_belted_jeans_-_Light_denim_white/59490690be2864312b02ef1f8264ae76c6fb230c.jpg?url";
 import WideBeltedJeansLightDenimWhite3 from "./Women/Jeans/Wide_belted_jeans_-_Light_denim_white/b19c60c0cb5b47f86424b479b1bccef71184ea92.jpg?url";
-import WideBeltedJeansLightDenimWhite4 from "./Women/Jeans/Wide_belted_jeans_-_Light_denim_white/d2517068dd0c44ed391e63a7da2e0b7c16dbd5bd.jpg?url";
+import WideBeltedJeansLightDenimWhite4 from "./Women/Jeans/Wide_belted_jeans_-_Light_denim_white/prod.jpg?url";
 
 import WideJeans1 from "./Women/Jeans/Wide_jeans/3744758c482ac6971109ed4e974f053c501b.jpg?url";
 import WideJeans2 from "./Women/Jeans/Wide_jeans/67554d5137ac61a9db84f6479df919e7e02e.jpg?url";

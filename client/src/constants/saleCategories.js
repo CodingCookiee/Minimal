@@ -84,7 +84,7 @@ export const saleCategories = {
       discountedPrice: "$13.99",
       discountPercentage: "13%",
       gender: "Men",
-      colors: ["Navy Blue"],
+      colors: ["Navy"],
     },
     {
       imagePath: [
@@ -116,7 +116,7 @@ export const saleCategories = {
       discountedPrice: "$10.99",
       discountPercentage: "15%",
       gender: "Men",
-      colors: ["Various"],
+      colors: [""],
     },
     {
       imagePath: [LooseFitShortSleevedShirt1, LooseFitShortSleevedShirt2],
@@ -128,7 +128,7 @@ export const saleCategories = {
       discountedPrice: "$11.99",
       discountPercentage: "20%",
       gender: "Men",
-      colors: ["Various"],
+      colors: ["black"],
     },
     {
       imagePath: [
@@ -168,7 +168,7 @@ export const saleCategories = {
       discountedPrice: "$15.99",
       discountPercentage: "20%",
       gender: "Men",
-      colors: ["Various"],
+      colors: [""],
     },
     {
       imagePath: [RegularFitPrintedTShirt1, RegularFitPrintedTShirt2],
@@ -180,7 +180,7 @@ export const saleCategories = {
       discountedPrice: "$10.99",
       discountPercentage: "15%",
       gender: "Men",
-      colors: ["Various"],
+      colors: ["lightblue"],
     },
 
     {
@@ -217,7 +217,7 @@ export const saleCategories = {
       discountedPrice: "$11.99",
       discountPercentage: "20%",
       gender: "Men",
-      colors: ["Brown"],
+      colors: ["saddlebrown"],
     },
     {
       imagePath: [StraightTrousers1, StraightTrousers2],
@@ -229,7 +229,7 @@ export const saleCategories = {
       discountedPrice: "$15.99",
       discountPercentage: "20%",
       gender: "Men",
-      colors: ["Various"],
+      colors: ["grey"],
     },
   ],
   Women: [
@@ -248,7 +248,7 @@ export const saleCategories = {
       discountedPrice: "$8.49",
       discountPercentage: "15%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["grey"],
     },
     {
       imagePath: [BasicOversizedTShirt1, BasicOversizedTShirt2],
@@ -267,9 +267,7 @@ export const saleCategories = {
         CableKnitCroppedCardiganNavyBlue1,
         CableKnitCroppedCardiganNavyBlue2,
         CableKnitCroppedCardiganNavyBlue3,
-        CableKnitCroppedCardiganWhite1,
-        CableKnitCroppedCardiganWhite2,
-        CableKnitCroppedCardiganWhite3,
+
       ],
       title: "Cable Knit Cropped Cardigan",
       subtitle: "Regular Fit",
@@ -279,7 +277,7 @@ export const saleCategories = {
       discountedPrice: "$15.99",
       discountPercentage: "20%",
       gender: "Women",
-      colors: ["Navy Blue", "White"],
+      colors: ["Navy"],
     },
     {
       imagePath: [
@@ -287,7 +285,7 @@ export const saleCategories = {
         CrewNeckStripedCroppedSweater2,
         CrewNeckStripedCroppedSweater3,
       ],
-      title: "Crew Neck Striped Cropped Sweater",
+      title: "Crew Neck Striped Sweater",
       subtitle: "Regular Fit",
       description:
         "Stylish crew neck striped cropped sweater, perfect for a fashionable and cozy look.",
@@ -312,7 +310,7 @@ export const saleCategories = {
       discountedPrice: "$13.99",
       discountPercentage: "22%",
       gender: "Women",
-      colors: ["Navy Blue"],
+      colors: ["Navy"],
     },
     {
       imagePath: [
@@ -328,14 +326,14 @@ export const saleCategories = {
       discountedPrice: "$23.99",
       discountPercentage: "20%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["tan"],
     },
     {
       imagePath: [
         EmbellishedCrewNeckSweatshirt1,
         EmbellishedCrewNeckSweatshirt2,
       ],
-      title: "Embellished Crew Neck Sweatshirt",
+      title: "Crew Neck Sweatshirt",
       subtitle: "Regular Fit",
       description:
         "Stylish embellished crew neck sweatshirt, perfect for a fashionable and cozy look.",
@@ -343,7 +341,7 @@ export const saleCategories = {
       discountedPrice: "$15.99",
       discountPercentage: "20%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["black"],
     },
     {
       imagePath: [
@@ -359,7 +357,7 @@ export const saleCategories = {
       discountedPrice: "$19.99",
       discountPercentage: "20%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["black"],
     },
     {
       imagePath: [HighRiseSkinnyPants1, HighRiseSkinnyPants2],
@@ -371,22 +369,22 @@ export const saleCategories = {
       discountedPrice: "$17.99",
       discountPercentage: "22%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["black"],
     },
     {
       imagePath: [
         PoloCollarSweatshirtWithEmbellishment1,
         PoloCollarSweatshirtWithEmbellishment2,
       ],
-      title: "Polo Collar Sweatshirt with Embellishment",
+      title: "Polo Collar Sweatshirt",
       subtitle: "Regular Fit",
       description:
-        "Stylish polo collar sweatshirt with embellishment, perfect for a fashionable and cozy look.",
+        "Stylish polo collar sweatshirt, perfect for a fashionable and cozy look.",
       price: "$21.99",
       discountedPrice: "$16.99",
       discountPercentage: "23%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["black"],
     },
     {
       imagePath: [StripedSweater1, StripedSweater2],
@@ -405,7 +403,7 @@ export const saleCategories = {
         SuperCroppedEmbellishedTShirt1,
         SuperCroppedEmbellishedTShirt2,
       ],
-      title: "Super Cropped Embellished T-Shirt",
+      title: "Super Cropped T-Shirt",
       subtitle: "Cropped Fit",
       description:
         "Stylish super cropped embellished t-shirt, perfect for a fashionable and modern look.",
@@ -413,7 +411,7 @@ export const saleCategories = {
       discountedPrice: "$11.99",
       discountPercentage: "20%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["black"],
     },
     {
       imagePath: [
@@ -421,7 +419,7 @@ export const saleCategories = {
         SuperCroppedVNeckShirtWithKnottedHem2,
         SuperCroppedVNeckShirtWithKnottedHem3,
       ],
-      title: "Super Cropped V-Neck Shirt with Knotted Hem",
+      title: "Super Cropped V-Neck Shirt",
       subtitle: "Cropped Fit",
       description:
         "Stylish super cropped v-neck shirt with knotted hem, perfect for a fashionable and modern look.",
@@ -429,7 +427,7 @@ export const saleCategories = {
       discountedPrice: "$11.99",
       discountPercentage: "20%",
       gender: "Women",
-      colors: ["Various"],
+      colors: ["black"],
     },
   ],
 };

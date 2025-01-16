@@ -7,15 +7,20 @@ export default {
       fontFamily: {
         generalsans: ["General Sans", "sans-serif"],
         'sf-light': ['SF Pro Text Light', 'sans-serif'],
-      'sf-regular': ['SF Pro Text Regular', 'sans-serif'],
-      'sf-medium': ['SF Pro Text Medium', 'sans-serif'],
-      'sf-semibold': ['SF Pro Text Semibold', 'sans-serif'],
-      'sf-bold': ['SF Pro Text Bold', 'sans-serif'],
-      'sf-heavy': ['SF Pro Text Heavy', 'sans-serif'],
-
+        'sf-regular': ['SF Pro Text Regular', 'sans-serif'],
+        'sf-medium': ['SF Pro Text Medium', 'sans-serif'],
+        'sf-semibold': ['SF Pro Text Semibold', 'sans-serif'],
+        'sf-bold': ['SF Pro Text Bold', 'sans-serif'],
+        'sf-heavy': ['SF Pro Text Heavy', 'sans-serif'],
       },
       colors: {
-        black: {
+        'Light-Denim': '#6F8FAF',
+        'Medium-Denim': '#4F7CAC',
+        'Dark-Denim': '#1B3F8B',
+        'Denim-Black': '#2F2F2F',
+        'Washed-Black': '#333333',
+    
+    black: {
           DEFAULT: "#000",
           100: "#010103",
           200: "#0E0E10",
@@ -30,7 +35,6 @@ export default {
           600: "#AFB0B6",
           500: "#62646C",
         },
-     
         light: {
           primary: "#FFFFFF",
           secondary: "#F0F2FA",
@@ -50,4 +54,4 @@ export default {
     },
   },
   plugins: [],
-};
+}

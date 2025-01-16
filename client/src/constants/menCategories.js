@@ -96,7 +96,7 @@ export const menCategories = {
         "Comfortable and stylish baggy jeans in dark denim grey, perfect for a relaxed look.",
       price: "$18.99",
       gender: "Men",
-      colors: ["Dark Denim Grey"],
+      colors: ["#333333"],
     },
     {
       imagePath: [
@@ -110,7 +110,7 @@ export const menCategories = {
         "Trendy baggy jeans in pale denim blue, ideal for a casual and modern style.",
       price: "$17.49",
       gender: "Men",
-      colors: ["Pale Denim Blue"],
+      colors: ["#778FA8"],
     },
     {
       imagePath: [
@@ -124,7 +124,7 @@ export const menCategories = {
         "Stylish embroidered rigid slim jeans, perfect for a unique and fashionable look.",
       price: "$19.99",
       gender: "Men",
-      colors: ["Denim"],
+      colors: ["black"],
     },
     {
       imagePath: [
@@ -138,7 +138,7 @@ export const menCategories = {
         "Comfortable loose cargo jeans in light denim blue, great for a casual and functional style.",
       price: "$16.99",
       gender: "Men",
-      colors: ["Light Denim Blue"],
+      colors: ["#6F8FAF"],
     },
     {
       imagePath: [
@@ -152,7 +152,7 @@ export const menCategories = {
         "Relaxed fit loose jeans in dark denim blue, perfect for a laid-back and stylish look.",
       price: "$18.49",
       gender: "Men",
-      colors: ["Dark Denim Blue"],
+      colors: ["#1B3F8B"],
     },
     {
       imagePath: [
@@ -166,7 +166,7 @@ export const menCategories = {
         "Classic regular jeans in dark denim grey, ideal for a timeless and versatile style.",
       price: "$17.99",
       gender: "Men",
-      colors: ["Dark Denim Grey"],
+      colors: ["#2F2F2F"],
     },
     {
       imagePath: [
@@ -180,7 +180,7 @@ export const menCategories = {
         "Classic regular jeans in light denim blue, perfect for a fresh and casual look.",
       price: "$18.49",
       gender: "Men",
-      colors: ["Light Denim Blue"],
+      colors: ["#6F8FAF"],
     },
     {
       imagePath: [
@@ -194,7 +194,7 @@ export const menCategories = {
         "Stylish regular tapered jeans in light denim, great for a modern and sleek style.",
       price: "$19.49",
       gender: "Men",
-      colors: ["Light Denim"],
+      colors: ["#4F7CAC"],
     },
     {
       imagePath: [RelaxedJeansBlack1, RelaxedJeansBlack2, RelaxedJeansBlack3],
@@ -219,7 +219,7 @@ export const menCategories = {
         "Stylish rigid slim fit jeans, ideal for a sleek and modern look.",
       price: "$18.99",
       gender: "Men",
-      colors: ["Denim"],
+      colors: ["#333333"],
     },
     {
       imagePath: [SlimCroppedJeans1, SlimCroppedJeans2, SlimCroppedJeans3],
@@ -229,7 +229,7 @@ export const menCategories = {
         "Trendy slim cropped jeans, perfect for a fashionable and contemporary style.",
       price: "$19.49",
       gender: "Men",
-      colors: ["Denim"],
+      colors: ["#1B3F8B"],
     },
     {
       imagePath: [
@@ -244,7 +244,7 @@ export const menCategories = {
         "Classic straight regular jeans, ideal for a timeless and versatile look.",
       price: "$18.49",
       gender: "Men",
-      colors: ["Denim"],
+      colors: ["black"],
     },
   ],
   shirts: [
@@ -260,7 +260,7 @@ export const menCategories = {
         "Comfortable loose fit t-shirt in white, perfect for a casual and relaxed style.",
       price: "$15.99",
       gender: "Men",
-      colors: ["White"],
+      colors: ["darkolivegreen"],
     },
     {
       imagePath: [MenTBrown1, MenTBrown2, MenTBrown3],
@@ -280,7 +280,7 @@ export const menCategories = {
         "Trendy men t-shirt in dark brown, perfect for a sleek and contemporary style.",
       price: "$16.99",
       gender: "Men",
-      colors: ["Dark Brown"],
+      colors: ["saddlebrown"],
     },
     {
       imagePath: [
@@ -295,7 +295,7 @@ export const menCategories = {
         "Stylish regular fit corduroy shirt in burgundy, perfect for a sophisticated and modern look.",
       price: "$18.99",
       gender: "Men",
-      colors: ["Burgundy"],
+      colors: ["maroon"],
     },
     {
       imagePath: [
@@ -310,7 +310,7 @@ export const menCategories = {
         "Comfortable regular fit felted overshirt in navy blue, great for a casual and stylish look.",
       price: "$19.49",
       gender: "Men",
-      colors: ["Navy Blue"],
+      colors: ["navy"],
     },
     {
       imagePath: [
@@ -381,7 +381,7 @@ export const menCategories = {
         "Stylish casual smart shirt in navy blue, perfect for a versatile and modern look.",
       price: "$19.49",
       gender: "Men",
-      colors: ["Navy Blue"],
+      colors: ["lightblue"],
     },
     {
       imagePath: [
@@ -420,10 +420,10 @@ export const menCategories = {
       title: "Slim Fit Polo Shirt",
       subtitle: "Slim Fit",
       description:
-        "Trendy slim fit polo shirt in dark turquoise, perfect for a fashionable and contemporary style.",
+        "Trendy slim fit polo shirt in dark turquoise, perfect for a trendy and stylish look.",
       price: "$17.49",
       gender: "Men",
-      colors: ["Dark Turquoise"],
+      colors: ["DarkTurquoise"],
     },
     {
       imagePath: [
@@ -437,7 +437,7 @@ export const menCategories = {
         "Stylish slim fit polo shirt in forest green, great for a modern and sleek look.",
       price: "$16.99",
       gender: "Men",
-      colors: ["Forest Green"],
+      colors: ["ForestGreen"],
     },
     {
       imagePath: [
@@ -451,7 +451,7 @@ export const menCategories = {
         "Stylish slim fit polo shirt in navy blue, perfect for a versatile and modern look.",
       price: "$17.49",
       gender: "Men",
-      colors: ["Navy Blue"],
+      colors: ["Navy"],
     },
   ],
 };

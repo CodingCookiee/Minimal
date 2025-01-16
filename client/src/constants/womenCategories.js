@@ -141,7 +141,7 @@ export const womenCategories = {
         "Comfortable and stylish baggy boyfriend jeans, perfect for a relaxed look.",
       price: "$19.99",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#1B3F8B"],
     },
     {
       imagePath: [BasicMomFitJeans1, BasicMomFitJeans2, BasicMomFitJeans3],
@@ -151,7 +151,7 @@ export const womenCategories = {
         "Trendy basic mom fit jeans, ideal for a casual and modern style.",
       price: "$18.49",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["black"],
     },
     {
       imagePath: [EmbroideredStraightFitJeans1, EmbroideredStraightFitJeans2],
@@ -161,7 +161,7 @@ export const womenCategories = {
         "Stylish embroidered straight fit jeans, perfect for a unique and fashionable look.",
       price: "$20.99",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#141627"],
     },
     {
       imagePath: [
@@ -175,7 +175,7 @@ export const womenCategories = {
         "Comfortable high rise skinny jeans, great for a sleek and modern style.",
       price: "$21.49",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["darkblue"],
     },
     {
       imagePath: [PleatedCarrotFitTrousers1],
@@ -185,7 +185,7 @@ export const womenCategories = {
         "Elegant pleated carrot fit trousers, ideal for a sophisticated and stylish look.",
       price: "$22.99",
       gender: "Women",
-      colors: ["Black"],
+      colors: ["Khaki"],
     },
     {
       imagePath: [SlimHighJeans1, SlimHighJeans2, SlimHighJeans3],
@@ -195,7 +195,7 @@ export const womenCategories = {
         "Trendy slim high jeans, perfect for a fashionable and contemporary style.",
       price: "$19.99",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#333333"],
     },
     {
       imagePath: [SlimStraightHighJeans1, SlimStraightHighJeans2],
@@ -205,7 +205,7 @@ export const womenCategories = {
         "Stylish slim straight high jeans, great for a modern and sleek look.",
       price: "$20.49",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#6F8FAF"],
     },
     {
       imagePath: [StraightJeans1, StraightJeans2, StraightJeans3],
@@ -215,14 +215,14 @@ export const womenCategories = {
         "Classic straight jeans, ideal for a timeless and versatile style.",
       price: "$18.99",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#4F7CAC"],
     },
     {
       imagePath: [
         WideLegTrousersWithSidePipping1,
         WideLegTrousersWithSidePipping2,
       ],
-      title: "Wide Leg Trousers with Side Pipping",
+      title: "Wide Leg Trousers ",
       subtitle: "Wide Leg Fit",
       description:
         "Elegant wide leg trousers with side pipping, perfect for a sophisticated look.",
@@ -243,7 +243,7 @@ export const womenCategories = {
         "Comfortable wide belted jeans, great for a relaxed and stylish look.",
       price: "$24.99",
       gender: "Women",
-      colors: ["Light Denim Blue"],
+      colors: ["#1B3F8B"],
     },
     {
       imagePath: [
@@ -258,7 +258,7 @@ export const womenCategories = {
         "Comfortable wide belted jeans, great for a relaxed and stylish look.",
       price: "$24.99",
       gender: "Women",
-      colors: ["Light Denim White"],
+      colors: ["white"],
     },
     {
       imagePath: [WideJeans1, WideJeans2, WideJeans3, WideJeans4],
@@ -268,7 +268,7 @@ export const womenCategories = {
         "Comfortable wide jeans, perfect for a relaxed and stylish look.",
       price: "$22.49",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#1B3F8B"],
     },
   ],
   shirts: [
@@ -284,7 +284,7 @@ export const womenCategories = {
         "Elegant band collar blouse in navy blue, perfect for a sophisticated and modern look.",
       price: "$19.99",
       gender: "Women",
-      colors: ["Navy Blue"],
+      colors: ["navy"],
     },
     {
       imagePath: [BasicShacket1, BasicShacket2, BasicShacket3],
@@ -294,7 +294,7 @@ export const womenCategories = {
         "Stylish basic shacket, great for a casual and modern style.",
       price: "$18.49",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["white"],
     },
     {
       imagePath: [
@@ -302,7 +302,7 @@ export const womenCategories = {
         FauxLeatherEmbroideredShirt2,
         FauxLeatherEmbroideredShirt3,
       ],
-      title: "Faux Leather Embroidered Shirt",
+      title: "Leather Embroidered Shirt",
       subtitle: "Regular Fit",
       description:
         "Trendy faux leather embroidered shirt, perfect for a unique and fashionable look.",
@@ -322,7 +322,7 @@ export const womenCategories = {
         "Elegant flounce trimmed blouse, great for a sophisticated and stylish look.",
       price: "$21.49",
       gender: "Women",
-      colors: ["White"],
+      colors: ["black"],
     },
     {
       imagePath: [
@@ -336,7 +336,7 @@ export const womenCategories = {
         "Stylish lace-up denim shirt, ideal for a casual and modern style.",
       price: "$22.99",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["#1B3F8B"],
     },
     {
       imagePath: [LinenShirtBlack1, LinenShirtBlack2, LinenShirtBlack3],
@@ -360,7 +360,7 @@ export const womenCategories = {
         "Comfortable loose fit cotton shirt, great for a casual and relaxed style.",
       price: "$18.49",
       gender: "Women",
-      colors: ["White"],
+      colors: ["lightblue"],
     },
     {
       imagePath: [
@@ -375,7 +375,7 @@ export const womenCategories = {
         "Stylish lyocell denim shirt, perfect for a modern and sleek look.",
       price: "$20.99",
       gender: "Women",
-      colors: ["Denim Blue"],
+      colors: ["Patterned"],
     },
     {
       imagePath: [NonDenimShacket1, NonDenimShacket2, NonDenimShacket3],
@@ -385,7 +385,7 @@ export const womenCategories = {
         "Trendy non-denim shacket, ideal for a fashionable and contemporary style.",
       price: "$21.49",
       gender: "Women",
-      colors: ["Black"],
+      colors: ["#"],
     },
     {
       imagePath: [
@@ -399,7 +399,7 @@ export const womenCategories = {
         "Elegant oxford shirt in light pink, perfect for a sophisticated and modern look.",
       price: "$22.99",
       gender: "Women",
-      colors: ["Light Pink"],
+      colors: ["LightPink"],
     },
     {
       imagePath: [
@@ -413,7 +413,7 @@ export const womenCategories = {
         "Stylish popover denim shirt, great for a casual and modern style.",
       price: "$19.99",
       gender: "Women",
-      colors: ["Cream"],
+      colors: ["#"],
     },
     {
       imagePath: [
@@ -427,7 +427,7 @@ export const womenCategories = {
         "Elegant sequined blouse in dark grey, perfect for a sophisticated and stylish look.",
       price: "$20.49",
       gender: "Women",
-      colors: ["Dark Grey"],
+      colors: ["black"],
     },
   ],
 
@@ -458,7 +458,7 @@ export const womenCategories = {
         "Comfortable fine knit trousers in dark beige, great for a relaxed and stylish look.",
       price: "$22.49",
       gender: "Women",
-      colors: ["Dark Beige"],
+      colors: ["tan"],
     },
     {
       imagePath: [
@@ -480,7 +480,7 @@ export const womenCategories = {
         FlaredSportsLeggingsInDryMove2,
         FlaredSportsLeggingsInDryMove3,
       ],
-      title: "Flared Sports Leggings in DryMove",
+      title: "Flared Sports Leggings",
       subtitle: "Flared Fit",
       description:
         "Comfortable flared sports leggings in DryMove fabric, ideal for active wear.",
@@ -525,7 +525,7 @@ export const womenCategories = {
         "Elegant tailored jersey trousers in navy, perfect for a sophisticated look.",
       price: "$22.99",
       gender: "Women",
-      colors: ["Navy"],
+      colors: ["midnightblue"],
     },
     {
       imagePath: [
@@ -539,7 +539,7 @@ export const womenCategories = {
         "Comfortable wide joggers in pigeon blue, great for a relaxed and stylish look.",
       price: "$20.49",
       gender: "Women",
-      colors: ["Pigeon Blue"],
+      colors: ["lightBlue"],
     },
     {
       imagePath: [
@@ -553,7 +553,7 @@ export const womenCategories = {
         "Elegant wide tailored trousers, perfect for a sophisticated and modern look.",
       price: "$23.49",
       gender: "Women",
-      colors: ["Black"],
+      colors: ["palegoldenrod"],
     },
     {
       imagePath: [
