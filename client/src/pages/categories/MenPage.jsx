@@ -72,13 +72,14 @@ const MenPage = () => {
             : 'flex flex-col gap-4'
           }
         `}>
-          {menCategories[activeCategory].map((product) => (
-            <ProductCard 
-              key={product.title}
-              product={product}
-              viewType={viewType}
-            />
-          ))}
+          {menCategories[activeCategory].map((product, index) => (
+  <ProductCard 
+    key={`${activeCategory}-${product.title}-${index}`}
+    product={product}
+    viewType={viewType}
+  />
+))}
+
         </div>
       </div>
     </div>
