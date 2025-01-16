@@ -1,19 +1,31 @@
-import { useState } from 'react';
+import { useState ,  useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BsGrid3X3GapFill, BsListUl } from 'react-icons/bs';
 import { womenCategories } from '../../constants/womenCategories';
-import { ProductCard } from '../../components/ui';
+import { ProductCard, Loading } from '../../components/ui';
+
 
 const WomenPage = () => {
   const [activeCategory, setActiveCategory] = useState('jeans');
   const [viewType, setViewType] = useState('grid');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">
       {/* Header Section */}
       <div className="px-6 sm:px-12 lg:px-20 pt-24">
         <h1 className="font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
-          Women's Collection
+          Women&apos;s Collection
         </h1>
       </div>
 

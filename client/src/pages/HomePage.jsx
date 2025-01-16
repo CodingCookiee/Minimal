@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Loading } from "../components/ui";
 import {
   Pagination,
   EffectCreative,
@@ -19,6 +20,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("men");
   const [isLastSlide, setIsLastSlide] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const { swiperRef } = useSliderControl(isLastSlide);
 
   return (
@@ -99,11 +101,17 @@ const HomePage = () => {
                     className="h-screen [transform-style:preserve-3d] [transition-property:transform,opacity] [transform-origin:center_center]"
                   >
                     <div className="relative h-full group">
+                      {imageLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center ">
+                          <Loading />
+                        </div>
+                      )}
                       <picture className="block h-full object-cover">
                         <img
                           src={slide.imagePath}
                           alt={slide.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          onLoad={() => setImageLoading(false)}
                         />
                       </picture>
 
@@ -117,11 +125,11 @@ const HomePage = () => {
                           {slide.description}
                         </p>
                         <button 
-                       onClick={() => {
-    const category = slide.category || 'men'; 
-    navigate(`/products/${category}`);
-}}
-                        className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider">
+                          onClick={() => {
+                            navigate(`/products/${slide.category}`);
+                          }}
+                          className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider"
+                        >
                           Explore Collection
                         </button>
                       </div>

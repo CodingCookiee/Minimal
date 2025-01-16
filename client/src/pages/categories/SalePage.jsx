@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BsGrid3X3GapFill, BsListUl } from 'react-icons/bs';
 import { saleCategories } from '../../constants/saleCategories';
-import { ProductCard } from '../../components/ui';
+import { ProductCard, Loading } from '../../components/ui';
 
 const SalePage = () => {
   const [activeCategory, setActiveCategory] = useState('Men');
   const [viewType, setViewType] = useState('grid');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">

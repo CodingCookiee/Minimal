@@ -5,6 +5,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { Loading } from '../../components/ui';
 
 const ProductCard = ({ product, viewType }) => {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
@@ -12,6 +13,7 @@ const ProductCard = ({ product, viewType }) => {
 
  const [showNextButton, setShowNextButton] = useState(true);
  const [showPrevButton, setShowPrevButton] = useState(false);
+ const [imageLoading, setImageLoading] = useState(true);
   
   const sortedImages = [...product.imagePath].sort((a, b) => {
     const isProdA = a.includes('prod') || a.includes('hmgoepprod');
@@ -64,11 +66,17 @@ const ProductCard = ({ product, viewType }) => {
 
       {sortedImages.map((image, index) => (
         <SwiperSlide key={index}>
-          <img 
-            src={image} 
-            alt={`${product.title} - View ${index + 1}`}
-            className="w-full h-full object-cover"
-          />
+        {imageLoading && (
+      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+        <Loading />
+      </div>
+    )}
+    <img 
+      src={image} 
+      alt={`${product.title} - View ${index + 1}`}
+      className="w-full h-full object-cover"
+      onLoad={() => setImageLoading(false)}
+    />
         </SwiperSlide>
       ))}
     </Swiper>
