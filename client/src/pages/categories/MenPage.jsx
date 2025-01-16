@@ -13,7 +13,7 @@ const MenPage = () => {
       {/* Header Section */}
       <div className="px-6 sm:px-12 lg:px-20 pt-24">
         <h1 className="font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
-          Men's Collection
+          Men&apos;s Collection
         </h1>
       </div>
 
@@ -44,8 +44,8 @@ const MenPage = () => {
               onClick={() => setViewType('grid')}
               className={`p-2 rounded ${
                 viewType === 'grid'
-                  ? 'bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary'
-                  : 'text-dark-primary dark:text-light-primary'
+                  ? 'bg-dark-primary  text-light-primary '
+                  : 'text-dark-primary '
               }`}
             >
               <BsGrid3X3GapFill />
@@ -54,8 +54,8 @@ const MenPage = () => {
               onClick={() => setViewType('list')}
               className={`p-2 rounded ${
                 viewType === 'list'
-                  ? 'bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary'
-                  : 'text-dark-primary dark:text-light-primary'
+                  ? 'bg-dark-primary  text-light-primary'
+                  : 'text-dark-primary '
               }`}
             >
               <BsListUl />

@@ -70,14 +70,14 @@ const ProductCard = ({ product, viewType }) => {
       <div className={viewType === 'grid' ? 'mt-4' : 'w-full'}>
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-sf-heavy text-lg text-dark-secondary dark:text-light-secondary">
+            <h3 className="font-sf-heavy text-md font-semibold text-dark-secondary dark:text-light-secondary">
               {product.title}
             </h3>
             <p className="font-sf-light text-sm text-gray-700 dark:text-gray-400">
               {product.subtitle}
             </p>
           </div>
-          <span className="font-sf-medium text-lg">
+          <span className="font-sf-heavy text-md ">
             {product.price}
           </span>
         </div>
@@ -88,7 +88,7 @@ const ProductCard = ({ product, viewType }) => {
 
         {/* Color Selection */}
         <div className="mt-4">
-          <p className="text-xs font-sf-medium mb-2">COLORS</p>
+          <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
           <div className="flex gap-2">
             {product.colors.map((color) => (
               <button
