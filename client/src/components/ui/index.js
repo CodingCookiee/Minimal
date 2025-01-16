@@ -21,3 +21,6 @@ export * from "./ProductList";
 export * from "./Recommended";
 export * from "./Dialog";
 export * from "./Loading";
+export { default as ProductCard } from "./ProductCard";
+
+
