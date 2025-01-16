@@ -69,7 +69,7 @@ import {
 } from "../../public/sales.js";
 
 export const saleCategories = {
-  Men: [
+  men: [
     {
       imagePath: [
         BasicPopoverShirtNavyBlue1,
@@ -232,7 +232,7 @@ export const saleCategories = {
       colors: ["grey"],
     },
   ],
-  Women: [
+  women: [
     {
       imagePath: [
         BasicBasicTShirt1,

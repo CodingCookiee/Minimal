@@ -91,7 +91,10 @@ const Header = () => {
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <Link to="/" className="ml-3 flex items-center absolute left-12 top-2.5">
+          <Link
+            to="/"
+            className="ml-3 flex items-center absolute left-12 top-2.5"
+          >
             <img
               src="/brand-name.svg"
               alt="Logo"
@@ -125,7 +128,7 @@ const Header = () => {
                         className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
                       >
                         <Link
-                          to={`/${category.name.toLowerCase()}`}
+                          to={`/category/${category.name.toLowerCase()}/`}
                           className="block px-16 py-2.5 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                           onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
@@ -135,7 +138,7 @@ const Header = () => {
                           <Link
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             key={subcat}
-                            to={`/${category.name.toLowerCase()}/${subcat}`}
+                            to={`/category/${category.name.toLowerCase()}/${subcat}`}
                             className="block px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                           >
                             {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
@@ -154,7 +157,7 @@ const Header = () => {
                   </div>
                   <Link
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    to="/sales"
+                    to="/category/sales"
                     className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                   >
                     View All
@@ -164,10 +167,10 @@ const Header = () => {
                     <Link
                       onClick={() => setIsMenuOpen(!isMenuOpen)}
                       key={category}
-                      to={`/sales/${category.toLowerCase()}`}
+                      to={`/category/sales/${category.toLowerCase()}`}
                       className="block w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                     >
-                      {category}
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
                   ))}
                 </div>

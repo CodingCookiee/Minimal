@@ -1,24 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { BsGrid3X3GapFill, BsListUl } from "react-icons/bs";
 import { menCategories, womenCategories, saleCategories } from "../constants";
 import { ProductCard, Loading } from "../components/ui";
 
-const CategoryPage = () => {
-  const { categoryname } = useParams();
+const SubCategoryPage = () => {
+  const { categoryname, subcategoryname } = useParams();
   const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(
-    categoryname ? categoryname : "men",
-  );
-  const [activeSubCategory, setActiveSubCategory] = useState("");
 
   const categoryData = {
     men: menCategories,
     women: womenCategories,
     sales: saleCategories,
   };
+
+  console.log(categoryData);
 
   const categoryTitles = {
     men: "Men's Collection",
@@ -27,51 +24,26 @@ const CategoryPage = () => {
   };
 
   useEffect(() => {
-    setActiveCategory(categoryname ? categoryname : "men");
-    const initialSubCategory =
-      categoryname && Object.keys(categoryData[categoryname])[0];
-    setActiveSubCategory(initialSubCategory || "jeans");
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
-  }, [categoryname]);
+    }, 1000);
+  }, [categoryname, subcategoryname]);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const subCategories = categoryData[categoryname.toLowerCase()];
-  const products = subCategories[activeSubCategory] || [];
-  const categoryTitle = categoryTitles[activeCategory] || "Collection";
+  const subCategories = categoryData[categoryname];
+  const products = subCategories[subcategoryname] || [];
+  const categoryTitle = categoryTitles[categoryname] || "Collection";
 
   return (
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">
       <div className="px-6 sm:px-12 lg:px-20 pt-24">
         <h1 className="mt-10 font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
-          {categoryTitle}
+          {categoryTitle} - {subcategoryname.toUpperCase()}
         </h1>
-      </div>
-
-      {/* Subcategory Navigation */}
-      <div className="px-6 sm:px-12 lg:px-20 py-4">
-        <div className="flex gap-6">
-          {Object.keys(subCategories).map((subCategory) => (
-            <motion.button
-              key={subCategory}
-              onClick={() => setActiveSubCategory(subCategory)}
-              className={`text-sm tracking-wider font-sf-medium ${
-                activeSubCategory === subCategory
-                  ? "text-dark-primary dark:text-light-primary"
-                  : "text-gray-500 dark:text-gray-400"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {subCategory.toUpperCase()}
-            </motion.button>
-          ))}
-        </div>
       </div>
 
       {/* View Toggle */}
@@ -113,7 +85,7 @@ const CategoryPage = () => {
         >
           {products.map((product, index) => (
             <ProductCard
-              key={`${activeSubCategory}-${product.title}-${index}`}
+              key={`${subcategoryname}-${product.title}-${index}`}
               product={product}
               viewType={viewType}
             />
@@ -124,4 +96,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default SubCategoryPage;

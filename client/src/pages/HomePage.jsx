@@ -31,7 +31,6 @@ const HomePage = () => {
     }, 500);
   };
 
-
   return (
     <div className="h-screen overflow-hidden relative">
       <div className="h-screen sticky top-0 z-10">
