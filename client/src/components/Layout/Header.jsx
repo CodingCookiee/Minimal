@@ -117,32 +117,32 @@ const Header = () => {
                     </button>
 
                     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "auto" }}
-        exit={{ opacity: 0, height: 0 }}
-        transition={{ duration: 0.2 }}
-        className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
-      >
-        <Link
-          to={`/${category.name.toLowerCase()}`}
-          className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          View All
-        </Link>
-        {category.subcategories.map((subcat) => (
-          <Link
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-            key={subcat}
-            to={`/${category.name.toLowerCase()}/${subcat}`}
-            className="block px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
-          >
-            {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
-          </Link>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
+                      >
+                        <Link
+                          to={`/${category.name.toLowerCase()}`}
+                          className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+                          onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                          View All
+                        </Link>
+                        {category.subcategories.map((subcat) => (
+                          <Link
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            key={subcat}
+                            to={`/${category.name.toLowerCase()}/${subcat}`}
+                            className="block px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                          >
+                            {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 ))}
 
@@ -153,16 +153,16 @@ const Header = () => {
                     <span>Sales & Clearance</span>
                   </div>
                   <Link
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-          to='/sales'
-          className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
-        >
-          View All
-        </Link>
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    to="/sales"
+                    className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+                  >
+                    View All
+                  </Link>
 
                   {Object.keys(saleCategories).map((category) => (
                     <Link
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                      onClick={() => setIsMenuOpen(!isMenuOpen)}
                       key={category}
                       to={`/sales/${category.toLowerCase()}`}
                       className="block w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"

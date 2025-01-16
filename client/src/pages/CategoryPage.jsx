@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const CategoryPage = () => {
   return (
@@ -6,6 +6,6 @@ const CategoryPage = () => {
       <h1>Category Page</h1>
     </div>
   );
-}
+};
 
 export default CategoryPage;

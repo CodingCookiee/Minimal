@@ -26,7 +26,6 @@ import WomenTrousersPage from "./pages/categories/women/WomenTrousersPage";
 import MenSalePage from "./pages/categories/sale/MenSalePage";
 import WomenSalePage from "./pages/categories/sale/WomenSalePage";
 
-
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -124,7 +123,7 @@ const App = () => {
           path: "/sales/women",
           element: <WomenSalePage />,
         },
-        
+
         {
           path: "/admin",
           element: <AdminPage />,

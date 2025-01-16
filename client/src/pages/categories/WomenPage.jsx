@@ -1,13 +1,12 @@
-import { useState ,  useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { BsGrid3X3GapFill, BsListUl } from 'react-icons/bs';
-import { womenCategories } from '../../constants/womenCategories';
-import { ProductCard, Loading } from '../../components/ui';
-
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { BsGrid3X3GapFill, BsListUl } from "react-icons/bs";
+import { womenCategories } from "../../constants/womenCategories";
+import { ProductCard, Loading } from "../../components/ui";
 
 const WomenPage = () => {
-  const [activeCategory, setActiveCategory] = useState('jeans');
-  const [viewType, setViewType] = useState('grid');
+  const [activeCategory, setActiveCategory] = useState("jeans");
+  const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,8 +38,8 @@ const WomenPage = () => {
                 onClick={() => setActiveCategory(category)}
                 className={`text-sm tracking-wider font-sf-medium ${
                   activeCategory === category
-                    ? 'text-dark-primary dark:text-light-primary'
-                    : 'text-gray-500 dark:text-gray-400'
+                    ? "text-dark-primary dark:text-light-primary"
+                    : "text-gray-500 dark:text-gray-400"
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -49,25 +48,25 @@ const WomenPage = () => {
               </motion.button>
             ))}
           </div>
-          
+
           {/* View Toggle */}
           <div className="flex gap-4">
             <button
-              onClick={() => setViewType('grid')}
+              onClick={() => setViewType("grid")}
               className={`p-2 rounded ${
-                viewType === 'grid'
-                  ? 'bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary'
-                  : 'text-dark-primary dark:text-light-primary'
+                viewType === "grid"
+                  ? "bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary"
+                  : "text-dark-primary dark:text-light-primary"
               }`}
             >
               <BsGrid3X3GapFill />
             </button>
             <button
-              onClick={() => setViewType('list')}
+              onClick={() => setViewType("list")}
               className={`p-2 rounded ${
-                viewType === 'list'
-                  ? 'bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary'
-                  : 'text-dark-primary dark:text-light-primary'
+                viewType === "list"
+                  ? "bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary"
+                  : "text-dark-primary dark:text-light-primary"
               }`}
             >
               <BsListUl />
@@ -78,14 +77,17 @@ const WomenPage = () => {
 
       {/* Products Grid/List */}
       <div className="px-6 sm:px-12 lg:px-20 pb-20">
-        <div className={`
-          ${viewType === 'grid' 
-            ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' 
-            : 'flex flex-col gap-4'
+        <div
+          className={`
+          ${
+            viewType === "grid"
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              : "flex flex-col gap-4"
           }
-        `}>
+        `}
+        >
           {womenCategories[activeCategory].map((product, index) => (
-            <ProductCard 
+            <ProductCard
               key={`${activeCategory}-${product.title}-${index}`}
               product={product}
               viewType={viewType}

@@ -124,10 +124,10 @@ const HomePage = () => {
                         <p className="font-sf-light text-sm sm:text-base text-white/80 mb-4 sm:mb-6">
                           {slide.description}
                         </p>
-                        <button 
-                           onClick={() => {
-    navigate(slide.category);
-  }}
+                        <button
+                          onClick={() => {
+                            navigate(slide.category);
+                          }}
                           className="inline-block px-6 sm:px-7 lg:px-8 py-2 sm:py-2.5 lg:py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 font-sf-medium text-xs sm:text-sm tracking-wider"
                         >
                           Explore Collection

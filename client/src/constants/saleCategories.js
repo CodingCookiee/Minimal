@@ -267,7 +267,6 @@ export const saleCategories = {
         CableKnitCroppedCardiganNavyBlue1,
         CableKnitCroppedCardiganNavyBlue2,
         CableKnitCroppedCardiganNavyBlue3,
-
       ],
       title: "Cable Knit Cropped Cardigan",
       subtitle: "Regular Fit",
