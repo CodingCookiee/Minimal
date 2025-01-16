@@ -27,16 +27,16 @@ export const homeCarouselData = {
   ],
   women: [
     {
-      imagePath: "/homeCarousel/full-length-portrait-girl.jpg",
-      title: "Modern Fashion Collection",
-      description: "Effortless style for the contemporary woman",
-      category: "/women/shirts",
-    },
-    {
       imagePath: "/homeCarousel/women_jeans_collection_1.jpg",
       title: "Denim Collection",
       description: "Contemporary fits for every body",
       category: "/women/jeans",
+    },
+    {
+      imagePath: "/homeCarousel/full-length-portrait-girl.jpg",
+      title: "Modern Fashion Collection",
+      description: "Effortless style for the contemporary woman",
+      category: "/women/shirts",
     },
     {
       imagePath: "/homeCarousel/pexels-cottonbro-4066293.jpg",

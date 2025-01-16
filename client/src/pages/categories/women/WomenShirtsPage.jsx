@@ -22,7 +22,7 @@ const WomenShirtsPage = () => {
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">
       {/* Header Section */}
       <div className="px-6 sm:px-12 lg:px-20 pt-24">
-        <h1 className="mt-5 font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
+        <h1 className="mt-10 font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
           Women&apos;s Shirts Collection
         </h1>
       </div>

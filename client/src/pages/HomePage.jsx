@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Loading } from "../components/ui";
@@ -23,6 +23,15 @@ const HomePage = () => {
   const [imageLoading, setImageLoading] = useState(true);
   const { swiperRef } = useSliderControl(isLastSlide);
 
+  const handleCategoryChange = (category) => {
+    setImageLoading(true);
+    setActiveCategory(category);
+    setTimeout(() => {
+      setImageLoading(false);
+    }, 500);
+  };
+
+
   return (
     <div className="h-screen overflow-hidden relative">
       <div className="h-screen sticky top-0 z-10">
@@ -32,7 +41,7 @@ const HomePage = () => {
               {Object.keys(homeCarouselData).map((category) => (
                 <motion.div
                   key={category}
-                  onClick={() => setActiveCategory(category)}
+                  onClick={() => handleCategoryChange(category)}
                   className={`cursor-pointer lg:mt-0 mt-24 flex-1 lg:py-16 py-4 flex items-center justify-center group relative ${
                     activeCategory === category
                       ? "bg-dark-primary text-light-primary dark:bg-light-primary dark:text-dark-primary"

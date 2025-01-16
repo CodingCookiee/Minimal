@@ -91,7 +91,7 @@ const Header = () => {
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <Link to="/" className="flex items-center absolute left-12 top-2.5">
+          <Link to="/" className="ml-3 flex items-center absolute left-12 top-2.5">
             <img
               src="/brand-name.svg"
               alt="Logo"
@@ -126,7 +126,7 @@ const Header = () => {
                       >
                         <Link
                           to={`/${category.name.toLowerCase()}`}
-                          className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+                          className="block px-16 py-2.5 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                           onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
                           View All
@@ -146,10 +146,10 @@ const Header = () => {
                   </div>
                 ))}
 
-                <div className=" w-full border-t border-neutral-800"></div>
+                <div className="mt-2.5 mb-2.5  w-full border-t border-neutral-800"></div>
 
                 <div className="w-full cursor-pointer">
-                  <div className="py-3 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group">
+                  <div className="py-2.5 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group">
                     <span>Sales & Clearance</span>
                   </div>
                   <Link
