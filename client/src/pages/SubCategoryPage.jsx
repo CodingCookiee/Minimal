@@ -3,19 +3,19 @@ import { useParams } from "react-router-dom";
 import { BsGrid3X3GapFill, BsListUl } from "react-icons/bs";
 import { menCategories, womenCategories, saleCategories } from "../constants";
 import { ProductCard, Loading } from "../components/ui";
+import axiosInstance from "../utils/axios";
 
 const SubCategoryPage = () => {
   const { categoryname, subcategoryname } = useParams();
   const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]);
 
   const categoryData = {
     men: menCategories,
     women: womenCategories,
     sales: saleCategories,
   };
-
-  console.log(categoryData);
 
   const categoryTitles = {
     men: "Men's Collection",
@@ -24,25 +24,33 @@ const SubCategoryPage = () => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance.get(`/product/${categoryname}/${subcategoryname}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
       setIsLoading(false);
-    }, 1000);
+    };
+
+    fetchProducts();
   }, [categoryname, subcategoryname]);
+
+  console.log(products)
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const subCategories = categoryData[categoryname];
-  const products = subCategories[subcategoryname] || [];
   const categoryTitle = categoryTitles[categoryname] || "Collection";
 
   return (
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">
       <div className="px-6 sm:px-12 lg:px-20 pt-24">
         <h1 className="mt-10 font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
-          {categoryTitle} - {subcategoryname.toUpperCase()}
+          {categoryTitle} - <b className='bg-neutral-900 text-light-primary px-2.5 mt-1.5 font-sf-light font-medium text-lg absolute ml-2.5'>{subcategoryname.toUpperCase()}</b>
         </h1>
       </div>
 
@@ -83,9 +91,9 @@ const SubCategoryPage = () => {
           }
         `}
         >
-          {products.map((product, index) => (
+          {products.map((product) => (
             <ProductCard
-              key={`${subcategoryname}-${product.title}-${index}`}
+              key={product._id}
               product={product}
               viewType={viewType}
             />

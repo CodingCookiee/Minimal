@@ -2,6 +2,7 @@ import { redis } from "../lib/redis.js";
 import cloudinary from "../lib/cloudinary.js";
 import Product from "../models/product.model.js";
 import createError from "../utils/createError.utils.js";
+import { getCloudinaryUrl } from '../lib/cloudinary.js';
 
 export const createProduct = async (req, res, next) => {
   try {
@@ -152,3 +153,25 @@ export const deleteProduct = async (req, res, next) => {
     next(createError(500, "Internal Server Error"));
   }
 };
+
+
+export const getProductsByTypeAndCategory = async (req, res, next) => {
+  try {
+    const { type, category } = req.params;
+    const searchCategory = category ? `${type}_${category}` : type;
+    const products = await Product.find({ category: searchCategory });
+    
+    const transformedProducts = products.map(product => {
+      const productObj = product.toObject();
+      productObj.imagePath = productObj.imagePath.map(path => 
+        getCloudinaryUrl(path.replace(/^\//, ''))
+      );
+      return productObj;
+    });    
+    res.json(transformedProducts);
+  } catch (err) {
+    next(createError(500, "Error fetching products"));
+  }
+};
+
+

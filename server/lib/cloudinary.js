@@ -9,4 +9,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export const getCloudinaryUrl = (path) => {
+  return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/minimal/${path}`;
+};
+
 export default cloudinary;
+
+

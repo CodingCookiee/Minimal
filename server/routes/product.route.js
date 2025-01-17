@@ -7,6 +7,7 @@ import {
   getProductsByCategory,
   getRecommendedProducts,
   toggleFeaturedProduct,
+  getProductsByTypeAndCategory
 } from "../controllers/product.controller.js";
 import {
   authenticateUser,
@@ -26,6 +27,8 @@ router.patch(
   authenticateAdmin,
   toggleFeaturedProduct,
 );
+
+router.get("/:type/:category?", getProductsByTypeAndCategory);
 router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
 
 export default router;

@@ -2,57 +2,29 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    image: {
-      type: String,
-      required: [true, "Image is required"],
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    stock: {
-      type: Number,
-      required: true,
-    },
-    isFeatured: {
-      type: Boolean,
-      default: false,
-    },
-    rating: {
-      type: Number,
-      required: true,
-    },
+    name: { type: String, required: true },
+    subtitle: { type: String, required: true },
+    description: { type: String, required: true },
+    price: { type: Number, required: true },
+    discountedPrice: { type: Number },
+    discountPercentage: { type: String },
+    image: { type: String, required: true },
+    imagePath: [{ type: String }],
+    category: { type: String, required: true },
+    stock: { type: Number, required: true },
+    gender: { type: String, required: true },
+    colors: [{ type: String }],
+    isFeatured: { type: Boolean, default: false },
+    rating: { type: Number, required: true },
     reviews: [
       {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        comment: {
-          type: String,
-        },
-        rating: {
-          type: Number,
-        },
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        comment: String,
+        rating: Number,
       },
     ],
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
 const Product = mongoose.model("Product", productSchema);

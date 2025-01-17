@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node --watch server.js",
     "lint": "eslint . --fix",
-    "format": "prettier --write \"**/*.{js,jsx}\""
+    "format": "prettier --write \"**/*.{js,jsx}\"",
+    "seed": "node scripts/seed.js"
   },
   "keywords": [],
   "author": "",

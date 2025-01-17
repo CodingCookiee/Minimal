@@ -6,20 +6,50 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Loading } from "../../components/ui";
+import axiosInstance from "../../utils/axios.js";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../utils/UserContext";
+import { toast } from "react-toastify";
+
 
 const ProductCard = ({ product, viewType }) => {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const uniqueId = `swiper-${product.title.replace(/\s+/g, "-").toLowerCase()}`;
-
+  const { currentUser } = useUser();
+  const navigate = useNavigate();
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || '');
+  const uniqueId = `swiper-${product.name.replace(/\s+/g, "-").toLowerCase()}`;
   const [showNextButton, setShowNextButton] = useState(true);
   const [showPrevButton, setShowPrevButton] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
-  const sortedImages = [...product.imagePath].sort((a, b) => {
-    const isProdA = a.includes("prod") || a.includes("hmgoepprod");
-    const isProdB = b.includes("prod") || b.includes("hmgoepprod");
+
+const handleAddToCart = async () => {
+  if (!currentUser) {
+    navigate("/signin");
+    return;
+  }
+
+  try {
+    await axiosInstance.post("/cart", {
+      productId: product._id,
+      quantity: 1,
+      price: product.discountedPrice || product.price
+    });
+    toast.success("Added to cart successfully");
+  } catch (error) {
+    toast.error("Failed to add to cart");
+  }
+};
+
+
+const images = ((product.imagePath?.length ? product.imagePath : [product.image]) || [])
+  .filter(Boolean)
+  .map(url => url.trim())
+  .sort((a, b) => {
+    const isProdA = a?.toLowerCase().includes('prod') || false;
+    const isProdB = b?.toLowerCase().includes('prod') || false;
     return isProdB - isProdA;
   });
+
 
   const cardStyles =
     viewType === "grid"
@@ -62,7 +92,7 @@ const ProductCard = ({ product, viewType }) => {
         [&_.swiper-button-next]:transition-opacity [&_.swiper-button-prev]:transition-opacity 
         [&_.swiper-button-next:after]:text-sm [&_.swiper-button-prev:after]:text-sm`}
           >
-            {sortedImages.map((image, index) => (
+            {images.map((image, index) => (
               <SwiperSlide key={index}>
                 {imageLoading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
@@ -86,7 +116,7 @@ const ProductCard = ({ product, viewType }) => {
         <div className="flex justify-between items-start">
           <div>
             <h3 className="font-sf-heavy text-md font-semibold text-dark-secondary dark:text-light-secondary">
-              {product.title}
+              {product.name}
             </h3>
             <p className="font-sf-light text-sm text-gray-700 dark:text-gray-400">
               {product.subtitle}
@@ -96,7 +126,7 @@ const ProductCard = ({ product, viewType }) => {
             {product.discountedPrice ? (
               <>
                 <span className="block text-sm line-through text-gray-500">
-                  {product.price}
+                  ${product.price}
                 </span>
                 <span className="font-sf-medium text-lg text-neutral-900">
                   {product.discountedPrice}
@@ -116,23 +146,31 @@ const ProductCard = ({ product, viewType }) => {
         <div className="mt-4">
           <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
           <div className="flex gap-2">
-            {product.colors.map((color) => (
-              <button
-                key={color}
-                onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color
-                    ? "border-dark-primary dark:border-light-primary"
-                    : "border-transparent"
-                }`}
-                style={{ backgroundColor: color.toLowerCase() }}
-              />
-            ))}
+          {product.colors?.length > 0 && (
+  <div className="mt-4">
+    <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
+    <div className="flex gap-2">
+      {product.colors.map((color) => (
+        <button
+          key={color}
+          onClick={() => setSelectedColor(color)}
+          className={`w-6 h-6 rounded-full border-2 ${
+            selectedColor === color
+              ? "border-dark-primary dark:border-light-primary"
+              : "border-transparent"
+          }`}
+          style={{ backgroundColor: color.toLowerCase() }}
+        />
+      ))}
+    </div>
+  </div>
+)}
           </div>
         </div>
 
         {/* Add to Cart Button */}
         <motion.button
+          onClick={handleAddToCart}
           className="mt-4 w-full bg-dark-secondary dark:bg-light-secondary text-light-secondary dark:text-dark-secondary py-2 font-sf-medium text-sm tracking-wider"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}

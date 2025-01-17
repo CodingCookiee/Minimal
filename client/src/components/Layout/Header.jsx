@@ -24,6 +24,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const isAdmin = currentUser?.role === "admin";
 
@@ -37,6 +38,22 @@ const Header = () => {
       subcategories: Object.keys(womenCategories),
     },
   ];
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      try {
+        const response = await axiosInstance.get("/cart");
+        setCartCount(response.data.items?.length || 0);
+      } catch (error) {
+        console.error("Error fetching cart count:", error);
+      }
+    };
+  
+    if (currentUser) {
+      fetchCartCount();
+    }
+  }, [currentUser]);
+
 
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -128,7 +145,7 @@ const Header = () => {
                         className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
                       >
                         <Link
-                          to={`/category/${category.name.toLowerCase()}/`}
+                           to={`/category/${category.name.toLowerCase()}`}
                           className="block px-16 py-2.5 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                           onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
@@ -157,7 +174,7 @@ const Header = () => {
                   </div>
                   <Link
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    to="/category/sales"
+                     to="/category/sale"
                     className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                   >
                     View All
@@ -167,7 +184,7 @@ const Header = () => {
                     <Link
                       onClick={() => setIsMenuOpen(!isMenuOpen)}
                       key={category}
-                      to={`/category/sales/${category.toLowerCase()}`}
+                      to={`/category/sale/${category.toLowerCase()}`}
                       className="block w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                     >
                       {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -270,7 +287,7 @@ const Header = () => {
           >
             <ShoppingBag size={20} />
             <span className="absolute -top-1 -right-1 z-50 w-4 sm:w-5 h-4 sm:h-5 flex items-center justify-center text-xs text-neutral-950">
-              0
+              {cartCount}
             </span>
           </Link>
         </div>

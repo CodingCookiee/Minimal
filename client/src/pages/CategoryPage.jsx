@@ -4,15 +4,18 @@ import { motion } from "framer-motion";
 import { BsGrid3X3GapFill, BsListUl } from "react-icons/bs";
 import { menCategories, womenCategories, saleCategories } from "../constants";
 import { ProductCard, Loading } from "../components/ui";
+import axiosInstance from "../utils/axios";
 
 const CategoryPage = () => {
   const { categoryname } = useParams();
   const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(
-    categoryname ? categoryname : "men",
+    categoryname ? categoryname : "men"
   );
   const [activeSubCategory, setActiveSubCategory] = useState("");
+  const normalizedCategory = categoryname === 'sale' ? 'sales' : categoryname;
 
   const categoryData = {
     men: menCategories,
@@ -26,23 +29,34 @@ const CategoryPage = () => {
     sales: "Sale & Clearance",
   };
 
+  
   useEffect(() => {
     setActiveCategory(categoryname ? categoryname : "men");
     const initialSubCategory =
       categoryname && Object.keys(categoryData[categoryname])[0];
     setActiveSubCategory(initialSubCategory || "jeans");
-    setIsLoading(true);
-    setTimeout(() => {
+    
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance.get(`/product/${categoryname}/${activeSubCategory}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
       setIsLoading(false);
-    }, 2000);
+    };
+
+    fetchProducts();
   }, [categoryname]);
 
+  console.log(products);
+  
   if (isLoading) {
     return <Loading />;
   }
-
-  const subCategories = categoryData[categoryname.toLowerCase()];
-  const products = subCategories[activeSubCategory] || [];
+  
+  const subCategories = categoryData[normalizedCategory] || {};
   const categoryTitle = categoryTitles[activeCategory] || "Collection";
 
   return (
@@ -56,21 +70,21 @@ const CategoryPage = () => {
       {/* Subcategory Navigation */}
       <div className="px-6 sm:px-12 lg:px-20 py-4">
         <div className="flex gap-6">
-          {Object.keys(subCategories).map((subCategory) => (
-            <motion.button
-              key={subCategory}
-              onClick={() => setActiveSubCategory(subCategory)}
-              className={`text-sm tracking-wider font-sf-medium ${
-                activeSubCategory === subCategory
-                  ? "text-dark-primary dark:text-light-primary"
-                  : "text-gray-500 dark:text-gray-400"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {subCategory.toUpperCase()}
-            </motion.button>
-          ))}
+        {Object.keys(subCategories).map((subCategory) => (
+        <motion.button
+          key={subCategory}
+          onClick={() => setActiveSubCategory(subCategory)}
+          className={`text-sm tracking-wider font-sf-medium ${
+            activeSubCategory === subCategory
+              ? "text-light-primary bg-neutral-900 py-1 px-2.5"
+              : "text-gray-400 bg-neutral-900 py-1 px-2.5"
+          }`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {subCategory.toUpperCase()}
+        </motion.button>
+      ))}
         </div>
       </div>
 
