@@ -11,9 +11,7 @@ const CategoryPage = () => {
   const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(
-    categoryname ? categoryname : "men"
-  );
+  const [activeCategory, setActiveCategory] = useState(categoryname || "men");
   const [activeSubCategory, setActiveSubCategory] = useState("");
   const normalizedCategory = categoryname === 'sale' ? 'sales' : categoryname;
 
@@ -29,13 +27,26 @@ const CategoryPage = () => {
     sales: "Sale & Clearance",
   };
 
-  
   useEffect(() => {
-    setActiveCategory(categoryname ? categoryname : "men");
-    const initialSubCategory =
-      categoryname && Object.keys(categoryData[categoryname])[0];
-    setActiveSubCategory(initialSubCategory || "jeans");
-    
+    setActiveCategory(categoryname || "men");
+    const initialSubCategory = categoryname && categoryData[normalizedCategory] ? Object.keys(categoryData[normalizedCategory])[0] : "jeans";
+    setActiveSubCategory(initialSubCategory);
+
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance.get(`/product/${categoryname}/${initialSubCategory}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+      setIsLoading(false);
+    };
+
+    fetchProducts();
+  }, [categoryname]);
+
+  useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
@@ -48,14 +59,14 @@ const CategoryPage = () => {
     };
 
     fetchProducts();
-  }, [categoryname]);
+  }, [activeSubCategory]);
 
-  console.log(products);
   
+
   if (isLoading) {
     return <Loading />;
   }
-  
+
   const subCategories = categoryData[normalizedCategory] || {};
   const categoryTitle = categoryTitles[activeCategory] || "Collection";
 
@@ -70,21 +81,21 @@ const CategoryPage = () => {
       {/* Subcategory Navigation */}
       <div className="px-6 sm:px-12 lg:px-20 py-4">
         <div className="flex gap-6">
-        {Object.keys(subCategories).map((subCategory) => (
-        <motion.button
-          key={subCategory}
-          onClick={() => setActiveSubCategory(subCategory)}
-          className={`text-sm tracking-wider font-sf-medium ${
-            activeSubCategory === subCategory
-              ? "text-light-primary bg-neutral-900 py-1 px-2.5"
-              : "text-gray-400 bg-neutral-900 py-1 px-2.5"
-          }`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {subCategory.toUpperCase()}
-        </motion.button>
-      ))}
+          {Object.keys(subCategories).map((subCategory) => (
+            <motion.button
+              key={subCategory}
+              onClick={() => setActiveSubCategory(subCategory)}
+              className={`text-sm tracking-wider font-sf-medium ${
+                activeSubCategory === subCategory
+                  ? "text-light-primary bg-neutral-900 py-1 px-2.5"
+                  : "text-gray-400 bg-neutral-900 py-1 px-2.5"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {subCategory.toUpperCase()}
+            </motion.button>
+          ))}
         </div>
       </div>
 

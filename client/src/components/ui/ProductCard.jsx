@@ -51,6 +51,7 @@ const images = ((product.imagePath?.length ? product.imagePath : [product.image]
   });
 
 
+
   const cardStyles =
     viewType === "grid"
       ? "flex flex-col"

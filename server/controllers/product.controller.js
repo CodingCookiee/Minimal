@@ -155,19 +155,22 @@ export const deleteProduct = async (req, res, next) => {
 };
 
 
+
 export const getProductsByTypeAndCategory = async (req, res, next) => {
   try {
     const { type, category } = req.params;
     const searchCategory = category ? `${type}_${category}` : type;
     const products = await Product.find({ category: searchCategory });
     
+    // Transform image URLs to match Cloudinary structure
     const transformedProducts = products.map(product => {
       const productObj = product.toObject();
       productObj.imagePath = productObj.imagePath.map(path => 
-        getCloudinaryUrl(path.replace(/^\//, ''))
+        path.replace(/\s+/g, '_').replace(/\(/g, '%28').replace(/\)/g, '%29')
       );
       return productObj;
-    });    
+    });
+    
     res.json(transformedProducts);
   } catch (err) {
     next(createError(500, "Error fetching products"));

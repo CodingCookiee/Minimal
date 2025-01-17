@@ -7,7 +7,8 @@
     "start": "node --watch server.js",
     "lint": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,jsx}\"",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "upload-images": "node scripts/uploadImages.js"
   },
   "keywords": [],
   "author": "",

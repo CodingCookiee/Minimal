@@ -10,9 +10,9 @@ cloudinary.config({
 });
 
 export const getCloudinaryUrl = (path) => {
-  return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/minimal/${path}`;
+  const transformations = 'q_auto,f_auto'; 
+  return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${transformations}/minimal/${path}`;
 };
 
+
 export default cloudinary;
-
-
