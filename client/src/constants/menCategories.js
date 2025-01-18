@@ -29,9 +29,9 @@ export const menCategories = {
     },
     {
       imagePath: [
-        "/Men/Jeans/Embroidered_Rigid_Slim_Jeans/10001.jpg",
+        "/Men/Jeans/Embroidered_Rigid_Slim_Jeans/prod.jpg",
         "/Men/Jeans/Embroidered_Rigid_Slim_Jeans/10003.jpg",
-        "/Men/Jeans/Embroidered_Rigid_Slim_Jeans/prod.jpg"
+        "/Men/Jeans/Embroidered_Rigid_Slim_Jeans/10001.jpg"
       ],
       title: "Embroidered Rigid Slim Jeans",
       subtitle: "Slim Fit",
