@@ -13,9 +13,8 @@ const createProductDocument = async (product, category, type) => {
   let folderPath;
 
   if (type === 'sale') {
-    // Decode any URL encoded characters and ensure proper underscore usage
-    const decodedFolderName = decodeURIComponent(productFolderName).replace(/%20/g, '_');
-    folderPath = `minimal/${type}/${category}/${decodedFolderName}`;
+    
+    folderPath = `minimal/${type}/${category}/${productFolderName}`;
   } else {
     folderPath = `minimal/${type}/${category}/${productFolderName}`;
   }

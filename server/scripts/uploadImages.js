@@ -25,7 +25,6 @@ const categoryData = {
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const uploadWithRetry = async (imagePath, folderPath, fileName, retries = 0) => {
-  
   try {
     const result = await cloudinary.uploader.upload(imagePath, {
       folder: folderPath,

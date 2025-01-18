@@ -16,6 +16,7 @@ const uploadFolder = async (folderPath, cloudinaryFolder) => {
     const fullPath = path.join(folderPath, file.name);
     
     if (file.isDirectory()) {
+      
       const newCloudinaryFolder = `${cloudinaryFolder}/${file.name}`;
       await uploadFolder(fullPath, newCloudinaryFolder);
     } else if (file.isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file.name)) {
