@@ -22,12 +22,12 @@ const uploadFolder = async (folderPath, cloudinaryFolder) => {
     } else if (file.isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file.name)) {
       try {
         const result = await cloudinary.uploader.upload(fullPath, {
-          folder: cloudinaryFolder,
-          public_id: path.parse(file.name).name,
+          folder: cloudinaryFolder.replace(/\s+/g, '_'),
+          public_id: path.parse(file.name).name.replace(/\s+/g, '_'),
           resource_type: 'auto',
           overwrite: true,
           use_filename: true
-        });
+        });        
         console.log(`✅ Uploaded: ${file.name} to ${cloudinaryFolder}`);
       } catch (error) {
         console.error(`❌ Failed to upload ${file.name}:`, error.message);
@@ -40,7 +40,7 @@ const main = async () => {
   const baseFolder = path.join(projectRoot, 'public');
   console.log(`Starting upload from base folder: ${baseFolder}`);
   
-  const categories = ['Men', 'Women', 'Sales'];
+  const categories = ['Men', 'Women', 'Sale'];
   
   for (const category of categories) {
     const categoryPath = path.join(baseFolder, category);

@@ -9,23 +9,17 @@ import Product from "../models/product.model.js";
 dotenv.config();
 
 const createProductDocument = async (product, category, type) => {
-  const productFolderName = product.imagePath[0].split('/').slice(-2)[0];
-  let folderPath;
+const productFolderName = product.imagePath[0].split("/").slice(-2)[0].replace(/\s+/g, '_');
+let folderPath = `minimal/${type}/${category}/${productFolderName}`;
 
-  if (type === 'sale') {
-    
-    folderPath = `minimal/${type}/${category}/${productFolderName}`;
-  } else {
-    folderPath = `minimal/${type}/${category}/${productFolderName}`;
-  }
-  
-  const cloudinaryImages = product.imagePath.map(originalPath => {
-    const fileName = originalPath.split('/').pop();
+
+  const cloudinaryImages = product.imagePath.map((originalPath) => {
+    const fileName = originalPath.split("/").pop();
     return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${folderPath}/${fileName}`;
   });
   const sortedImages = [...cloudinaryImages].sort((a, b) => {
-    const isProdA = a.includes('hmgoepprod') || a.includes('prod');
-    const isProdB = b.includes('hmgoepprod') || b.includes('prod');
+    const isProdA = a.includes("hmgoepprod") || a.includes("prod");
+    const isProdB = b.includes("hmgoepprod") || b.includes("prod");
     return isProdB - isProdA;
   });
 
@@ -40,11 +34,13 @@ const createProductDocument = async (product, category, type) => {
     rating: 4.5,
     subtitle: product.subtitle,
     gender: product.gender,
-    colors: product.colors
+    colors: product.colors,
   };
 
   if (product.discountedPrice) {
-    productData.discountedPrice = parseFloat(product.discountedPrice.replace("$", ""));
+    productData.discountedPrice = parseFloat(
+      product.discountedPrice.replace("$", "")
+    );
     productData.discountPercentage = parseInt(product.discountPercentage);
   }
 
@@ -58,13 +54,19 @@ const seedDatabase = async () => {
 
     const existingCount = await Product.countDocuments();
     await Product.deleteMany({});
-    console.log(`\n🧹 Cleared ${existingCount} existing products from database`);
+    console.log(
+      `\n🧹 Cleared ${existingCount} existing products from database`
+    );
 
     // Seed men's products
     for (const [category, products] of Object.entries(menCategories)) {
       console.log(`\n📦 Seeding men's ${category}...`);
       for (const product of products) {
-        const newProduct = await createProductDocument(product, category, "men");
+        const newProduct = await createProductDocument(
+          product,
+          category,
+          "men"
+        );
         console.log(`✅ Created: ${newProduct.name}`);
       }
     }
@@ -73,7 +75,11 @@ const seedDatabase = async () => {
     for (const [category, products] of Object.entries(womenCategories)) {
       console.log(`\n📦 Seeding women's ${category}...`);
       for (const product of products) {
-        const newProduct = await createProductDocument(product, category, "women");
+        const newProduct = await createProductDocument(
+          product,
+          category,
+          "women"
+        );
         console.log(`✅ Created: ${newProduct.name}`);
       }
     }
@@ -82,7 +88,11 @@ const seedDatabase = async () => {
     for (const [category, products] of Object.entries(saleCategories)) {
       console.log(`\n📦 Seeding sale ${category}...`);
       for (const product of products) {
-        const newProduct = await createProductDocument(product, category, "sale");
+        const newProduct = await createProductDocument(
+          product,
+          category,
+          "sale"
+        );
         console.log(`✅ Created: ${newProduct.name}`);
       }
     }
