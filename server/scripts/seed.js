@@ -8,17 +8,25 @@ import Product from "../models/product.model.js";
 
 dotenv.config();
 
-const createProductDocument = async (product, category, type) => {
-   // Get the exact folder name from your local structure
-   const productFolderName = product.imagePath[0].split('/').slice(-2)[0]; // Gets the full folder name like 'Baggy_Jeans_-_Dark_denim_grey'
-   const folderPath = `minimal/${type}/${category}/${productFolderName}`;
-   
-   const cloudinaryImages = product.imagePath.map(originalPath => {
-     const fileName = originalPath.split('/').pop();
-     return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${folderPath}/${fileName}`;
-   });
+const formatFolderName = (name) => {
+  return name.replace(/\s+/g, '_');
+};
 
-  // Sort images to put hmgoepprod or prod first
+const createProductDocument = async (product, category, type) => {
+  const productFolderName = product.imagePath[0].split('/').slice(-2)[0];
+  let folderPath;
+
+  if (type === 'sale') {
+    folderPath = `minimal/${type}/${product.gender.toLowerCase()}/${productFolderName}`;
+  } else {
+    folderPath = `minimal/${type}/${category}/${productFolderName}`;
+  }
+  
+  const cloudinaryImages = product.imagePath.map(originalPath => {
+    const fileName = originalPath.split('/').pop();
+    return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${folderPath}/${fileName}`;
+  });
+
   const sortedImages = [...cloudinaryImages].sort((a, b) => {
     const isProdA = a.includes('hmgoepprod') || a.includes('prod');
     const isProdB = b.includes('hmgoepprod') || b.includes('prod');
@@ -30,7 +38,7 @@ const createProductDocument = async (product, category, type) => {
     description: product.description,
     price: parseFloat(product.price.replace("$", "")),
     category: `${type}_${category}`,
-    image: sortedImages[0], 
+    image: sortedImages[0],
     imagePath: sortedImages,
     stock: 100,
     rating: 4.5,
@@ -46,7 +54,6 @@ const createProductDocument = async (product, category, type) => {
 
   return await Product.create(productData);
 };
-
 
 const seedDatabase = async () => {
   try {
@@ -94,4 +101,3 @@ const seedDatabase = async () => {
 };
 
 seedDatabase();
-

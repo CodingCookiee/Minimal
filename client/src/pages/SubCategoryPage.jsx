@@ -38,7 +38,7 @@ const SubCategoryPage = () => {
     fetchProducts();
   }, [categoryname, subcategoryname]);
 
-  console.log(products)
+
 
   if (isLoading) {
     return <Loading />;
