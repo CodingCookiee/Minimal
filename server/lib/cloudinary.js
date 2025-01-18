@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 
@@ -9,10 +10,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const getCloudinaryUrl = (path) => {
-  const transformations = 'q_auto,f_auto'; 
-  return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${transformations}/minimal/${path}`;
+export const getCloudinaryUrl = (folderPath, fileName) => {
+  return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${folderPath}/${fileName}`;
 };
+
+
 
 
 export default cloudinary;

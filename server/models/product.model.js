@@ -16,6 +16,7 @@ const productSchema = new mongoose.Schema(
     colors: [{ type: String }],
     isFeatured: { type: Boolean, default: false },
     rating: { type: Number, required: true },
+    cloudinaryFolder: { type: String }, 
     reviews: [
       {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
