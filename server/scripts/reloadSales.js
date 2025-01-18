@@ -8,10 +8,6 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(__dirname, '../../client/public/Sales');
 
-const formatFolderName = (name) => {
-  return name.replace(/\s+/g, '_');
-};
-
 const uploadFolder = async (folderPath, cloudinaryFolder) => {
   console.log(`Scanning directory: ${folderPath}`);
   const files = await fs.readdir(folderPath, { withFileTypes: true });
@@ -20,15 +16,15 @@ const uploadFolder = async (folderPath, cloudinaryFolder) => {
     const fullPath = path.join(folderPath, file.name);
     
     if (file.isDirectory()) {
-      // Handle both case conversion and space replacement
+      // Only convert Men/Women to lowercase, keep other folder names as-is
       const folderName = file.name === 'Men' ? 'men' : 
                         file.name === 'Women' ? 'women' : 
-                        formatFolderName(file.name);
+                        file.name;
       const newCloudinaryFolder = `${cloudinaryFolder}/${folderName}`;
       await uploadFolder(fullPath, newCloudinaryFolder);
     } else if (file.isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file.name)) {
       try {
-        const result = await cloudinary.uploader.upload(fullPath, {
+        await cloudinary.uploader.upload(fullPath, {
           folder: cloudinaryFolder,
           public_id: path.parse(file.name).name,
           resource_type: 'auto',

@@ -8,16 +8,14 @@ import Product from "../models/product.model.js";
 
 dotenv.config();
 
-const formatFolderName = (name) => {
-  return name.replace(/\s+/g, '_');
-};
-
 const createProductDocument = async (product, category, type) => {
   const productFolderName = product.imagePath[0].split('/').slice(-2)[0];
   let folderPath;
 
   if (type === 'sale') {
-    folderPath = `minimal/${type}/${product.gender.toLowerCase()}/${productFolderName}`;
+    // Decode any URL encoded characters and ensure proper underscore usage
+    const decodedFolderName = decodeURIComponent(productFolderName).replace(/%20/g, '_');
+    folderPath = `minimal/${type}/${category}/${decodedFolderName}`;
   } else {
     folderPath = `minimal/${type}/${category}/${productFolderName}`;
   }
@@ -26,7 +24,6 @@ const createProductDocument = async (product, category, type) => {
     const fileName = originalPath.split('/').pop();
     return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${folderPath}/${fileName}`;
   });
-
   const sortedImages = [...cloudinaryImages].sort((a, b) => {
     const isProdA = a.includes('hmgoepprod') || a.includes('prod');
     const isProdB = b.includes('hmgoepprod') || b.includes('prod');
