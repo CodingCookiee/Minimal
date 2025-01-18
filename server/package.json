@@ -8,7 +8,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,jsx}\"",
     "seed": "node scripts/seed.js",
-    "upload-images": "node scripts/uploadImages.js"
+    "upload-images": "node scripts/uploadImages.js",
+    "upload-folder-structure" : "node scripts/uploadFolderStructure.js"
   },
   "keywords": [],
   "author": "",
