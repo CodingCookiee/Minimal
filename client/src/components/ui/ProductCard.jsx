@@ -11,46 +11,43 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../utils/UserContext";
 import { toast } from "react-toastify";
 
-
 const ProductCard = ({ product, viewType }) => {
   const { currentUser } = useUser();
   const navigate = useNavigate();
-  const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || '');
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "");
   const uniqueId = `swiper-${product.name.replace(/\s+/g, "-").toLowerCase()}`;
   const [showNextButton, setShowNextButton] = useState(true);
   const [showPrevButton, setShowPrevButton] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
+  const handleAddToCart = async () => {
+    if (!currentUser) {
+      navigate("/signin");
+      return;
+    }
 
-const handleAddToCart = async () => {
-  if (!currentUser) {
-    navigate("/signin");
-    return;
-  }
+    try {
+      await axiosInstance.post("/cart", {
+        productId: product._id,
+        quantity: 1,
+        price: product.discountedPrice || product.price,
+      });
+      toast.success("Added to cart successfully");
+    } catch (error) {
+      toast.error("Failed to add to cart");
+    }
+  };
 
-  try {
-    await axiosInstance.post("/cart", {
-      productId: product._id,
-      quantity: 1,
-      price: product.discountedPrice || product.price
+  const images = (
+    (product.imagePath?.length ? product.imagePath : [product.image]) || []
+  )
+    .filter(Boolean)
+    .map((url) => url.trim())
+    .sort((a, b) => {
+      const isProdA = a?.toLowerCase().includes("prod") || false;
+      const isProdB = b?.toLowerCase().includes("prod") || false;
+      return isProdB - isProdA;
     });
-    toast.success("Added to cart successfully");
-  } catch (error) {
-    toast.error("Failed to add to cart");
-  }
-};
-
-
-const images = ((product.imagePath?.length ? product.imagePath : [product.image]) || [])
-  .filter(Boolean)
-  .map(url => url.trim())
-  .sort((a, b) => {
-    const isProdA = a?.toLowerCase().includes('prod') || false;
-    const isProdB = b?.toLowerCase().includes('prod') || false;
-    return isProdB - isProdA;
-  });
-
-
 
   const cardStyles =
     viewType === "grid"
@@ -147,25 +144,27 @@ const images = ((product.imagePath?.length ? product.imagePath : [product.image]
         <div className="mt-4">
           <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
           <div className="flex gap-2">
-          {product.colors?.length > 0 && (
-  <div className="mt-4">
-    <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
-    <div className="flex gap-2">
-      {product.colors.map((color) => (
-        <button
-          key={color}
-          onClick={() => setSelectedColor(color)}
-          className={`w-6 h-6 rounded-full border-2 ${
-            selectedColor === color
-              ? "border-dark-primary dark:border-light-primary"
-              : "border-transparent"
-          }`}
-          style={{ backgroundColor: color.toLowerCase() }}
-        />
-      ))}
-    </div>
-  </div>
-)}
+            {product.colors?.length > 0 && (
+              <div className="mt-4">
+                <p className="text-xs font-sf-semibold font-semibold mb-2">
+                  COLORS
+                </p>
+                <div className="flex gap-2">
+                  {product.colors.map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedColor(color)}
+                      className={`w-6 h-6 rounded-full border-2 ${
+                        selectedColor === color
+                          ? "border-dark-primary dark:border-light-primary"
+                          : "border-transparent"
+                      }`}
+                      style={{ backgroundColor: color.toLowerCase() }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

@@ -3,8 +3,8 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Basic_Popover_Shirt/Basic_Popover_Shirt_Navy_Blue/10004.jpg",
-"./Sales/Men/Basic_Popover_Shirt/Basic_Popover_Shirt_Navy_Blue/10005.jpg",
-"./Sales/Men/Basic_Popover_Shirt/Basic_Popover_Shirt_Navy_Blue/prod.jpg"
+        "./Sales/Men/Basic_Popover_Shirt/Basic_Popover_Shirt_Navy_Blue/10005.jpg",
+        "./Sales/Men/Basic_Popover_Shirt/Basic_Popover_Shirt_Navy_Blue/prod.jpg",
       ],
       title: "Basic Popover Shirt",
       subtitle: "Regular Fit",
@@ -19,8 +19,8 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Basic_Popover_Shirt_White/10002.jpg",
-"./Sales/Men/Basic_Popover_Shirt_White/10003.jpg",
-"./Sales/Men/Basic_Popover_Shirt_White/prod.jpg"
+        "./Sales/Men/Basic_Popover_Shirt_White/10003.jpg",
+        "./Sales/Men/Basic_Popover_Shirt_White/prod.jpg",
       ],
       title: "Basic Popover Shirt",
       subtitle: "Regular Fit",
@@ -35,8 +35,8 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Loose_Fit_Printed_T-shirt/0ff7cb4f5e067334cac0c2d9b16d85ce9b8.jpg",
-"./Sales/Men/Loose_Fit_Printed_T-shirt/0309b2177ef3541839fbae5df42b5865e04.jpg",
-"./Sales/Men/Loose_Fit_Printed_T-shirt/c323e0931c9083fc716bc3621fdd7ca0126.jpg"
+        "./Sales/Men/Loose_Fit_Printed_T-shirt/0309b2177ef3541839fbae5df42b5865e04.jpg",
+        "./Sales/Men/Loose_Fit_Printed_T-shirt/c323e0931c9083fc716bc3621fdd7ca0126.jpg",
       ],
       title: "Loose Fit Printed T-Shirt",
       subtitle: "Loose Fit",
@@ -48,12 +48,12 @@ export const saleCategories = {
       gender: "Men",
       colors: [""],
     },
-   
+
     {
       imagePath: [
-       "./Sales/Men/Patterned_resort_shirt/prod.jpg",
-"./Sales/Men/Patterned_resort_shirt/86dcabe65da486cf2d1e2d887e1318abf13.jpg",
-"./Sales/Men/Patterned_resort_shirt/8a20f4a54ae8bb67deb0afe1ecf45ccc7a1.jpg"
+        "./Sales/Men/Patterned_resort_shirt/prod.jpg",
+        "./Sales/Men/Patterned_resort_shirt/86dcabe65da486cf2d1e2d887e1318abf13.jpg",
+        "./Sales/Men/Patterned_resort_shirt/8a20f4a54ae8bb67deb0afe1ecf45ccc7a1.jpg",
       ],
       title: "Patterned Resort Shirt",
       subtitle: "Regular Fit",
@@ -68,7 +68,7 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Patterned_resort_shirt_Black/c52c830e0b9ce26e670f9a96f713763047b.jpg",
-"./Sales/Men/Patterned_resort_shirt_Black/prod.jpg",
+        "./Sales/Men/Patterned_resort_shirt_Black/prod.jpg",
       ],
       title: "Patterned Resort Shirt",
       subtitle: "Regular Fit",
@@ -83,8 +83,8 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Regular_Fit_Hoodie/prod.jpg",
-"./Sales/Men/Regular_Fit_Hoodie/7db0db4c69070b84643b9b76a9773695da5.jpg",
-"./Sales/Men/Regular_Fit_Hoodie/6ce7c4163cb8c65e98d5969ea26462ebb0f.jpg",
+        "./Sales/Men/Regular_Fit_Hoodie/7db0db4c69070b84643b9b76a9773695da5.jpg",
+        "./Sales/Men/Regular_Fit_Hoodie/6ce7c4163cb8c65e98d5969ea26462ebb0f.jpg",
       ],
       title: "Regular Fit Hoodie",
       subtitle: "Regular Fit",
@@ -99,7 +99,7 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Regular_Fit_Printed_T-shirt/cb3176cb876bdea34e2bf2e76332357a69c.jpg",
-"./Sales/Men/Regular_Fit_Printed_T-shirt/prod.jpg"
+        "./Sales/Men/Regular_Fit_Printed_T-shirt/prod.jpg",
       ],
       title: "Regular Fit Printed T-Shirt",
       subtitle: "Regular Fit",
@@ -113,8 +113,8 @@ export const saleCategories = {
     },
     {
       imagePath: [
-        './Sales/Men/Straight_Trousers/prod.jpg',
-'./Sales/Men/Straight_Trousers/10002.jpg'
+        "./Sales/Men/Straight_Trousers/prod.jpg",
+        "./Sales/Men/Straight_Trousers/10002.jpg",
       ],
       title: "Straight Trousers",
       subtitle: "Regular Fit",
@@ -129,7 +129,7 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Men/Slogan_T-Shirt_Black/prod.jpg",
-"./Sales/Men/Slogan_T-Shirt_Black/10005.jpg",
+        "./Sales/Men/Slogan_T-Shirt_Black/10005.jpg",
       ],
       title: "Slogan T-Shirt",
       subtitle: "Regular Fit",
@@ -143,9 +143,9 @@ export const saleCategories = {
     },
     {
       imagePath: [
-       "./Sales/Men/Slogan_T-Shirt/prod.jpg",
-"./Sales/Men/Slogan_T-Shirt/10002.jpg",
-"./Sales/Men/Slogan_T-Shirt/10003.jpg",
+        "./Sales/Men/Slogan_T-Shirt/prod.jpg",
+        "./Sales/Men/Slogan_T-Shirt/10002.jpg",
+        "./Sales/Men/Slogan_T-Shirt/10003.jpg",
       ],
       title: "Slogan T-Shirt",
       subtitle: "Regular Fit",
@@ -159,8 +159,8 @@ export const saleCategories = {
     },
     {
       imagePath: [
-       "./Sales/Men/Regular_Fit_Waffled_T-shirt/prod.jpg",
-"./Sales/Men/Regular_Fit_Waffled_T-shirt/ac8384baf70be0c32f2c7cb5a9c72380ff4.jpg"
+        "./Sales/Men/Regular_Fit_Waffled_T-shirt/prod.jpg",
+        "./Sales/Men/Regular_Fit_Waffled_T-shirt/ac8384baf70be0c32f2c7cb5a9c72380ff4.jpg",
       ],
       title: "Regular Fit Waffled T-Shirt",
       subtitle: "Regular Fit",
@@ -209,8 +209,8 @@ export const saleCategories = {
     {
       imagePath: [
         "./Sales/Women/Cable_Knit_Cropped_Cardigan_Navy_blue/10002.jpg",
-"./Sales/Women/Cable_Knit_Cropped_Cardigan_Navy_blue/10003.jpg",
-"./Sales/Women/Cable_Knit_Cropped_Cardigan_Navy_blue/prod.jpg"
+        "./Sales/Women/Cable_Knit_Cropped_Cardigan_Navy_blue/10003.jpg",
+        "./Sales/Women/Cable_Knit_Cropped_Cardigan_Navy_blue/prod.jpg",
       ],
       title: "Cable Knit Cropped Cardigan",
       subtitle: "Regular Fit",
@@ -240,9 +240,9 @@ export const saleCategories = {
     },
     {
       imagePath: [
-       "./Sales/Women/Cropped_Basic_Plush_Sweater/10006.jpg",
-"./Sales/Women/Cropped_Basic_Plush_Sweater/10007.jpg",
-"./Sales/Women/Cropped_Basic_Plush_Sweater/prod.jpg",
+        "./Sales/Women/Cropped_Basic_Plush_Sweater/10006.jpg",
+        "./Sales/Women/Cropped_Basic_Plush_Sweater/10007.jpg",
+        "./Sales/Women/Cropped_Basic_Plush_Sweater/prod.jpg",
       ],
       title: "Cropped Basic Plush Sweater",
       subtitle: "Regular Fit",

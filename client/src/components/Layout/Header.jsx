@@ -48,12 +48,11 @@ const Header = () => {
         console.error("Error fetching cart count:", error);
       }
     };
-  
+
     if (currentUser) {
       fetchCartCount();
     }
   }, [currentUser]);
-
 
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -145,7 +144,7 @@ const Header = () => {
                         className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
                       >
                         <Link
-                           to={`/category/${category.name.toLowerCase()}`}
+                          to={`/category/${category.name.toLowerCase()}`}
                           className="block px-16 py-2.5 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                           onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
@@ -174,7 +173,7 @@ const Header = () => {
                   </div>
                   <Link
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                     to="/category/sale"
+                    to="/category/sale"
                     className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                   >
                     View All

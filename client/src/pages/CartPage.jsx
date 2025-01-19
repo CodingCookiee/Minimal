@@ -28,10 +28,10 @@ const CartPage = () => {
 
   const updateQuantity = async (productId, newQuantity) => {
     if (newQuantity < 1) return;
-    
+
     try {
       await axiosInstance.put(`/cart/${productId}`, {
-        quantity: newQuantity
+        quantity: newQuantity,
       });
       fetchCartItems();
       toast.success("Cart updated successfully");
@@ -51,7 +51,9 @@ const CartPage = () => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
+    return cartItems
+      .reduce((acc, item) => acc + item.price * item.quantity, 0)
+      .toFixed(2);
   };
 
   if (loading) return <Loading />;
@@ -59,7 +61,7 @@ const CartPage = () => {
   return (
     <div className="min-h-screen pt-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <h1 className="font-sf-heavy text-2xl sm:text-3xl mb-8">Shopping Cart</h1>
-      
+
       {cartItems.length === 0 ? (
         <div className="text-center py-12">
           <p className="font-sf-light text-lg mb-6">Your cart is empty</p>
@@ -88,24 +90,32 @@ const CartPage = () => {
                   className="w-24 h-24 object-cover"
                 />
                 <div className="flex-1">
-                  <h3 className="font-sf-medium text-lg">{item.productId.title}</h3>
+                  <h3 className="font-sf-medium text-lg">
+                    {item.productId.title}
+                  </h3>
                   <p className="font-sf-light text-sm text-neutral-600">
                     ${item.price.toFixed(2)}
                   </p>
                   <div className="flex items-center gap-4 mt-4">
                     <div className="flex items-center border border-neutral-200">
-                      <motion.button 
+                      <motion.button
                         className="p-2"
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => updateQuantity(item.productId._id, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(item.productId._id, item.quantity - 1)
+                        }
                       >
                         <Minus size={16} />
                       </motion.button>
-                      <span className="px-4 font-sf-medium">{item.quantity}</span>
-                      <motion.button 
+                      <span className="px-4 font-sf-medium">
+                        {item.quantity}
+                      </span>
+                      <motion.button
                         className="p-2"
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => updateQuantity(item.productId._id, item.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(item.productId._id, item.quantity + 1)
+                        }
                       >
                         <Plus size={16} />
                       </motion.button>
@@ -123,7 +133,7 @@ const CartPage = () => {
               </motion.div>
             ))}
           </div>
-          
+
           <div className="lg:col-span-1">
             <div className="bg-neutral-50 p-6">
               <h2 className="font-sf-medium text-xl mb-4">Order Summary</h2>
@@ -137,7 +147,7 @@ const CartPage = () => {
                   <span className="font-sf-light">Calculated at checkout</span>
                 </div>
               </div>
-              <motion.button 
+              <motion.button
                 className="w-full py-3 bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

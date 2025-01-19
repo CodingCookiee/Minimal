@@ -13,7 +13,7 @@ const CategoryPage = () => {
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(categoryname || "men");
   const [activeSubCategory, setActiveSubCategory] = useState("");
-  const normalizedCategory = categoryname === 'sale' ? 'sales' : categoryname;
+  const normalizedCategory = categoryname === "sale" ? "sales" : categoryname;
 
   const categoryData = {
     men: menCategories,
@@ -29,13 +29,18 @@ const CategoryPage = () => {
 
   useEffect(() => {
     setActiveCategory(categoryname || "men");
-    const initialSubCategory = categoryname && categoryData[normalizedCategory] ? Object.keys(categoryData[normalizedCategory])[0] : "jeans";
+    const initialSubCategory =
+      categoryname && categoryData[normalizedCategory]
+        ? Object.keys(categoryData[normalizedCategory])[0]
+        : "jeans";
     setActiveSubCategory(initialSubCategory);
 
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await axiosInstance.get(`/product/${categoryname}/${initialSubCategory}`);
+        const response = await axiosInstance.get(
+          `/product/${categoryname}/${initialSubCategory}`,
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -50,7 +55,9 @@ const CategoryPage = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await axiosInstance.get(`/product/${categoryname}/${activeSubCategory}`);
+        const response = await axiosInstance.get(
+          `/product/${categoryname}/${activeSubCategory}`,
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -60,8 +67,6 @@ const CategoryPage = () => {
 
     fetchProducts();
   }, [activeSubCategory]);
-
-  
 
   if (isLoading) {
     return <Loading />;

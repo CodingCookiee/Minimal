@@ -27,7 +27,9 @@ const SubCategoryPage = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await axiosInstance.get(`/product/${categoryname}/${subcategoryname}`);
+        const response = await axiosInstance.get(
+          `/product/${categoryname}/${subcategoryname}`,
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -37,8 +39,6 @@ const SubCategoryPage = () => {
 
     fetchProducts();
   }, [categoryname, subcategoryname]);
-
-
 
   if (isLoading) {
     return <Loading />;
@@ -50,7 +50,10 @@ const SubCategoryPage = () => {
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">
       <div className="px-6 sm:px-12 lg:px-20 pt-24">
         <h1 className="mt-10 font-sf-heavy text-3xl sm:text-4xl lg:text-5xl text-dark-primary dark:text-light-primary">
-          {categoryTitle} - <b className='bg-neutral-900 text-light-primary px-2.5 mt-1.5 font-sf-light font-medium text-lg absolute ml-2.5'>{subcategoryname.toUpperCase()}</b>
+          {categoryTitle} -{" "}
+          <b className="bg-neutral-900 text-light-primary px-2.5 mt-1.5 font-sf-light font-medium text-lg absolute ml-2.5">
+            {subcategoryname.toUpperCase()}
+          </b>
         </h1>
       </div>
 

@@ -9,9 +9,11 @@ import Product from "../models/product.model.js";
 dotenv.config();
 
 const createProductDocument = async (product, category, type) => {
-const productFolderName = product.imagePath[0].split("/").slice(-2)[0].replace(/\s+/g, '_');
-let folderPath = `minimal/${type}/${category}/${productFolderName}`;
-
+  const productFolderName = product.imagePath[0]
+    .split("/")
+    .slice(-2)[0]
+    .replace(/\s+/g, "_");
+  let folderPath = `minimal/${type}/${category}/${productFolderName}`;
 
   const cloudinaryImages = product.imagePath.map((originalPath) => {
     const fileName = originalPath.split("/").pop();
@@ -39,7 +41,7 @@ let folderPath = `minimal/${type}/${category}/${productFolderName}`;
 
   if (product.discountedPrice) {
     productData.discountedPrice = parseFloat(
-      product.discountedPrice.replace("$", "")
+      product.discountedPrice.replace("$", ""),
     );
     productData.discountPercentage = parseInt(product.discountPercentage);
   }
@@ -55,7 +57,7 @@ const seedDatabase = async () => {
     const existingCount = await Product.countDocuments();
     await Product.deleteMany({});
     console.log(
-      `\n🧹 Cleared ${existingCount} existing products from database`
+      `\n🧹 Cleared ${existingCount} existing products from database`,
     );
 
     // Seed men's products
@@ -65,7 +67,7 @@ const seedDatabase = async () => {
         const newProduct = await createProductDocument(
           product,
           category,
-          "men"
+          "men",
         );
         console.log(`✅ Created: ${newProduct.name}`);
       }
@@ -78,7 +80,7 @@ const seedDatabase = async () => {
         const newProduct = await createProductDocument(
           product,
           category,
-          "women"
+          "women",
         );
         console.log(`✅ Created: ${newProduct.name}`);
       }
@@ -91,7 +93,7 @@ const seedDatabase = async () => {
         const newProduct = await createProductDocument(
           product,
           category,
-          "sale"
+          "sale",
         );
         console.log(`✅ Created: ${newProduct.name}`);
       }

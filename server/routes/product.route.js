@@ -7,7 +7,7 @@ import {
   getProductsByCategory,
   getRecommendedProducts,
   toggleFeaturedProduct,
-  getProductsByTypeAndCategory
+  getProductsByTypeAndCategory,
 } from "../controllers/product.controller.js";
 import {
   authenticateUser,

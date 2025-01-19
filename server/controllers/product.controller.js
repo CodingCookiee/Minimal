@@ -154,28 +154,20 @@ export const deleteProduct = async (req, res, next) => {
   }
 };
 
-
-
-
 export const getProductsByTypeAndCategory = async (req, res, next) => {
   try {
     const { type, category } = req.params;
     const searchCategory = category ? `${type}_${category}` : type;
     const products = await Product.find({ category: searchCategory });
-    
-    const transformedProducts = products.map(product => {
+
+    const transformedProducts = products.map((product) => {
       const productObj = product.toObject();
-      
+
       return productObj;
     });
-    
+
     res.json(transformedProducts);
   } catch (err) {
     next(createError(500, "Error fetching products"));
   }
 };
-
-
-
-
-

@@ -4,11 +4,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cloudinary from "../lib/cloudinary.js";
 import Product from "../models/product.model.js";
-import { menCategories } from '../../client/src/constants/menCategories.js';
-import { womenCategories } from '../../client/src/constants/womenCategories.js';
-import { saleCategories } from '../../client/src/constants/saleCategories.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { menCategories } from "../../client/src/constants/menCategories.js";
+import { womenCategories } from "../../client/src/constants/womenCategories.js";
+import { saleCategories } from "../../client/src/constants/saleCategories.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -19,19 +19,24 @@ const RETRY_DELAY = 2000;
 const categoryData = {
   men: menCategories,
   women: womenCategories,
-  sale: saleCategories
+  sale: saleCategories,
 };
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const uploadWithRetry = async (imagePath, folderPath, fileName, retries = 0) => {
+const uploadWithRetry = async (
+  imagePath,
+  folderPath,
+  fileName,
+  retries = 0,
+) => {
   try {
     const result = await cloudinary.uploader.upload(imagePath, {
       folder: folderPath,
       public_id: fileName,
       overwrite: true,
       resource_type: "auto",
-      timeout: 60000
+      timeout: 60000,
     });
     return result.secure_url;
   } catch (error) {
@@ -52,17 +57,29 @@ const uploadImages = async () => {
     for (const [mainCategory, categories] of Object.entries(categoryData)) {
       for (const [subCategory, products] of Object.entries(categories)) {
         for (const product of products) {
-          console.log(`\nProcessing: ${mainCategory} - ${subCategory} - ${product.title}`);
-          
+          console.log(
+            `\nProcessing: ${mainCategory} - ${subCategory} - ${product.title}`,
+          );
+
           const uploadedImages = [];
           for (const [index, imgPath] of product.imagePath.entries()) {
-            const cleanPath = imgPath.startsWith('/') ? imgPath.slice(1) : imgPath;
-            const imagePath = path.join(__dirname, '../../client/public', cleanPath);
-            const folderPath = `minimal/${mainCategory}/${subCategory}/${product.title.replace(/\s+/g, '_')}`;
+            const cleanPath = imgPath.startsWith("/")
+              ? imgPath.slice(1)
+              : imgPath;
+            const imagePath = path.join(
+              __dirname,
+              "../../client/public",
+              cleanPath,
+            );
+            const folderPath = `minimal/${mainCategory}/${subCategory}/${product.title.replace(/\s+/g, "_")}`;
             const fileName = `image_${index + 1}`;
 
             try {
-              const uploadedUrl = await uploadWithRetry(imagePath, folderPath, fileName);
+              const uploadedUrl = await uploadWithRetry(
+                imagePath,
+                folderPath,
+                fileName,
+              );
               uploadedImages.push(uploadedUrl);
               console.log(`Success: ${uploadedUrl}`);
             } catch (error) {
@@ -75,9 +92,9 @@ const uploadImages = async () => {
               { name: product.title },
               {
                 imagePath: uploadedImages,
-                image: uploadedImages[0]
+                image: uploadedImages[0],
               },
-              { new: true }
+              { new: true },
             );
           }
         }

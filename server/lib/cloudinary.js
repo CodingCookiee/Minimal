@@ -14,7 +14,4 @@ export const getCloudinaryUrl = (folderPath, fileName) => {
   return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${folderPath}/${fileName}`;
 };
 
-
-
-
 export default cloudinary;
