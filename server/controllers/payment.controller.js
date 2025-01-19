@@ -3,96 +3,84 @@ import Order from "../models/order.model.js";
 import createError from "../utils/createError.utils.js";
 import Cart from "../models/cart.model.js";
 import stripe from "../lib/stripe.js";
+import User from "../models/user.model.js";
 
-export const createCheckoutSession = async (req, res, next) => {
+
+
+export const createPaymentIntent = async (req, res, next) => {
   try {
-    const { couponCode } = req.body;
+    const { items, couponCode, addressId } = req.body;
     const userId = req.user._id;
-    const cart = await Cart.findOne({ userId }).populate("items.productId");
-
-    if (!cart || cart.items.length === 0) {
-      throw createError(400, "No products in the cart");
-    }
-
-    let totalAmount = cart.totalAmount;
+    let amount = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
     if (couponCode) {
       const coupon = await Coupon.findOne({ code: couponCode, userId });
       if (coupon && coupon.isActive) {
-        const discount = (coupon.discountPercentage / 100) * totalAmount;
-        totalAmount -= discount;
+        const discount = (coupon.discountPercentage / 100) * amount;
+        amount -= discount;
       }
     }
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: cart.items.map((item) => ({
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: item.productId.name,
-            images: [item.productId.image],
-          },
-          unit_amount: Math.round(item.price * 100),
-        },
-        quantity: item.quantity,
-      })),
-      mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(amount * 100),
+      currency: 'usd',
       metadata: {
         userId: userId.toString(),
-        couponCode: couponCode || "",
-        originalAmount: cart.totalAmount,
-        discountedAmount: totalAmount,
+        addressId: addressId,
+        couponCode: couponCode || '',
+        originalAmount: amount,
+        discountedAmount: amount
       },
+      automatic_payment_methods: {
+        enabled: true,
+      }
     });
 
-    res.status(200).json({ sessionId: session.id, url: session.url });
+    res.status(200).json({
+      clientSecret: paymentIntent.client_secret,
+      amount: amount
+    });
   } catch (error) {
-    console.error("Error creating checkout session:", error);
+    console.error("Error creating payment intent", error.message);
     next(error);
   }
 };
 
-export const checkoutSuccess = async (req, res, next) => {
+export const handlePaymentSuccess = async (req, res, next) => {
   try {
-    const { session_id } = req.body;
-    const session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ["line_items", "line_items.data.price.product"],
-    });
+    const { paymentIntentId } = req.body;
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    const userId = paymentIntent.metadata.userId;
+    const addressId = paymentIntent.metadata.addressId;
 
-    const { userId, couponCode } = session.metadata;
-    const cart = await Cart.findOne({ userId });
+    // Get cart and user data
+    const cart = await Cart.findOne({ userId }).populate('items.productId');
+    const user = await User.findById(userId);
+    
+    // Find selected address from user's addresses
+    const selectedAddress = user.addresses.find(addr => addr._id.toString() === addressId);
 
     const order = new Order({
       userId,
       products: cart.items.map((item) => ({
-        productId: item.productId,
+        productId: item.productId._id,
         quantity: item.quantity,
         price: item.price,
       })),
-      totalAmount: session.amount_total / 100,
-      stripeSessionId: session.id,
-      shippingAddress: session.shipping?.address?.line1 || "Default Address", // Add default or required shipping address
-      paymentMethod: session.payment_method_types[0],
-      paymentStatus: "paid",
+      totalAmount: paymentIntent.amount / 100,
+      stripeSessionId: paymentIntent.id,
+      shippingAddress: `${selectedAddress.name}, ${selectedAddress.address1}, ${selectedAddress.city}, ${selectedAddress.country} ${selectedAddress.postalCode}`,
+      paymentMethod: 'card',
+      paymentStatus: 'paid',
     });
-
-    if (couponCode) {
-      order.couponCode = couponCode;
-    }
 
     await order.save();
     await Cart.findOneAndDelete({ userId });
 
-    res.status(201).json({
-      success: true,
-      message: "Order placed successfully",
-      order,
-    });
+    res.status(200).json({ success: true, order });
   } catch (error) {
-    console.error("Error Creating Order:", error);
     next(error);
   }
 };
+
+

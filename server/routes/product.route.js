@@ -4,10 +4,9 @@ import {
   deleteProduct,
   getAllProducts,
   getFeaturedProducts,
-  getProductsByCategory,
-  getRecommendedProducts,
   toggleFeaturedProduct,
   getProductsByTypeAndCategory,
+  getSingleProduct,
 } from "../controllers/product.controller.js";
 import {
   authenticateUser,
@@ -18,9 +17,8 @@ const router = express.Router();
 
 router.post("/", authenticateUser, authenticateAdmin, createProduct);
 router.get("/", authenticateUser, authenticateAdmin, getAllProducts);
-router.get("/category/:category", getProductsByCategory);
 router.get("/featured", getFeaturedProducts);
-router.get("/recommended", getRecommendedProducts);
+router.get("/:id", getSingleProduct);
 router.patch(
   "/:id",
   authenticateUser,

@@ -1,17 +1,13 @@
 import express from "express";
 import { authenticateUser } from "../middleware/auth.middleware.js";
 import {
-  checkoutSuccess,
-  createCheckoutSession,
+  createPaymentIntent,
+  handlePaymentSuccess
 } from "../controllers/payment.controller.js";
 
 const router = express.Router();
 
-router.post(
-  "/create-checkout-session",
-  authenticateUser,
-  createCheckoutSession,
-);
-router.post("/checkout-success", authenticateUser, checkoutSuccess);
+router.post("/create-payment-intent", authenticateUser, createPaymentIntent);
+router.post("/payment-success", authenticateUser, handlePaymentSuccess);
 
 export default router;

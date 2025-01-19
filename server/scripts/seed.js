@@ -25,6 +25,24 @@ const createProductDocument = async (product, category, type) => {
     return isProdB - isProdA;
   });
 
+  let sizes = [];
+  if (type === 'men') {
+    if (category.includes('jeans')) {
+      sizes = ['28', '30', '32', '34', '36', '38'];
+    } else if (category.includes('shirts')) {
+      sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+    }
+  } else if (type === 'women') {
+    if (category.includes('jeans') || category.includes('trousers')) {
+      sizes = ['24', '26', '28', '30', '32'];
+    } else if (category.includes('shirts')) {
+      sizes = ['XS', 'S', 'M', 'L'];
+    }
+  }
+  else{   
+    sizes = product.sizes; 
+  }
+
   const productData = {
     name: product.title,
     description: product.description,
@@ -37,6 +55,7 @@ const createProductDocument = async (product, category, type) => {
     subtitle: product.subtitle,
     gender: product.gender,
     colors: product.colors,
+    sizes: sizes,
   };
 
   if (product.discountedPrice) {

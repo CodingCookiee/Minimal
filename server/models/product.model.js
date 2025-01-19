@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, required: true },
     gender: { type: String, required: true },
     colors: [{ type: String }],
+    sizes: [{ type: String }],
     isFeatured: { type: Boolean, default: false },
     rating: { type: Number, required: true },
     cloudinaryFolder: { type: String },

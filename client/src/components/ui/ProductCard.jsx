@@ -7,18 +7,19 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Loading } from "../../components/ui";
 import axiosInstance from "../../utils/axios.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../../utils/UserContext";
 import { toast } from "react-toastify";
+import { useCart } from "../../utils/CartContext";
+
 
 const ProductCard = ({ product, viewType }) => {
+  const { cartItems, updateCart } = useCart();
   const { currentUser } = useUser();
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "");
-  const uniqueId = `swiper-${product.name.replace(/\s+/g, "-").toLowerCase()}`;
-  const [showNextButton, setShowNextButton] = useState(true);
-  const [showPrevButton, setShowPrevButton] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = async () => {
     if (!currentUser) {
@@ -27,12 +28,13 @@ const ProductCard = ({ product, viewType }) => {
     }
 
     try {
-      await axiosInstance.post("/cart", {
+      const response = await axiosInstance.post("/cart", {
         productId: product._id,
         quantity: 1,
         price: product.discountedPrice || product.price,
       });
-      toast.success("Added to cart successfully");
+      updateCart(response.data.items || []);
+      
     } catch (error) {
       toast.error("Failed to add to cart");
     }
@@ -72,16 +74,10 @@ const ProductCard = ({ product, viewType }) => {
         <div className={viewType === "grid" ? "w-full" : "w-full "}>
           <Swiper
             modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            containerModifierClass={uniqueId}
-            onSlideChange={(swiper) => {
-              setShowPrevButton(!swiper.isBeginning);
-              setShowNextButton(!swiper.isEnd);
-            }}
-            className={`aspect-[3/4] rounded-none overflow-hidden group/swiper 
-        ${showPrevButton ? "[&_.swiper-button-prev]:!opacity-100" : "[&_.swiper-button-prev]:!opacity-0"}
-        ${showNextButton ? "[&_.swiper-button-next]:!opacity-100" : "[&_.swiper-button-next]:!opacity-0"}
+              navigation
+              pagination={{ clickable: true }}
+              className={`aspect-[3/4] rounded-none overflow-hidden group/swiper 
+      
         [&_.swiper-button-next]:text-white [&_.swiper-button-prev]:text-white 
         [&_.swiper-button-next]:bg-neutral-700 [&_.swiper-button-prev]:bg-neutral-700 
         [&_.swiper-button-next]:w-3 [&_.swiper-button-prev]:w-3 
@@ -97,12 +93,14 @@ const ProductCard = ({ product, viewType }) => {
                     <Loading />
                   </div>
                 )}
-                <img
-                  src={image}
-                  alt={`${product.title} - View ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  onLoad={() => setImageLoading(false)}
-                />
+                <Link to={`/product/${product._id}`}>
+                  <img
+                    src={image}
+                    alt={`${product.title} - View ${index + 1}`}
+                    className="w-full h-full object-cover cursor-pointer"
+                    onLoad={() => setImageLoading(false)}
+                  />
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -113,9 +111,11 @@ const ProductCard = ({ product, viewType }) => {
       <div className={viewType === "grid" ? "mt-4" : "w-full"}>
         <div className="flex justify-between items-start">
           <div>
+          <Link to={`/product/${product._id}`}>
             <h3 className="font-sf-heavy text-md font-semibold text-dark-secondary dark:text-light-secondary">
               {product.name}
             </h3>
+            </Link>
             <p className="font-sf-light text-sm text-gray-700 dark:text-gray-400">
               {product.subtitle}
             </p>
@@ -175,11 +175,24 @@ const ProductCard = ({ product, viewType }) => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          Add to Cart
+          {isLoading ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center justify-center"
+                  >
+                    <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
+                    Adding to Cart ...
+                  </motion.div>
+                ) : (
+                  <span className="flex items-center justify-center">
+                    Add to Cart
+                    
+                  </span>
+                )}
         </motion.button>
       </div>
     </motion.div>
-  );
-};
+  );};
 
 export default ProductCard;

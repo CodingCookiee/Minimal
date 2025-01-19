@@ -16,6 +16,8 @@ import PaymentCancelPage from "./pages/PaymentCancelPage";
 import AddAddressPage from "./pages/AddAddressPage";
 import EditAddressPage from "./pages/EditAddressPage";
 import SubCategoryPage from "./pages/SubCategoryPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import PaymentPage from "./pages/PaymentPage";
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -78,22 +80,14 @@ const App = () => {
           path: "/category/:categoryname/:subcategoryname",
           element: <SubCategoryPage />,
         },
+        {
+          path: "/product/:id",
+          element: <ProductDetailsPage />,
+        },
 
         {
           path: "/admin",
           element: <AdminPage />,
-        },
-        {
-          path: "/checkout",
-          element: <CheckoutPage />,
-        },
-        {
-          path: "/payment/success",
-          element: <PaymentSuccessPage />,
-        },
-        {
-          path: "/payment/cancel",
-          element: <PaymentCancelPage />,
         },
         {
           path: "/add-address",
@@ -102,6 +96,22 @@ const App = () => {
         {
           path: "/edit-address/:addressId",
           element: <EditAddressPage />,
+        },
+        {
+          path: "/checkout",
+          element: <CheckoutPage />,
+        },
+        {
+          path: "/payment",
+          element: <PaymentPage />,
+        },
+        {
+          path: "/payment/success",
+          element: <PaymentSuccessPage />,
+        },
+        {
+          path: "/payment/cancel",
+          element: <PaymentCancelPage />,
         },
       ],
     },

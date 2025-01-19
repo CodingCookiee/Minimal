@@ -65,42 +65,20 @@ export const getFeaturedProducts = async (req, res, next) => {
   }
 };
 
-export const getProductsByCategory = async (req, res, next) => {
+export const getSingleProduct = async (req, res, next) => {
   try {
-    const { category } = req.params;
-    const products = await Product.find({ category });
-
-    if (!products.length) {
-      return next(createError(404, "No Products found in this category"));
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if (!product) {
+      return next(createError(404, "Product not found"));
     }
-    res.json(products);
-  } catch (err) {
-    console.error("Error Fetching Products by Category", err.message);
-    next(createError(500, "Internal Server Error"));
-  }
+    res.json(product);
+    } catch (err) {
+      console.error("Error Fetching Product", err.message);
+      next(createError(500, "Internal Server Error"));
+    }
 };
 
-export const getRecommendedProducts = async (req, res, next) => {
-  try {
-    const products = await redis.get("recommendedProducts");
-
-    if (products) {
-      return res.json(JSON.parse(products));
-    }
-
-    const recommendedProducts = await Product.find({ rating: { $gte: 4 } });
-    redis.set(
-      "recommendedProducts",
-      JSON.stringify(recommendedProducts),
-      "EX",
-      60,
-    );
-    res.json(recommendedProducts);
-  } catch (err) {
-    console.error("Error Fetching Recommended Products", err.message);
-    next(createError(500, "Internal Server Error"));
-  }
-};
 
 export const toggleFeaturedProduct = async (req, res, next) => {
   try {

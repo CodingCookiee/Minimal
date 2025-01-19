@@ -14,19 +14,35 @@ import axiosInstance from "../../utils/axios.js";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUser } from "../../utils/UserContext";
-import { menCategories } from "../../constants/menCategories.js";
-import { womenCategories } from "../../constants/womenCategories.js";
-import { saleCategories } from "../../constants/saleCategories.js";
+import { useCart } from "../../utils/CartContext";
 
 const Header = () => {
+  const {cartCount, updateCart} = useCart();
   const { currentUser, updateUser } = useUser();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+
 
   const isAdmin = currentUser?.role === "admin";
+
+  const menCategories = {
+    shirts: "Shirts",
+    jeans: "Jeans",
+    
+  };
+
+  const womenCategories = {
+    shirts : "Shirts",
+    jeans: "Jeans",
+    trousers: "Trousers"
+  };
+
+  const saleCategories = {
+    women:"Women",
+    men:"Men",
+  };
 
   const categories = [
     {
@@ -39,20 +55,22 @@ const Header = () => {
     },
   ];
 
+  
   useEffect(() => {
-    const fetchCartCount = async () => {
-      try {
-        const response = await axiosInstance.get("/cart");
-        setCartCount(response.data.items?.length || 0);
-      } catch (error) {
-        console.error("Error fetching cart count:", error);
+    const fetchCartItems = async () => {
+      if (currentUser) {
+        try {
+          const response = await axiosInstance.get("/cart");
+          updateCart(response.data.items || []);
+        } catch (error) {
+          console.error("Error fetching cart items:", error);
+        }
       }
     };
-
-    if (currentUser) {
-      fetchCartCount();
-    }
+    fetchCartItems();
   }, [currentUser]);
+
+
 
   useEffect(() => {
     const checkTokenExpiration = () => {

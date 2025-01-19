@@ -15,6 +15,7 @@ export const saleCategories = {
       discountPercentage: "13%",
       gender: "Men",
       colors: ["Navy"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -31,6 +32,8 @@ export const saleCategories = {
       discountPercentage: "13%",
       gender: "Men",
       colors: ["White"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
     },
     {
       imagePath: [
@@ -47,6 +50,8 @@ export const saleCategories = {
       discountPercentage: "15%",
       gender: "Men",
       colors: [""],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
     },
 
     {
@@ -64,6 +69,8 @@ export const saleCategories = {
       discountPercentage: "18%",
       gender: "Men",
       colors: ["Various"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
     },
     {
       imagePath: [
@@ -79,6 +86,8 @@ export const saleCategories = {
       discountPercentage: "18%",
       gender: "Men",
       colors: ["Black"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
     },
     {
       imagePath: [
@@ -95,6 +104,8 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Men",
       colors: [""],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
     },
     {
       imagePath: [
@@ -110,6 +121,8 @@ export const saleCategories = {
       discountPercentage: "15%",
       gender: "Men",
       colors: ["lightblue"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
     },
     {
       imagePath: [
@@ -125,6 +138,8 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Men",
       colors: ["grey"],
+      sizes : ['24', '26', '28', '30', '32']
+
     },
     {
       imagePath: [
@@ -140,6 +155,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Men",
       colors: ["Black"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -156,6 +172,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Men",
       colors: ["saddlebrown"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -171,6 +188,7 @@ export const saleCategories = {
       discountPercentage: "14%",
       gender: "Men",
       colors: ["Various"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
   ],
   women: [
@@ -190,6 +208,7 @@ export const saleCategories = {
       discountPercentage: "15%",
       gender: "Women",
       colors: ["grey"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -205,6 +224,7 @@ export const saleCategories = {
       discountPercentage: "17%",
       gender: "Women",
       colors: ["Various"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -221,6 +241,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["Navy"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -237,6 +258,7 @@ export const saleCategories = {
       discountPercentage: "21%",
       gender: "Women",
       colors: ["Various"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -253,6 +275,7 @@ export const saleCategories = {
       discountPercentage: "22%",
       gender: "Women",
       colors: ["Navy"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -269,6 +292,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["tan"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -284,6 +308,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["black"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -300,6 +325,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["black"],
+      sizes : ['24', '26', '28', '30', '32']
     },
     {
       imagePath: [
@@ -315,6 +341,7 @@ export const saleCategories = {
       discountPercentage: "22%",
       gender: "Women",
       colors: ["black"],
+      sizes : ['24', '26', '28', '30', '32']
     },
     {
       imagePath: [
@@ -330,6 +357,7 @@ export const saleCategories = {
       discountPercentage: "23%",
       gender: "Women",
       colors: ["black"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -345,6 +373,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["Various"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -360,6 +389,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["black"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
     {
       imagePath: [
@@ -376,6 +406,7 @@ export const saleCategories = {
       discountPercentage: "20%",
       gender: "Women",
       colors: ["black"],
+      sizes : ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     },
   ],
 };

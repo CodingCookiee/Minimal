@@ -11,14 +11,14 @@ export * from "./Card";
 export * from "./Navbar";
 export * from "./AnalyticsTab";
 export * from "./CartItem";
-export * from "./CategoryItem";
+
 export * from "./CouponCard";
 export * from "./CreateProductForm";
-export * from "./FeaturedProduct";
+
 export * from "./Loading";
 export * from "./ProductCard";
 export * from "./ProductList";
-export * from "./Recommended";
+
 export * from "./Dialog";
 export * from "./Loading";
 export { default as ProductCard } from "./ProductCard";
