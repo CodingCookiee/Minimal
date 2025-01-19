@@ -11,7 +11,7 @@
 
 
 ## <a name='livedemo'>[🔗LiveDemo]() </a>
-![App Screenshot](./client/public/app.png)
+![App Screenshot](./public/app.png)
 
 
 
