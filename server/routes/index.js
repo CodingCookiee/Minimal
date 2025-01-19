@@ -5,6 +5,7 @@ import couponRoutes from "./coupon.route.js";
 import cartRoutes from "./cart.route.js";
 import paymentRoutes from "./payment.route.js";
 import analyticsRoutes from "./analytics.route.js";
+import orderRoutes from "./order.route.js";
 
 export default {
   authRoutes,
@@ -14,4 +15,5 @@ export default {
   cartRoutes,
   paymentRoutes,
   analyticsRoutes,
+  orderRoutes,
 };

@@ -17,31 +17,29 @@ import { useUser } from "../../utils/UserContext";
 import { useCart } from "../../utils/CartContext";
 
 const Header = () => {
-  const {cartCount, updateCart} = useCart();
+  const { cartCount, updateCart } = useCart();
   const { currentUser, updateUser } = useUser();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-
   const isAdmin = currentUser?.role === "admin";
 
   const menCategories = {
     shirts: "Shirts",
     jeans: "Jeans",
-    
   };
 
   const womenCategories = {
-    shirts : "Shirts",
+    shirts: "Shirts",
     jeans: "Jeans",
-    trousers: "Trousers"
+    trousers: "Trousers",
   };
 
   const saleCategories = {
-    women:"Women",
-    men:"Men",
+    women: "Women",
+    men: "Men",
   };
 
   const categories = [
@@ -55,7 +53,6 @@ const Header = () => {
     },
   ];
 
-  
   useEffect(() => {
     const fetchCartItems = async () => {
       if (currentUser) {
@@ -69,8 +66,6 @@ const Header = () => {
     };
     fetchCartItems();
   }, [currentUser]);
-
-
 
   useEffect(() => {
     const checkTokenExpiration = () => {

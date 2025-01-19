@@ -26,6 +26,7 @@ app.use("/api/product", routes.productRoutes);
 app.use("/api/coupon", routes.couponRoutes);
 app.use("/api/cart", routes.cartRoutes);
 app.use("/api/payment", routes.paymentRoutes);
+app.use("/api/orders", routes.orderRoutes);
 app.use("/api/analytics", routes.analyticsRoutes);
 app.get("/", (req, res) => {
   res.send("The Server is running : Use /api to Run Tests");

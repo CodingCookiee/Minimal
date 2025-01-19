@@ -73,12 +73,11 @@ export const getSingleProduct = async (req, res, next) => {
       return next(createError(404, "Product not found"));
     }
     res.json(product);
-    } catch (err) {
-      console.error("Error Fetching Product", err.message);
-      next(createError(500, "Internal Server Error"));
-    }
+  } catch (err) {
+    console.error("Error Fetching Product", err.message);
+    next(createError(500, "Internal Server Error"));
+  }
 };
-
 
 export const toggleFeaturedProduct = async (req, res, next) => {
   try {

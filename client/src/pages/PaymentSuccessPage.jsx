@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
 import axiosInstance from "../utils/axios";
 import { useCart } from "../utils/CartContext";
-import { useOrder } from '../utils/OrderContext';
+import { useOrder } from "../utils/OrderContext";
 
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
@@ -16,11 +16,11 @@ const PaymentSuccessPage = () => {
   useEffect(() => {
     const confirmPayment = async () => {
       try {
-        const response = await axiosInstance.post("/payment/payment-success", {
-          paymentIntentId
+        const response = await axiosInstance.post("/checkout-success", {
+          paymentIntentId,
         });
         updateCart([]);
-        updateOrders(prevOrders => [...prevOrders, response.data.order]);
+        updateOrders((prevOrders) => [...prevOrders, response.data.order]);
       } catch (error) {
         console.error("Error confirming payment:", error);
       }
@@ -32,7 +32,7 @@ const PaymentSuccessPage = () => {
   }, [paymentIntentId]);
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center"

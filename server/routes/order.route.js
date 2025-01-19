@@ -5,10 +5,7 @@ import {
   getUserOrders,
 } from "../controllers/order.controller.js";
 
-
 const router = express.Router();
-
-
 
 router.get("/", authenticateUser, getUserOrders);
 router.get("/:id", authenticateUser, getOrderById);

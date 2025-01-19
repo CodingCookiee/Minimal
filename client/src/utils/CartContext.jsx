@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
 
@@ -12,17 +12,19 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateItemQuantity = (productId, newQuantity) => {
-    const updatedItems = cartItems.map(item => 
-      item.productId._id === productId 
+    const updatedItems = cartItems.map((item) =>
+      item.productId._id === productId
         ? { ...item, quantity: newQuantity }
-        : item
+        : item,
     );
     updateCart(updatedItems);
     return updatedItems;
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, cartCount, updateCart, updateItemQuantity }}>
+    <CartContext.Provider
+      value={{ cartItems, cartCount, updateCart, updateItemQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );

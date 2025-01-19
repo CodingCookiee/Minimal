@@ -12,13 +12,13 @@ import { OrderProvider } from "./utils/OrderContext";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
-    <OrderProvider>
-    <CartProvider>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <App />
-        <ToastContainer position="top-right" autoClose={3000} />
-      </GoogleOAuthProvider>
-      </CartProvider>
+      <OrderProvider>
+        <CartProvider>
+          <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+            <App />
+            <ToastContainer position="top-right" autoClose={3000} />
+          </GoogleOAuthProvider>
+        </CartProvider>
       </OrderProvider>
     </UserProvider>
   </StrictMode>,

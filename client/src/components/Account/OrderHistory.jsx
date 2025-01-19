@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import axiosInstance from '../../utils/axios';
-import { Loading } from '../ui';
-import { useOrder } from '../../utils/OrderContext';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import axiosInstance from "../../utils/axios";
+import { Loading } from "../ui";
+import { useOrder } from "../../utils/OrderContext";
 
 export const OrderHistory = () => {
   const { orders, updateOrders } = useOrder();
   const [loading, setLoading] = useState(true);
-  
 
-
-useEffect(() => {
-  const fetchOrders = async () => {
-    try {
-      const response = await axiosInstance.get('/orders');
-      updateOrders(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-      setLoading(false);
-    }
-  };
-  fetchOrders();
-}, []);
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axiosInstance.get("/orders");
+        updateOrders(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
 
 
 
@@ -60,17 +58,20 @@ useEffect(() => {
                 {order.products.map((item) => (
                   <div key={item.productId._id} className="flex gap-4">
                     <img
-                      src={item.productId.imagePath[0]}
-                      alt={item.productId.name}
+                      src={
+                        item.productId?.imagePath?.[0] ||
+                        "/placeholder-image.jpg"
+                      }
+                      alt={item.productId?.name || "Product"}
                       className="w-20 h-20 object-cover"
                     />
                     <div>
-                      <p className="font-sf-medium">{item.productId.name}</p>
+                      <p className="font-sf-medium">{item.productId?.name}</p>
                       <p className="text-sm text-gray-600">
                         Quantity: {item.quantity}
                       </p>
                       <p className="text-sm text-gray-600">
-                        Price: ${item.price.toFixed(2)}
+                        Price: ${item.price?.toFixed(2)}
                       </p>
                     </div>
                   </div>

@@ -7,11 +7,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCart } from "../utils/CartContext";
 
-
 const CartPage = () => {
-  const { cartItems, updateItemQuantity, updateCart } = useCart();  
+  const { cartItems, updateItemQuantity, updateCart } = useCart();
   const [loading, setLoading] = useState(true);
- 
+
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -29,7 +28,6 @@ const CartPage = () => {
       setLoading(false);
     }
   };
-  
 
   const updateQuantity = async (productId, newQuantity) => {
     if (newQuantity < 1) return;
@@ -42,7 +40,6 @@ const CartPage = () => {
         quantity: newQuantity,
       });
       fetchCartItems();
-      
     } catch (error) {
       toast.error("Failed to update cart");
     }
@@ -52,7 +49,6 @@ const CartPage = () => {
     try {
       await axiosInstance.delete(`/cart/${productId}`);
       fetchCartItems();
-      
     } catch (error) {
       toast.error("Failed to remove item");
     }
@@ -60,27 +56,32 @@ const CartPage = () => {
 
   const calculateTotal = () => {
     return cartItems
-      .reduce((acc, item) => acc + item.price * item.quantity, 0)
+      .reduce((acc, item) => {
+        const itemPrice =
+          item.productId.discountedPrice || item.productId.price;
+        return acc + itemPrice * item.quantity;
+      }, 0)
       .toFixed(2);
   };
 
   if (loading) return <Loading />;
-  if (error) return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Something went wrong</h1>
-        <p className="text-gray-500 mb-4">{error}</p>
-        <motion.button
-          onClick={() => navigate("/")}
-          className="px-6 py-3 bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary border border-dark-primary transition-all duration-300"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          Return to Home
-        </motion.button>
+  if (error)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Something went wrong</h1>
+          <p className="text-gray-500 mb-4">{error}</p>
+          <motion.button
+            onClick={() => navigate("/")}
+            className="px-6 py-3 bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary border border-dark-primary transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Return to Home
+          </motion.button>
+        </div>
       </div>
-    </div>
-  );
+    );
 
   return (
     <div className="min-h-screen pt-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -111,17 +112,28 @@ const CartPage = () => {
                 <img
                   src={item.productId?.imagePath?.[0] || ""}
                   alt={item.productId.name || "Product Image"}
-                  className="w-24 h-24 object-cover"
+                  className="w-24 h-24 object-contain"
                 />
                 <div className="flex-1 ml-5">
                   <h3 className="font-sf-medium text-lg">
                     <Link to={`/product/${item.productId._id}`}>
-                    {item.productId.name || "Product Name"}
+                      {item.productId.name || "Product Name"}
                     </Link>
                   </h3>
-                  <p className="font-sf-light text-sm text-neutral-600">
-                    ${item.price.toFixed(2) || "Price"}
-                  </p>
+                  {item.productId.discountedPrice ? (
+                    <div className="flex items-center gap-2">
+                      <span className="font-sf-light text-sm text-red-600">
+                        ${item.productId.discountedPrice.toFixed(2)}
+                      </span>
+                      <span className="font-sf-light text-sm text-neutral-600 line-through">
+                        ${item.productId.price.toFixed(2)}
+                      </span>
+                    </div>
+                  ) : (
+                    <p className="font-sf-light text-sm text-neutral-600">
+                      ${item.productId.price.toFixed(2)}
+                    </p>
+                  )}
                   <div className="flex items-center gap-4 mt-4">
                     <div className="flex items-center border border-neutral-200">
                       <motion.button
@@ -179,13 +191,12 @@ const CartPage = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-              
-                  <Link to='/checkout' className="flex items-center justify-center">
-                    Proceed to Checkout
-                    
-                  </Link>
-            
-              
+                <Link
+                  to="/checkout"
+                  className="flex items-center justify-center"
+                >
+                  Proceed to Checkout
+                </Link>
               </motion.button>
             </div>
           </div>

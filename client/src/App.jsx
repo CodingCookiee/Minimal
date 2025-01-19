@@ -11,8 +11,7 @@ import CartPage from "./pages/CartPage";
 import CategoryPage from "./pages/CategoryPage";
 import AdminPage from "./pages/AdminPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import PaymentSuccessPage from "./pages/PaymentSuccessPage";
-import PaymentCancelPage from "./pages/PaymentCancelPage";
+import ReturnPage from "./pages/ReturnPage";
 import AddAddressPage from "./pages/AddAddressPage";
 import EditAddressPage from "./pages/EditAddressPage";
 import SubCategoryPage from "./pages/SubCategoryPage";
@@ -106,12 +105,8 @@ const App = () => {
           element: <PaymentPage />,
         },
         {
-          path: "/payment/success",
-          element: <PaymentSuccessPage />,
-        },
-        {
-          path: "/payment/cancel",
-          element: <PaymentCancelPage />,
+          path: "/payment/return",
+          element: <ReturnPage />,
         },
       ],
     },

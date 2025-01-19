@@ -7,7 +7,7 @@ const PaymentCancelPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center"

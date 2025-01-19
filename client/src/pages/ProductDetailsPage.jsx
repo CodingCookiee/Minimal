@@ -65,16 +65,16 @@ const ProductPage = () => {
       </div>
     );
 
-    return (
-      <div className="min-h-screen pt-20 sm:pt-24 md:pt-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Product Images */}
-          <div className="relative w-full md:w-[500px] lg:w-[600px] mx-auto">
-            <Swiper
-              modules={[Navigation, Pagination]}
-              navigation
-              pagination={{ clickable: true }}
-              className={`aspect-[3/4] rounded-none overflow-hidden group/swiper 
+  return (
+    <div className="min-h-screen pt-20 sm:pt-24 md:pt-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        {/* Product Images */}
+        <div className="relative w-full md:w-[500px] lg:w-[600px] mx-auto">
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            className={`aspect-[3/4] rounded-none overflow-hidden group/swiper 
       
         [&_.swiper-button-next]:text-white [&_.swiper-button-prev]:text-white 
         [&_.swiper-button-next]:bg-neutral-700 [&_.swiper-button-prev]:bg-neutral-700 
@@ -83,137 +83,141 @@ const ProductPage = () => {
         [&_.swiper-button-next]:rounded-full [&_.swiper-button-prev]:rounded-full 
         [&_.swiper-button-next]:transition-opacity [&_.swiper-button-prev]:transition-opacity 
         [&_.swiper-button-next:after]:text-sm [&_.swiper-button-prev:after]:text-sm`}
-            >
-              {product.imagePath?.map((image, index) => (
-                <SwiperSlide key={index}>
-                  <img
-                    src={image}
-                    alt={`${product.name} - View ${index + 1}`}
-                    className="w-full h-full object-contain"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-    
-          {/* Product Info */}
-          <div className="flex flex-col px-0 sm:px-4 lg:px-6">
-            <h1 className="font-sf-heavy text-2xl sm:text-3xl">{product.name}</h1>
-            <p className="mt-2 font-sf-light text-base sm:text-lg text-gray-700 dark:text-gray-400">
-              {product.subtitle}
-            </p>
-    
-            <div className="mt-4 sm:mt-6">
-              {product.discountedPrice ? (
-                <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                  <span className="text-xl sm:text-2xl font-sf-medium">${product.discountedPrice}</span>
-                  <span className="text-base sm:text-lg line-through text-gray-500">${product.price}</span>
-                  <span className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-sf-medium text-light-primary bg-red-700 rounded">
-                    -{product.discountPercentage}
-                  </span>
-                </div>
-              ) : (
-                <span className="text-xl sm:text-2xl font-sf-medium">${product.price}</span>
-              )}
-            </div>
-    
-            <p className="mt-6 sm:mt-8 font-sf-light text-sm sm:text-base text-gray-700 dark:text-gray-400">
-              {product.description}
-            </p>
-    
-            {/* Color Selection */}
-            {product.colors?.length > 0 && (
-              <div className="mt-6 sm:mt-8">
-                <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">COLOR</h3>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setSelectedColor(color)}
-                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all ${
-                        selectedColor === color
-                          ? "border-dark-primary dark:border-light-primary"
-                          : "border-transparent"
-                      }`}
-                      style={{ backgroundColor: color.toLowerCase() }}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-    
-            {/* Size Selection */}
-            {product.sizes?.length > 0 && (
-              <div className="mt-6 sm:mt-8">
-                <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">SIZE</h3>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border transition-all ${
-                        selectedSize === size
-                          ? "border-dark-primary dark:border-light-primary bg-neutral-100"
-                          : "border-neutral-200"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-    
-            {/* Quantity Selection */}
-            <div className="mt-6 sm:mt-8">
-              <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">QUANTITY</h3>
-              <div className="flex items-center border border-neutral-200 w-fit">
-                <button
-                  className="px-3 sm:px-4 py-2"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                >
-                  -
-                </button>
-                <span className="px-4 sm:px-6 py-2 border-x border-neutral-200">
-                  {quantity}
+          >
+            {product.imagePath?.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={image}
+                  alt={`${product.name} - View ${index + 1}`}
+                  className="w-full h-full object-contain"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Product Info */}
+        <div className="flex flex-col px-0 sm:px-4 lg:px-6">
+          <h1 className="font-sf-heavy text-2xl sm:text-3xl">{product.name}</h1>
+          <p className="mt-2 font-sf-light text-base sm:text-lg text-gray-700 dark:text-gray-400">
+            {product.subtitle}
+          </p>
+
+          <div className="mt-4 sm:mt-6">
+            {product.discountedPrice ? (
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                <span className="text-xl sm:text-2xl font-sf-medium">
+                  ${product.discountedPrice}
                 </span>
-                <button
-                  className="px-3 sm:px-4 py-2"
-                  onClick={() => setQuantity(quantity + 1)}
-                >
-                  +
-                </button>
+                <span className="text-base sm:text-lg line-through text-gray-500">
+                  ${product.price}
+                </span>
+                <span className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-sf-medium text-light-primary bg-red-700 rounded">
+                  -{product.discountPercentage}
+                </span>
+              </div>
+            ) : (
+              <span className="text-xl sm:text-2xl font-sf-medium">
+                ${product.price}
+              </span>
+            )}
+          </div>
+
+          <p className="mt-6 sm:mt-8 font-sf-light text-sm sm:text-base text-gray-700 dark:text-gray-400">
+            {product.description}
+          </p>
+
+          {/* Color Selection */}
+          {product.colors?.length > 0 && (
+            <div className="mt-6 sm:mt-8">
+              <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">COLOR</h3>
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all ${
+                      selectedColor === color
+                        ? "border-dark-primary dark:border-light-primary"
+                        : "border-transparent"
+                    }`}
+                    style={{ backgroundColor: color.toLowerCase() }}
+                  />
+                ))}
               </div>
             </div>
-    
-            {/* Add to Cart Button */}
-            <motion.button
-              onClick={handleAddToCart}
-              className="mb-12  mt-8 sm:mt-12 w-full bg-dark-secondary dark:bg-light-secondary text-light-secondary dark:text-dark-secondary py-3 sm:py-4 font-sf-medium tracking-wider"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-             {isLoading ? (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex items-center justify-center"
+          )}
+
+          {/* Size Selection */}
+          {product.sizes?.length > 0 && (
+            <div className="mt-6 sm:mt-8">
+              <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">SIZE</h3>
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border transition-all ${
+                      selectedSize === size
+                        ? "border-dark-primary dark:border-light-primary bg-neutral-100"
+                        : "border-neutral-200"
+                    }`}
                   >
-                    <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
-                    Adding to Cart ...
-                  </motion.div>
-                ) : (
-                  <span className="flex items-center justify-center">
-                    Add to Cart
-                    
-                  </span>
-                )}
-            </motion.button>
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Quantity Selection */}
+          <div className="mt-6 sm:mt-8">
+            <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">QUANTITY</h3>
+            <div className="flex items-center border border-neutral-200 w-fit">
+              <button
+                className="px-3 sm:px-4 py-2"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                -
+              </button>
+              <span className="px-4 sm:px-6 py-2 border-x border-neutral-200">
+                {quantity}
+              </span>
+              <button
+                className="px-3 sm:px-4 py-2"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                +
+              </button>
+            </div>
           </div>
+
+          {/* Add to Cart Button */}
+          <motion.button
+            onClick={handleAddToCart}
+            className="mb-12  mt-8 sm:mt-12 w-full bg-dark-secondary dark:bg-light-secondary text-light-secondary dark:text-dark-secondary py-3 sm:py-4 font-sf-medium tracking-wider"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {isLoading ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-center"
+              >
+                <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
+                Adding to Cart ...
+              </motion.div>
+            ) : (
+              <span className="flex items-center justify-center">
+                Add to Cart
+              </span>
+            )}
+          </motion.button>
         </div>
       </div>
-    );
-    
+    </div>
+  );
 };
 
 export default ProductPage;

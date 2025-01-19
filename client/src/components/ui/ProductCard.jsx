@@ -12,7 +12,6 @@ import { useUser } from "../../utils/UserContext";
 import { toast } from "react-toastify";
 import { useCart } from "../../utils/CartContext";
 
-
 const ProductCard = ({ product, viewType }) => {
   const { cartItems, updateCart } = useCart();
   const { currentUser } = useUser();
@@ -34,7 +33,6 @@ const ProductCard = ({ product, viewType }) => {
         price: product.discountedPrice || product.price,
       });
       updateCart(response.data.items || []);
-      
     } catch (error) {
       toast.error("Failed to add to cart");
     }
@@ -74,9 +72,9 @@ const ProductCard = ({ product, viewType }) => {
         <div className={viewType === "grid" ? "w-full" : "w-full "}>
           <Swiper
             modules={[Navigation, Pagination]}
-              navigation
-              pagination={{ clickable: true }}
-              className={`aspect-[3/4] rounded-none overflow-hidden group/swiper 
+            navigation
+            pagination={{ clickable: true }}
+            className={`aspect-[3/4] rounded-none overflow-hidden group/swiper 
       
         [&_.swiper-button-next]:text-white [&_.swiper-button-prev]:text-white 
         [&_.swiper-button-next]:bg-neutral-700 [&_.swiper-button-prev]:bg-neutral-700 
@@ -111,10 +109,10 @@ const ProductCard = ({ product, viewType }) => {
       <div className={viewType === "grid" ? "mt-4" : "w-full"}>
         <div className="flex justify-between items-start">
           <div>
-          <Link to={`/product/${product._id}`}>
-            <h3 className="font-sf-heavy text-md font-semibold text-dark-secondary dark:text-light-secondary">
-              {product.name}
-            </h3>
+            <Link to={`/product/${product._id}`}>
+              <h3 className="font-sf-heavy text-md font-semibold text-dark-secondary dark:text-light-secondary">
+                {product.name}
+              </h3>
             </Link>
             <p className="font-sf-light text-sm text-gray-700 dark:text-gray-400">
               {product.subtitle}
@@ -176,23 +174,23 @@ const ProductCard = ({ product, viewType }) => {
           whileTap={{ scale: 0.98 }}
         >
           {isLoading ? (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex items-center justify-center"
-                  >
-                    <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
-                    Adding to Cart ...
-                  </motion.div>
-                ) : (
-                  <span className="flex items-center justify-center">
-                    Add to Cart
-                    
-                  </span>
-                )}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex items-center justify-center"
+            >
+              <div className="h-5 w-5 border-2 border-white dark:border-black-200 border-t-transparent rounded-full animate-spin mr-2" />
+              Adding to Cart ...
+            </motion.div>
+          ) : (
+            <span className="flex items-center justify-center">
+              Add to Cart
+            </span>
+          )}
         </motion.button>
       </div>
     </motion.div>
-  );};
+  );
+};
 
 export default ProductCard;
