@@ -216,7 +216,7 @@ const ProductControl = () => {
                   disabled={!isPrimaryAdmin(currentUser)}
                   onClick={() => setDeleteDialog({ isOpen: true, product })}
                 >
-                  <Trash2 className="w-4 h-4 mr-2" /> Delete
+                  <Trash2 className="w-4 h-4 mr-2 text-red-700" /> Delete
                 </Button>
               </div>
             </div>
@@ -243,7 +243,7 @@ const ProductControl = () => {
                       onClick={() => setDeleteDialog({ isOpen: true, product })}
                       className="w-full"
                     >
-                      <Trash2 className="w-4 h-4 mr-2" /> Delete
+                      <Trash2 className="w-4 h-4 mr-2 text-red-700" /> Delete
                     </Button>
                   </div>
                 </div>
