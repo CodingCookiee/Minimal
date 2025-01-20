@@ -37,7 +37,11 @@ export const createCheckoutSession = async (req, res, next) => {
           product_data: {
             name: item.productId.name,
             images: [item.productId.image],
+            metadata: {
+              productId: item.productId._id.toString() 
+            }
           },
+
           unit_amount: Math.round((item.productId.discountedPrice || item.productId.price) * 100),
         },
         quantity: item.quantity,
@@ -65,45 +69,56 @@ export const createCheckoutSession = async (req, res, next) => {
 export const checkoutSuccess = async (req, res, next) => {
   try {
     const { session_id } = req.body;
-    const session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ["line_items", "line_items.data.price.product"],
-    });
-
-    const { userId } = session.metadata;
-    const user = await User.findById(userId);
     
-    // Fetch cart with populated product data
-    const cart = await Cart.findOne({ userId }).populate('items.productId');
-    if (!cart) {
-      throw createError(404, "Cart not found");
+    const existingOrder = await Order.findOne({ stripeSessionId: session_id });
+    if (existingOrder) {
+      return res.status(200).json({
+        success: true,
+        message: "Order already processed",
+        order: existingOrder,
+      });
     }
 
-    // Create order with correct pricing
-    const order = new Order({
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    const { userId } = session.metadata;
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      throw createError(404, "User not found");
+    }
+
+    // Get cart to map product IDs
+    const cart = await Cart.findOne({ userId }).populate('items.productId');
+    
+    const newOrder = new Order({
       userId,
-      products: cart.items.map((item) => ({
-        productId: item.productId._id,
+      products: cart.items.map(item => ({
+        productId: item.productId._id, // Using MongoDB ObjectId
         quantity: item.quantity,
         price: item.productId.discountedPrice || item.productId.price,
       })),
       totalAmount: session.amount_total / 100,
       stripeSessionId: session.id,
-      shippingAddress: user.addresses[0].address1 || "Default Address",
+      shippingAddress: user.addresses[0]?.address1 || "Default Address",
       paymentMethod: session.payment_method_types[0],
       paymentStatus: "paid",
+      processed: true
     });
 
-    await order.save();
+    await newOrder.save();
     await Cart.findOneAndDelete({ userId });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Order placed successfully",
-      order,
+      order: newOrder,
     });
+
   } catch (error) {
-    console.error("Checkout Success Error:", error);
+    console.error("Checkout Success Error:", error.message);
     next(error);
   }
 };
+
+
 

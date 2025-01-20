@@ -9,7 +9,7 @@ export * from "./Input";
 export * from "./Textarea";
 export * from "./Card";
 export * from "./Navbar";
-export * from "./AnalyticsTab";
+
 export * from "./CartItem";
 
 export * from "./CouponCard";

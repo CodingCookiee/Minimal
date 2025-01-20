@@ -18,19 +18,21 @@ const ReturnPage = () => {
     if (sessionId) {
       axiosInstance.post('/payment/checkout-success', { session_id: sessionId })
         .then((response) => {
-
+          updateOrders((prevOrders) => [...prevOrders, response.data.order]);
+          updateCart([]); 
           toast.success('Order placed successfully!');
-          
-       
           navigate('/account');
         })
         .catch((error) => {
-          console.error('Payment Error:', error.message);
+          console.error('Order Processing Error:', error.message);
           toast.error('Error processing order');
           navigate('/cart');
         });
     }
   }, [sessionId, navigate, updateCart, updateOrders]);
+  
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
