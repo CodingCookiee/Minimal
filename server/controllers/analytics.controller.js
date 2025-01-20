@@ -5,10 +5,12 @@ import createError from "../utils/createError.utils.js";
 
 export const getAnalyticsData = async (req, res, next) => {
   try {
+    // Basic counts
     const totalProducts = await Product.countDocuments();
     const totalUsers = await User.countDocuments();
     const totalOrders = await Order.countDocuments();
 
+    // Sales metrics
     const salesData = await Order.aggregate([
       {
         $group: {
@@ -20,6 +22,7 @@ export const getAnalyticsData = async (req, res, next) => {
       },
     ]);
 
+    // Top products without user population
     const topProducts = await Order.aggregate([
       { $unwind: "$products" },
       {
@@ -32,14 +35,44 @@ export const getAnalyticsData = async (req, res, next) => {
         },
       },
       { $sort: { totalSold: -1 } },
-      { $limit: 5 },
+      { $limit: 10 },
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id",
+          foreignField: "_id",
+          as: "productDetails",
+        },
+      },
+      { $unwind: "$productDetails" },
+      {
+        $project: {
+          _id: 1,
+          totalSold: 1,
+          revenue: 1,
+          name: "$productDetails.name",
+          image: "$productDetails.image",
+        },
+      },
+    ]);
+    // Recent orders without population
+    const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(5);
+
+    // Payment status distribution
+    const paymentStatusData = await Order.aggregate([
+      {
+        $group: {
+          _id: "$paymentStatus",
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    const { totalSales, averageOrderValue, totalItems } = salesData[0] || {
-      totalSales: 0,
-      averageOrderValue: 0,
-      totalItems: 0,
-    };
+    const {
+      totalSales = 0,
+      averageOrderValue = 0,
+      totalItems = 0,
+    } = salesData[0] || {};
 
     res.status(200).json({
       totalProducts,
@@ -49,9 +82,12 @@ export const getAnalyticsData = async (req, res, next) => {
       averageOrderValue,
       totalItems,
       topProducts,
+      recentOrders,
+      paymentStatusData,
     });
   } catch (err) {
-    next(createError(500, "Error fetching analytics data"));
+    console.error("Error Fetching Analytics Data:", err);
+    next(createError(500, `Error fetching analytics data: ${err.message}`));
   }
 };
 

@@ -15,16 +15,26 @@ const CategoryPage = () => {
   const [activeSubCategory, setActiveSubCategory] = useState("");
   const normalizedCategory = categoryname === "sale" ? "sales" : categoryname;
 
-  const categoryData = {
-    men: menCategories,
-    women: womenCategories,
-    sales: saleCategories,
-  };
-
   const categoryTitles = {
     men: "Men's Collection",
     women: "Women's Collection",
-    sales: "Sale & Clearance",
+    sale: "Sale & Clearance",
+  };
+
+  const categoryData = {
+    men: {
+      jeans: "Jeans",
+      shirts: "Shirts",
+    },
+    women: {
+      jeans: "Jeans",
+      shirts: "Shirts",
+      trousers: "Trousers",
+    },
+    sales: {
+      men: "Men's Sale",
+      women: "Women's Sale",
+    },
   };
 
   useEffect(() => {

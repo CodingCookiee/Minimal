@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BsGrid3X3GapFill, BsListUl } from "react-icons/bs";
-import { menCategories, womenCategories, saleCategories } from "../constants";
 import { ProductCard, Loading } from "../components/ui";
 import axiosInstance from "../utils/axios";
 
@@ -10,12 +9,6 @@ const SubCategoryPage = () => {
   const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
-
-  const categoryData = {
-    men: menCategories,
-    women: womenCategories,
-    sales: saleCategories,
-  };
 
   const categoryTitles = {
     men: "Men's Collection",

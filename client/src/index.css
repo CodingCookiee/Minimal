@@ -44,8 +44,6 @@
 
 
 
-
-
  /* Modified CSS Reset */
 /* Box-sizing */
 *,
@@ -65,6 +63,14 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+select option {
+  background-color: white !important;
+}
+
+select option:hover {
+  background-color: #f3f4f6 !important;
 }
 
 /* Media Defaults */
@@ -125,6 +131,21 @@ ul[role='list'] {
 #root,
 #__next {
   isolation: isolate;
+}
+
+
+.custom-select {
+  @apply w-48 p-2 border rounded-md bg-white;
+}
+
+.custom-select option {
+  @apply p-2;
+}
+
+.custom-select.decorated option:hover,
+.custom-select.decorated option:focus,
+.custom-select.decorated option:checked {
+  @apply !bg-dark-primary !text-light-primary;
 }
 
 /* Custom Scrollbar */

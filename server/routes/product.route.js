@@ -15,18 +15,17 @@ import {
 
 const router = express.Router();
 
-router.post("/", authenticateUser, authenticateAdmin, createProduct);
-router.get("/", authenticateUser, authenticateAdmin, getAllProducts);
-router.get("/featured", getFeaturedProducts);
+router.get("/", authenticateUser, getAllProducts);
 router.get("/:id", getSingleProduct);
+router.get("/:type/:category?", getProductsByTypeAndCategory);
+router.post("/", authenticateUser, authenticateAdmin, createProduct);
+router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
+router.get("/featured", getFeaturedProducts);
 router.patch(
   "/:id",
   authenticateUser,
   authenticateAdmin,
   toggleFeaturedProduct,
 );
-
-router.get("/:type/:category?", getProductsByTypeAndCategory);
-router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
 
 export default router;

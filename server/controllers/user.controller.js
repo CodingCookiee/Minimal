@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import User from "../models/user.model.js";
 import createError from "../utils/createError.utils.js";
 
@@ -142,6 +143,57 @@ export const deleteAddress = async (req, res, next) => {
 
     res.status(200).json({ user });
   } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({}).select("-password");
+    res.status(200).json(users);
+  } catch (err) {
+    console.log("Error Getting All Users", err.message);
+    next(err);
+  }
+};
+
+export const toggleAdmin = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw createError(404, "User not found");
+    }
+
+    // Toggle role between 'admin' and 'user'
+    const newRole = user.role === "admin" ? "user" : "admin";
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { role: newRole },
+      { new: true },
+    );
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    console.log("Error Toggling Admin Status", err.message);
+    next(err);
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      throw createError(404, "User not found");
+    }
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.log("Error Deleting User:", err.message);
     next(err);
   }
 };

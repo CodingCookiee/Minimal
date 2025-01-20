@@ -108,6 +108,24 @@ export const toggleFeaturedProduct = async (req, res, next) => {
   }
 };
 
+export const getProductsByTypeAndCategory = async (req, res, next) => {
+  try {
+    const { type, category } = req.params;
+    const searchCategory = category ? `${type}_${category}` : type;
+    const products = await Product.find({ category: searchCategory });
+
+    const transformedProducts = products.map((product) => {
+      const productObj = product.toObject();
+
+      return productObj;
+    });
+
+    res.json(transformedProducts);
+  } catch (err) {
+    next(createError(500, "Error fetching products"));
+  }
+};
+
 export const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -128,23 +146,5 @@ export const deleteProduct = async (req, res, next) => {
   } catch (err) {
     console.error("Error Deleting Product", err.message);
     next(createError(500, "Internal Server Error"));
-  }
-};
-
-export const getProductsByTypeAndCategory = async (req, res, next) => {
-  try {
-    const { type, category } = req.params;
-    const searchCategory = category ? `${type}_${category}` : type;
-    const products = await Product.find({ category: searchCategory });
-
-    const transformedProducts = products.map((product) => {
-      const productObj = product.toObject();
-
-      return productObj;
-    });
-
-    res.json(transformedProducts);
-  } catch (err) {
-    next(createError(500, "Error fetching products"));
   }
 };

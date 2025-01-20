@@ -1,11 +1,17 @@
 import express from "express";
-import { authenticateUser } from "../middleware/auth.middleware.js";
+import {
+  authenticateUser,
+  authenticateAdmin,
+} from "../middleware/auth.middleware.js";
 import {
   getProfile,
   updateProfile,
   addAddress,
   deleteAddress,
   editAddress,
+  deleteUser,
+  getAllUsers,
+  toggleAdmin,
 } from "../controllers/user.controller.js";
 
 const router = express.Router();
@@ -15,5 +21,13 @@ router.put("/profile", authenticateUser, updateProfile);
 router.post("/address", authenticateUser, addAddress);
 router.put("/address/:addressId", authenticateUser, editAddress);
 router.delete("/address/:addressId", authenticateUser, deleteAddress);
+router.get("/", authenticateUser, authenticateAdmin, getAllUsers);
+router.put(
+  "/:userId/toggle-admin",
+  authenticateUser,
+  authenticateAdmin,
+  toggleAdmin,
+);
+router.delete("/:userId", authenticateUser, authenticateAdmin, deleteUser);
 
 export default router;
