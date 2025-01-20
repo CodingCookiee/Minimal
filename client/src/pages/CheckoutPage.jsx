@@ -47,8 +47,6 @@ const CheckoutPage = () => {
     navigate("/payment");
   };
 
-  
-
   if (loading) return <Loading />;
 
   return (

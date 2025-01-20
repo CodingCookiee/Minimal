@@ -46,9 +46,9 @@ const orderSchema = new mongoose.Schema({
     enum: ["pending", "paid"],
     default: "pending",
   },
-  processed:{
-    type:Boolean,
-    default:false
+  processed: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,

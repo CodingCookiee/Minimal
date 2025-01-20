@@ -17,7 +17,7 @@ export const createCheckoutSession = async (req, res, next) => {
 
     let totalAmount = cart.items.reduce((acc, item) => {
       const itemPrice = item.productId.discountedPrice || item.productId.price;
-      return acc + (itemPrice * item.quantity);
+      return acc + itemPrice * item.quantity;
     }, 0);
 
     if (couponCode) {
@@ -29,7 +29,7 @@ export const createCheckoutSession = async (req, res, next) => {
     }
 
     const session = await stripe.checkout.sessions.create({
-      ui_mode: 'embedded',
+      ui_mode: "embedded",
       payment_method_types: ["card"],
       line_items: cart.items.map((item) => ({
         price_data: {
@@ -38,11 +38,13 @@ export const createCheckoutSession = async (req, res, next) => {
             name: item.productId.name,
             images: [item.productId.image],
             metadata: {
-              productId: item.productId._id.toString() 
-            }
+              productId: item.productId._id.toString(),
+            },
           },
 
-          unit_amount: Math.round((item.productId.discountedPrice || item.productId.price) * 100),
+          unit_amount: Math.round(
+            (item.productId.discountedPrice || item.productId.price) * 100,
+          ),
         },
         quantity: item.quantity,
       })),
@@ -56,20 +58,19 @@ export const createCheckoutSession = async (req, res, next) => {
       },
     });
 
-    res.status(200).json({ 
+    res.status(200).json({
       clientSecret: session.client_secret,
-      sessionId: session.id 
+      sessionId: session.id,
     });
   } catch (error) {
     next(error);
   }
 };
 
-
 export const checkoutSuccess = async (req, res, next) => {
   try {
     const { session_id } = req.body;
-    
+
     const existingOrder = await Order.findOne({ stripeSessionId: session_id });
     if (existingOrder) {
       return res.status(200).json({
@@ -81,19 +82,25 @@ export const checkoutSuccess = async (req, res, next) => {
 
     const session = await stripe.checkout.sessions.retrieve(session_id);
     const { userId } = session.metadata;
-    
+
     const user = await User.findById(userId);
     if (!user) {
       throw createError(404, "User not found");
     }
 
     // Get cart to map product IDs
-    const cart = await Cart.findOne({ userId }).populate('items.productId');
-    
+    const cart = await Cart.findOne({ userId }).populate("items.productId");
+
+    if (!cart) {
+      const errorMessage = `Cart not found for userId: ${userId}`;
+      console.error(errorMessage);
+      throw createError(404, errorMessage);
+    }
+
     const newOrder = new Order({
       userId,
-      products: cart.items.map(item => ({
-        productId: item.productId._id, // Using MongoDB ObjectId
+      products: cart?.items?.map((item) => ({
+        productId: item.productId._id,
         quantity: item.quantity,
         price: item.productId.discountedPrice || item.productId.price,
       })),
@@ -102,7 +109,7 @@ export const checkoutSuccess = async (req, res, next) => {
       shippingAddress: user.addresses[0]?.address1 || "Default Address",
       paymentMethod: session.payment_method_types[0],
       paymentStatus: "paid",
-      processed: true
+      processed: true,
     });
 
     await newOrder.save();
@@ -113,12 +120,8 @@ export const checkoutSuccess = async (req, res, next) => {
       message: "Order placed successfully",
       order: newOrder,
     });
-
   } catch (error) {
     console.error("Checkout Success Error:", error.message);
     next(error);
   }
 };
-
-
-
