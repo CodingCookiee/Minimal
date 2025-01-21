@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserControl from "../components/AdminDashboard/UserControl";
 import ProductControl from "../components/AdminDashboard/ProductControl";
 import Analytics from "../components/AdminDashboard/Analytics";
+import CreateProduct from "../components/AdminDashboard/CreateProduct";
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState("users");
@@ -46,12 +47,25 @@ const AdminPage = () => {
         >
           Analytics
         </button>
+        
+        <button
+          className={`font-sf-medium px-6 py-3 border-2 border-[#0E0E10] rounded-md transition-all
+            ${
+              activeTab === "create-products"
+                ? "bg-[#0E0E10] text-white"
+                : "bg-transparent text-[#0E0E10] hover:bg-[#0E0E10] hover:text-white"
+            }`}
+          onClick={() => setActiveTab("create-products")}
+        >
+          Create New Product
+        </button>
       </div>
 
       <div className="bg-white rounded-lg p-8 shadow-md">
         {activeTab === "users" && <UserControl />}
         {activeTab === "products" && <ProductControl />}
         {activeTab === "analytics" && <Analytics />}
+        {activeTab === "create-products" && <CreateProduct />}
       </div>
     </div>
   );

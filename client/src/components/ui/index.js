@@ -16,4 +16,7 @@ export * from "./ProductCard";
 export * from "./ProductList";
 export * from "./Dialog";
 export * from "./Loading";
+export * from  "./imageDropzone"
 export { default as ProductCard } from "./ProductCard";
+export { default as ProductForm } from "./ProductForm";
+

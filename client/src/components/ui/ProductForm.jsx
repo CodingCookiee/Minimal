@@ -1,0 +1,441 @@
+import { useState, useCallback } from "react";
+import { Button, ImageDropzone } from "../ui";
+import { X } from "lucide-react";
+import { toast } from "react-toastify";
+
+const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    subtitle: "",
+    description: "",
+    price: "",
+    discountedPrice: "",
+    discountPercentage: "",
+    category: "",
+    stock: "",
+    gender: "",
+    colors: [],
+    sizes: [],
+    image: null,
+    imagePath: [],
+  });
+  const [error, setError] = useState({
+    name: "",
+    subtitle: "",
+    description: "",
+    price: "",
+    stock: "",
+    gender: "",
+    category: "",
+    image: [],
+    colors: [],
+    sizes: [],
+  });
+
+  const availableSizes = ["XS", "S", "M", "L", "XL", "XXL"];
+
+  const [images, setImages] = useState([]);
+  const [customColor, setCustomColor] = useState({
+    name: "",
+    value: "#000000",
+  });
+
+  // Validate form
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.name) {
+      errors.name = "Product name is required";
+    }
+    if (!formData.description) {
+      errors.description = "Product description is required";
+    }
+    if (!formData.subtitle) {
+      errors.subtitle = "Product subtitle is required";
+    }
+    if (!formData.price || formData.price <= 0) {
+      errors.price = "Invalid price value";
+    }
+    if (formData.discountedPrice && formData.discountedPrice <= 0) {
+      errors.discountedPrice = "Invalid discounted price value";
+    }
+    if (!formData.category) {
+      errors.category = "Product category is required";
+    }
+    if (!formData.gender) {
+      errors.gender = "Select a gender";
+    }
+    if (!formData.stock || formData.stock <= 0) {
+      errors.stock = "Invalid stock value";
+    }
+    if (!formData.gender) {
+      errors.ender = "Gender is required";
+    }
+    if (!formData.image) {
+      errors.image = "Product image is required";
+    }
+
+    if (formData.colors.length === 0) {
+      errors.colors = "At least one color must be selected";
+    }
+
+    if (formData.sizes.length === 0) {
+      errors.sizes = "At least one size must be selected";
+    }
+    setError(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "gender" && { category: "" }),
+    }));
+    if (error[name]) {
+      setError((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const handleImageUpload = useCallback((acceptedFiles) => {
+    setImages((prevImages) => [
+      ...prevImages,
+      ...acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      ),
+    ]);
+  }, []);
+
+  const handleImageRemove = useCallback((index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  }, []);
+
+  const handleSizeToggle = (size) => {
+    setFormData((prev) => ({
+      ...prev,
+      sizes: prev.sizes.includes(size)
+        ? prev.sizes.filter((s) => s !== size)
+        : [...prev.sizes, size],
+    }));
+  };
+
+  const handleAddCustomColor = () => {
+    if (customColor.name && customColor.value) {
+      setFormData((prev) => ({
+        ...prev,
+        colors: [
+          ...prev.colors,
+          { name: customColor.name, value: customColor.value },
+        ],
+      }));
+      setCustomColor({ name: "", value: "#000000" });
+    }
+  };
+
+  const handleRemoveColor = (colorToRemove) => {
+    setFormData((prev) => ({
+      ...prev,
+      colors: prev.colors.filter(
+        (color) =>
+          !(
+            color.name === colorToRemove.name &&
+            color.value === colorToRemove.value
+          )
+      ),
+    }));
+  };
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (validateForm()) {
+          onSubmit(formData);
+        }
+      }}
+      className="space-y-8"
+      noValidate
+    >
+      {/* Basic Info */}
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <h3 className="text-lg font-medium mb-4">Basic Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${
+                error.name ? "border-red-500" : "border-gray-300"
+              }`}
+              required
+            />
+            {error.name && (
+              <small className="text-red-500 text-sm mt-1">{error.name}</small>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Subtitle</label>
+            <input
+              type="text"
+              name="subtitle"
+              value={formData.subtitle}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${
+                error.subtitle ? "border-red-500" : "border-gray-300"
+              }`}
+              required
+            />
+            {error.subtitle && (
+              <small className="text-red-500 text-sm mt-1">
+                {error.subtitle}
+              </small>
+            )}
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2">
+              Description
+            </label>
+            <textarea
+              value={formData.description}
+              name="description"
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md h-32 ${
+                error.description ? "border-red-500" : "border-gray-300"
+              }`}
+              required
+            />
+            {error.description && (
+              <small className="text-red-500 text-sm mt-1">
+                {error.description}
+              </small>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Pricing */}
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <h3 className="text-lg font-medium mb-4">Pricing</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">Price</label>
+            <input
+              type="number"
+              value={formData.price}
+              name="price"
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${
+                error.price ? "border-red-500" : "border-gray-300"
+              }`}
+              required
+            />
+            {error.price && (
+              <small className="text-red-500 text-sm mt-1">{error.price}</small>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Discounted Price
+            </label>
+            <input
+              type="number"
+              name="discountedPrice"
+              value={formData.discountedPrice}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${
+                error.discountedPrice ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+          </div>
+          {error.discountedPrice && (
+            <small className="text-red-500 text-sm mt-1">
+              {error.discountedPrice}
+            </small>
+          )}
+          <div>
+            <label className="block text-sm font-medium mb-2">Stock</label>
+            <input
+              type="number"
+              name="stock"
+              value={formData.stock}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${
+                error.stock ? "border-red-500" : "border-gray-300"
+              }`}
+              required
+            />
+            {error.stock && (
+              <small className="text-red-500 text-sm mt-1">{error.stock}</small>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <h3 className="text-lg font-medium mb-4">Categorization</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Gender/Category
+            </label>
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md mb-4"
+              required
+            >
+              <option value="">Select Category</option>
+              {Object.keys(categoryData).map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {formData.gender && (
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Subcategory
+              </label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full p-2 border rounded-md"
+                required
+              >
+                <option value="">Select Subcategory</option>
+                {Object.entries(categoryData[formData.gender] || {}).map(
+                  ([key, value]) => (
+                    <option key={key} value={key}>
+                      {value}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Colors and Sizes */}
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <h3 className="text-lg font-medium mb-4">Colors & Sizes</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          <div>
+            <label className="block text-sm font-medium mb-2 mt-2.5">
+              Colors
+            </label>
+            {/* Color Input */}
+            <div className="flex items-center gap-2 ">
+              <input
+                type="text"
+                placeholder="Color name"
+                value={customColor.name}
+                onChange={(e) =>
+                  setCustomColor((prev) => ({ ...prev, name: e.target.value }))
+                }
+                className="flex-1 p-2 border rounded-md text-sm"
+              />
+              <input
+                type="color"
+                value={customColor.value}
+                onChange={(e) =>
+                  setCustomColor((prev) => ({ ...prev, value: e.target.value }))
+                }
+                className="w-12 h-8 rounded cursor-pointer"
+              />
+              <button
+                type="button"
+                onClick={handleAddCustomColor}
+                disabled={!customColor.name}
+                className="px-3 py-2 bg-gray-100 rounded-md text-sm font-medium hover:bg-gray-200 disabled:opacity-50"
+              >
+                Add
+              </button>
+            </div>
+            {/* Selected Colors */}
+            <div className="flex flex-wrap gap-2">
+              {formData.colors.map((color, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full"
+                >
+                  <span
+                    className="w-4 h-4 rounded-full border"
+                    style={{ backgroundColor: color.value }}
+                  />
+                  <span className="text-sm">{color.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveColor(color)}
+                    className="text-gray-500 hover:text-red-500"
+                  >
+                    <X className="w-2 h-2" />
+                  </button>
+                </div>
+              ))}
+              {error.colors && (
+                <small className="text-red-500 text-sm mt-1">
+                  {error.colors}
+                </small>
+              )}
+            </div>
+          </div>
+          {/* Sizes */}
+          <div className="bg-white  rounded-lg shadow-sm">
+            <h3 className="text-lg font-medium mb-2">Sizes</h3>
+            <div className="flex flex-wrap gap-2">
+              {availableSizes.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => handleSizeToggle(size)}
+                  className={`px-4 py-2 rounded-md border ${
+                    formData.sizes.includes(size)
+                      ? "bg-dark-primary text-white"
+                      : "bg-white text-dark-primary"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+            {error.sizes && (
+              <small className="text-red-500 text-sm mt-1">{error.sizes}</small>
+            )}
+          </div>
+
+          <div></div>
+        </div>
+      </div>
+
+      {/* Image Upload */}
+      <div className="">
+        <ImageDropzone
+          onImageUpload={handleImageUpload}
+          images={images}
+          onImageRemove={handleImageRemove}
+        />
+        {error.image && (
+          <small className="text-red-500 text-sm mt-1">{error.image}</small>
+        )}
+      </div>
+
+      {/* Submit Button */}
+      <Button type="submit" disabled={loading} className="w-full md:w-auto">
+        {loading ? "Creating..." : "Create Product"}
+      </Button>
+    </form>
+  );
+};
+
+export default ProductForm;

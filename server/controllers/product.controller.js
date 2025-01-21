@@ -6,35 +6,86 @@ import createError from "../utils/createError.utils.js";
 
 export const createProduct = async (req, res, next) => {
   try {
-    const { name, description, price, category, image, stock } = req.body;
-
-    let cloudinaryResponse = null;
-    if (image) {
-      cloudinaryResponse = await cloudinary.uploader.upload(image, {
-        upload_preset: "minimal",
-        timeout: 60000, // 60 seconds timeout
-      });
-    }
-
-    const product = new Product({
+    const {
       name,
+      subtitle,
       description,
       price,
+      discountedPrice,
+      discountPercentage,
       category,
-      image: cloudinaryResponse?.secure_url || "",
+      image,
       stock,
-      rating: 4.5,
+      gender,
+      colors,
+      sizes
+    } = req.body;
+
+    // Input validation
+    if (!name || !description || !price || !category || !stock || !gender) {
+      throw createError(400, "Missing required fields");
+    }
+
+    // Price validation
+    if (price <= 0 || (discountedPrice && discountedPrice <= 0)) {
+      throw createError(400, "Invalid price values");
+    }
+
+    // Calculate discount percentage if not provided
+    let calculatedDiscountPercentage = discountPercentage;
+    if (discountedPrice && !discountPercentage) {
+      calculatedDiscountPercentage = Math.round(((price - discountedPrice) / price) * 100);
+    }
+
+    // Image upload to Cloudinary
+    let imageUrl = "";
+    if (image) {
+      try {
+        const cloudinaryResponse = await cloudinary.uploader.upload(image, {
+          upload_preset: "minimal",
+          timeout: 60000,
+        });
+        imageUrl = cloudinaryResponse.secure_url;
+      } catch (cloudinaryError) {
+        console.error("Cloudinary Upload Error:", cloudinaryError);
+        throw createError(500, "Image upload failed");
+      }
+    }
+
+    // Create product with all fields
+    const product = new Product({
+      name,
+      subtitle,
+      description,
+      price,
+      discountedPrice: discountedPrice || price,
+      discountPercentage: calculatedDiscountPercentage || 0,
+      category,
+      image: imageUrl,
+      stock,
+      gender,
+      colors: colors || [],
+      sizes: sizes || [],
+      rating: 0,
+      reviews: [],
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
     const savedProduct = await product.save();
 
-    res.status(201).json(savedProduct);
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully",
+      data: savedProduct
+    });
+
   } catch (err) {
     console.error("Error Creating Product:", {
       message: err.message,
-      stack: err.stack,
+      stack: err.stack
     });
-    next(createError(500, `Product creation failed: ${err.message}`));
+    next(err.status ? err : createError(500, `Product creation failed: ${err.message}`));
   }
 };
 
@@ -48,22 +99,6 @@ export const getAllProducts = async (req, res, next) => {
   }
 };
 
-export const getFeaturedProducts = async (req, res, next) => {
-  try {
-    const products = await redis.get("featuredProducts");
-
-    if (products) {
-      return res.json(JSON.parse(products));
-    }
-
-    const featuredProducts = await Product.find({ isFeatured: true });
-    redis.set("featuredProducts", JSON.stringify(featuredProducts), "EX", 60);
-    res.json(featuredProducts);
-  } catch (err) {
-    console.error("Error Fetching Featured Products", err.message);
-    next(createError(500, "Internal Server Error"));
-  }
-};
 
 export const getSingleProduct = async (req, res, next) => {
   try {
@@ -79,34 +114,7 @@ export const getSingleProduct = async (req, res, next) => {
   }
 };
 
-export const toggleFeaturedProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
 
-    if (!product) {
-      return next(createError(404, "Product not found"));
-    }
-
-    product.isFeatured = !product.isFeatured;
-    const updatedProduct = await product.save();
-
-    // Send response immediately after toggle
-    res.status(200).json(updatedProduct);
-
-    // Update cache in background
-    const featuredProducts = await Product.find({ isFeatured: true }).lean();
-    await redis.set(
-      "featuredProducts",
-      JSON.stringify(featuredProducts),
-      "EX",
-      60,
-    );
-  } catch (err) {
-    console.error("Error Toggling Featured Product", err.message);
-    next(createError(500, "Internal Server Error"));
-  }
-};
 
 export const getProductsByTypeAndCategory = async (req, res, next) => {
   try {
