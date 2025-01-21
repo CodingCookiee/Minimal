@@ -44,7 +44,7 @@ const CreateProduct = () => {
     try {
       await axiosInstance.post("/product", formData);
       toast.success("Product created successfully");
-      navigate('/admin')
+
     } catch (err) {
       console.log('Error creating product:', err.message);
       toast.error( "Error creating product");
