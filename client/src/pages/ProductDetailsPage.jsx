@@ -123,7 +123,7 @@ const ProductPage = () => {
                 <img
                   src={image}
                   alt={`${product.name} - View ${index + 1}`}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain "
                 />
               </SwiperSlide>
             ))}

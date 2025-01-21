@@ -143,27 +143,21 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
   const handleAddCustomColor = () => {
     if (customColor.name && customColor.value) {
-      setFormData((prev) => ({
+      setFormData(prev => ({
         ...prev,
-        colors: [
-          ...prev.colors,
-          { name: customColor.name, value: customColor.value },
-        ],
+        colors: [...prev.colors, { 
+          name: customColor.name, 
+          value: customColor.value 
+        }]
       }));
       setCustomColor({ name: "", value: "#000000" });
     }
   };
-
+  
   const handleRemoveColor = (colorToRemove) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      colors: prev.colors.filter(
-        (color) =>
-          !(
-            color.name === colorToRemove.name &&
-            color.value === colorToRemove.value
-          ),
-      ),
+      colors: prev.colors.filter(color => color.value !== colorToRemove.value)
     }));
   };
 
@@ -172,6 +166,14 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     if (!validateForm()) return;
 
     try {
+
+      // Transform colors to hex values only before submission
+    const transformedData = {
+      ...formData,
+      colors: formData.colors.map(color => color.value)
+    };
+
+    
       const imagePromises = images.map((file) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -183,12 +185,11 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
       const base64Images = await Promise.all(imagePromises);
 
-      const productData = {
-        ...formData,
-        images: base64Images,
-      };
-
-      await onSubmit(productData);
+      await onSubmit({
+        ...transformedData,
+        images: base64Images
+      });
+      
     } catch (err) {
       console.error("Error preparing images:", err);
     }
@@ -384,6 +385,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
               />
               <input
                 type="color"
+              
                 value={customColor.value}
                 onChange={(e) =>
                   setCustomColor((prev) => ({ ...prev, value: e.target.value }))
@@ -413,7 +415,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                   <span className="text-sm">{color.name}</span>
                   <button
                     type="button"
-                    onClick={() => handleRemoveColor(color)}
+                    onClick={() => handleRemoveColor({ value: color })}
                     className="text-gray-500 hover:text-red-500"
                   >
                     <X className="w-2 h-2" />
