@@ -71,7 +71,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     if (!formData.gender) {
       errors.ender = "Gender is required";
     }
-    if (!formData.image) {
+    if (images.length === 0) {
       errors.image = "Product image is required";
     }
 
@@ -104,13 +104,32 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       ...acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
-        })
+        }),
       ),
     ]);
+    // Set the first image as main image in formData
+    if (acceptedFiles.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        image: acceptedFiles[0],
+        imagePath: acceptedFiles.map((file) => URL.createObjectURL(file)),
+      }));
+    }
   }, []);
 
   const handleImageRemove = useCallback((index) => {
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setImages((prevImages) => {
+      const newImages = prevImages.filter((_, i) => i !== index);
+      // Update formData.image if all images are removed
+      if (newImages.length === 0) {
+        setFormData((prev) => ({
+          ...prev,
+          image: null,
+          imagePath: [],
+        }));
+      }
+      return newImages;
+    });
   }, []);
 
   const handleSizeToggle = (size) => {
@@ -143,7 +162,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           !(
             color.name === colorToRemove.name &&
             color.value === colorToRemove.value
-          )
+          ),
       ),
     }));
   };
@@ -319,7 +338,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                     <option key={key} value={key}>
                       {value}
                     </option>
-                  )
+                  ),
                 )}
               </select>
             </div>

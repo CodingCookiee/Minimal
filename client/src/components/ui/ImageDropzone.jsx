@@ -1,12 +1,12 @@
-import React from 'react';
-import { Upload, X } from 'lucide-react';
-import { useDropzone } from 'react-dropzone';
+import React from "react";
+import { Upload, X } from "lucide-react";
+import { useDropzone } from "react-dropzone";
 
 const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: { 'image/*': ['.jpeg', '.jpg', '.png', '.webp'] },
+    accept: { "image/*": [".jpeg", ".jpg", ".png", ".webp"] },
     multiple: true,
-    onDrop: onImageUpload
+    onDrop: onImageUpload,
   });
 
   return (
@@ -15,7 +15,7 @@ const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-lg p-6 ${
-          isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+          isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
         }`}
       >
         <input {...getInputProps()} />
@@ -31,7 +31,10 @@ const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
                   />
                   <button
                     type="button"
-                    onClick={() => onImageRemove(index)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onImageRemove(index);
+                    }}
                     className="absolute -top-3 -right-2 p-1 bg-red-500 text-white rounded-full"
                   >
                     <X className="w-3 h-3" />

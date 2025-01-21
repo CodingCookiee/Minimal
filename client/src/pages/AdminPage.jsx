@@ -47,7 +47,7 @@ const AdminPage = () => {
         >
           Analytics
         </button>
-        
+
         <button
           className={`font-sf-medium px-6 py-3 border-2 border-[#0E0E10] rounded-md transition-all
             ${
