@@ -6,6 +6,7 @@ import createError from "../utils/createError.utils.js";
 
 export const createProduct = async (req, res, next) => {
   try {
+    
     const {
       name,
       subtitle,
@@ -14,7 +15,7 @@ export const createProduct = async (req, res, next) => {
       discountedPrice,
       discountPercentage,
       category,
-      image,
+      images,
       stock,
       gender,
       colors,
@@ -37,20 +38,40 @@ export const createProduct = async (req, res, next) => {
       calculatedDiscountPercentage = Math.round(((price - discountedPrice) / price) * 100);
     }
 
-    // Image upload to Cloudinary
-    let imageUrl = "";
-    if (image) {
+     // Validate colors array
+     if (!Array.isArray(colors)) {
+      throw createError(400, "Colors must be an array");
+    }
+
+    let mainImage = '';
+    const additionalImages = [];
+
+    if (images && images.length > 0) {
       try {
-        const cloudinaryResponse = await cloudinary.uploader.upload(image, {
-          upload_preset: "minimal",
-          timeout: 60000,
+        // Sort images before upload
+        const sortedImages = [...images].sort((a, b) => {
+          const isProdA = a.includes("hmgoepprod") || a.includes("prod");
+          const isProdB = b.includes("hmgoepprod") || b.includes("prod");
+          return isProdB - isProdA;
         });
-        imageUrl = cloudinaryResponse.secure_url;
+
+        const uploadPromises = sortedImages.map(image =>
+          cloudinary.uploader.upload(image, {
+            upload_preset: "minimal",
+            timeout: 60000
+          })
+        );
+        
+        const cloudinaryResponses = await Promise.all(uploadPromises);
+        
+        mainImage = cloudinaryResponses[0].secure_url;
+        additionalImages.push(...cloudinaryResponses.slice(1).map(response => response.secure_url));
       } catch (cloudinaryError) {
         console.error("Cloudinary Upload Error:", cloudinaryError);
         throw createError(500, "Image upload failed");
       }
     }
+ 
 
     // Create product with all fields
     const product = new Product({
@@ -61,7 +82,8 @@ export const createProduct = async (req, res, next) => {
       discountedPrice: discountedPrice || price,
       discountPercentage: calculatedDiscountPercentage || 0,
       category,
-      image: imageUrl,
+      image: mainImage,
+      imagePath: additionalImages,
       stock,
       gender,
       colors: colors || [],

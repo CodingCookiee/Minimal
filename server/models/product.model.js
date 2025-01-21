@@ -8,12 +8,27 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     discountedPrice: { type: Number },
     discountPercentage: { type: String },
-    image: { type: String, required: true },
-    imagePath: [{ type: String }],
+    image: {
+      type: String,
+      required: true
+    },
+    imagePath: {
+      type: [String],
+      default: []
+    },
     category: { type: String, required: true },
     stock: { type: Number, required: true },
     gender: { type: String, required: true },
-    colors: [{ type: String }],
+    colors: [{
+      name: {
+        type: String,
+        required: true
+      },
+      value: {
+        type: String,
+        required: true
+      }
+    }],
     sizes: [{ type: String }],
     isFeatured: { type: Boolean, default: false },
     rating: { type: Number, required: true },

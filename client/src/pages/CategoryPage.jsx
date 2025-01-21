@@ -57,18 +57,34 @@ const CategoryPage = () => {
       }
       setIsLoading(false);
     };
-
+    
     fetchProducts();
   }, [categoryname]);
+  
+  const sortProductImages = (products) => {
+    return products.map(product => {
+      if (product.imagePath && product.imagePath.length > 0) {
+        const sortedImages = [...product.imagePath].sort((a, b) => {
+          const isProdA = a.includes("hmgoepprod") || a.includes("prod");
+          const isProdB = b.includes("hmgoepprod") || b.includes("prod");
+          return isProdB - isProdA;
+        });
+        return { ...product, imagePath: sortedImages };
+      }
+      return product;
+    });
+  };
 
-  useEffect(() => {
+
+useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
         const response = await axiosInstance.get(
-          `/product/${categoryname}/${activeSubCategory}`,
+          `/product/${categoryname}/${activeSubCategory}`
         );
-        setProducts(response.data);
+        const sortedProducts = sortProductImages(response.data);
+        setProducts(sortedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -76,7 +92,7 @@ const CategoryPage = () => {
     };
 
     fetchProducts();
-  }, [activeSubCategory]);
+  }, [activeSubCategory, categoryname]);
 
   if (isLoading) {
     return <Loading />;
@@ -84,6 +100,7 @@ const CategoryPage = () => {
 
   const subCategories = categoryData[normalizedCategory] || {};
   const categoryTitle = categoryTitles[activeCategory] || "Collection";
+
 
   return (
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">

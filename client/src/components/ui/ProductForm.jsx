@@ -167,14 +167,36 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+  
+    try {
+      const imagePromises = images.map(file => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      });
+  
+      const base64Images = await Promise.all(imagePromises);
+      
+      const productData = {
+        ...formData,
+        images: base64Images,
+      };
+      
+      await onSubmit(productData);
+    } catch (err) {
+      console.error("Error preparing images:", err);
+    }
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (validateForm()) {
-          onSubmit(formData);
-        }
-      }}
+      onSubmit={handleSubmit}
       className="space-y-8"
       noValidate
     >
@@ -335,7 +357,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                 <option value="">Select Subcategory</option>
                 {Object.entries(categoryData[formData.gender] || {}).map(
                   ([key, value]) => (
-                    <option key={key} value={key}>
+                    <option key={key} value={`${formData.gender}_${key}`}>
                       {value}
                     </option>
                   ),

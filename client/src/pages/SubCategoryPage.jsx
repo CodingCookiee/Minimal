@@ -16,14 +16,29 @@ const SubCategoryPage = () => {
     sales: "Sale & Clearance",
   };
 
-  useEffect(() => {
+  const sortProductImages = (products) => {
+    return products.map(product => {
+      if (product.imagePath && product.imagePath.length > 0) {
+        const sortedImages = [...product.imagePath].sort((a, b) => {
+          const isProdA = a.includes("hmgoepprod") || a.includes("prod");
+          const isProdB = b.includes("hmgoepprod") || b.includes("prod");
+          return isProdB - isProdA;
+        });
+        return { ...product, imagePath: sortedImages };
+      }
+      return product;
+    });
+  };
+
+ useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
         const response = await axiosInstance.get(
-          `/product/${categoryname}/${subcategoryname}`,
+          `/product/${categoryname}/${subcategoryname}`
         );
-        setProducts(response.data);
+        const sortedProducts = sortProductImages(response.data);
+        setProducts(sortedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
       }

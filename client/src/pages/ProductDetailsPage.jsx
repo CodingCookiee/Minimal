@@ -20,6 +20,9 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const hasDiscount = product?.discountedPrice && product.discountedPrice < product.price;
+
+  
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -84,15 +87,15 @@ const ProductPage = () => {
         [&_.swiper-button-next]:transition-opacity [&_.swiper-button-prev]:transition-opacity 
         [&_.swiper-button-next:after]:text-sm [&_.swiper-button-prev:after]:text-sm`}
           >
-            {product.imagePath?.map((image, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={image}
-                  alt={`${product.name} - View ${index + 1}`}
-                  className="w-full h-full object-contain"
-                />
-              </SwiperSlide>
-            ))}
+             {product.imagePath?.map((image, index) => (
+    <SwiperSlide key={index}>
+      <img
+        src={image}
+        alt={`${product.name} - View ${index + 1}`}
+        className="w-full h-full object-contain"
+      />
+    </SwiperSlide>
+  ))}
           </Swiper>
         </div>
 
@@ -104,23 +107,17 @@ const ProductPage = () => {
           </p>
 
           <div className="mt-4 sm:mt-6">
-            {product.discountedPrice ? (
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                <span className="text-xl sm:text-2xl font-sf-medium">
-                  ${product.discountedPrice}
-                </span>
-                <span className="text-base sm:text-lg line-through text-gray-500">
-                  ${product.price}
-                </span>
-                <span className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-sf-medium text-light-primary bg-red-700 rounded">
-                  -{product.discountPercentage}
-                </span>
-              </div>
-            ) : (
-              <span className="text-xl sm:text-2xl font-sf-medium">
-                ${product.price}
+          {hasDiscount ? (
+            <div className="flex items-center gap-2 mt-2">
+              <span className="text-gray-400 line-through">${product.price}</span>
+              <span className="text-2xl font-bold">${product.discountedPrice}</span>
+              <span className="bg-red-500 text-white px-2 py-1 rounded text-sm">
+                {product.discountPercentage}% OFF
               </span>
-            )}
+            </div>
+          ) : (
+            <p className="text-2xl font-bold mt-2">${product.price}</p>
+          )}
           </div>
 
           <p className="mt-6 sm:mt-8 font-sf-light text-sm sm:text-base text-gray-700 dark:text-gray-400">
@@ -129,25 +126,25 @@ const ProductPage = () => {
 
           {/* Color Selection */}
           {product.colors?.length > 0 && (
-            <div className="mt-6 sm:mt-8">
-              <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">COLOR</h3>
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {product.colors.map((color) => (
-                  <button
-                    key={color}
-                    onClick={() => setSelectedColor(color)}
-                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all ${
-                      selectedColor === color
-                        ? "border-dark-primary dark:border-light-primary"
-                        : "border-transparent"
-                    }`}
-                    style={{ backgroundColor: color.toLowerCase() }}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
+  <div className="mt-6 sm:mt-8">
+    <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">COLOR</h3>
+    <div className="flex flex-wrap gap-2 sm:gap-3">
+      {product.colors.map((color, index) => (
+        <button
+          key={index}
+          onClick={() => setSelectedColor(color)}
+          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all ${
+            selectedColor.value === color.value
+              ? "border-dark-primary dark:border-light-primary"
+              : "border-transparent"
+          }`}
+          style={{ backgroundColor: color.value }}
+          title={color.name}
+        />
+      ))}
+    </div>
+  </div>
+)}
           {/* Size Selection */}
           {product.sizes?.length > 0 && (
             <div className="mt-6 sm:mt-8">

@@ -19,6 +19,8 @@ const ProductCard = ({ product, viewType }) => {
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "");
   const [imageLoading, setImageLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const hasDiscount =
+    product.discountedPrice && product.discountedPrice < product.price;
 
   const handleAddToCart = async () => {
     if (!currentUser) {
@@ -62,7 +64,7 @@ const ProductCard = ({ product, viewType }) => {
       whileHover={{ y: -5 }}
     >
       <div className="relative">
-        {product.discountPercentage && (
+        {hasDiscount && (
           <span className="absolute top-2.5 right-2.5 px-4 py-1.5 text-xs font-sf-medium text-light-primary bg-red-700 rounded z-10">
             -{product.discountPercentage}
           </span>
@@ -118,19 +120,22 @@ const ProductCard = ({ product, viewType }) => {
               {product.subtitle}
             </p>
           </div>
-          <div className="text-right">
-            {product.discountedPrice ? (
-              <>
-                <span className="block text-sm line-through text-gray-500">
+          <div className="relative">
+            {/* Price display logic */}
+            <div className="flex items-center gap-2 font-sf-regular">
+              {hasDiscount ? (
+                <div className='flex flex-col'>
+                  <p className="text-gray-400 line-through">${product.price}</p>
+                  <p className="font-sf-regular font-semibold">
+                    ${product.discountedPrice}
+                  </p>
+                </div>
+              ) : (
+                <p className="font-sf-regular font-semibold">
                   ${product.price}
-                </span>
-                <span className="font-sf-medium text-lg text-neutral-900">
-                  {product.discountedPrice}
-                </span>
-              </>
-            ) : (
-              <span className="font-sf-medium text-lg">{product.price}</span>
-            )}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -139,31 +144,29 @@ const ProductCard = ({ product, viewType }) => {
         </p>
 
         {/* Color Selection */}
-        <div className="mt-4">
-          <p className="text-xs font-sf-semibold font-semibold mb-2">COLORS</p>
-          <div className="flex gap-2">
-            {product.colors?.length > 0 && (
-              <div className="mt-4">
-                <p className="text-xs font-sf-semibold font-semibold mb-2">
-                  COLORS
-                </p>
-                <div className="flex gap-2">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setSelectedColor(color)}
-                      className={`w-6 h-6 rounded-full border-2 ${
-                        selectedColor === color
-                          ? "border-dark-primary dark:border-light-primary"
-                          : "border-transparent"
-                      }`}
-                      style={{ backgroundColor: color.toLowerCase() }}
-                    />
-                  ))}
-                </div>
+
+        <div className="flex gap-2">
+          {product.colors?.length > 0 && (
+            <div className="mt-4">
+              <p className="text-xs font-sf-semibold font-semibold mb-2">
+                COLORS
+              </p>
+              <div className="flex gap-2">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-6 h-6 rounded-full border-2 ${
+                      selectedColor === color
+                        ? "border-dark-primary dark:border-light-primary"
+                        : "border-transparent"
+                    }`}
+                    style={{ backgroundColor: color.toLowerCase }}
+                  />
+                ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Add to Cart Button */}
