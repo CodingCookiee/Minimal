@@ -61,20 +61,6 @@ const CategoryPage = () => {
     fetchProducts();
   }, [categoryname]);
 
-  const sortProductImages = (products) => {
-    return products.map((product) => {
-      if (product.imagePath && product.imagePath.length > 0) {
-        const sortedImages = [...product.imagePath].sort((a, b) => {
-          const isProdA = a.includes("hmgoepprod") || a.includes("prod");
-          const isProdB = b.includes("hmgoepprod") || b.includes("prod");
-          return isProdB - isProdA;
-        });
-        return { ...product, imagePath: sortedImages };
-      }
-      return product;
-    });
-  };
-
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
@@ -82,8 +68,7 @@ const CategoryPage = () => {
         const response = await axiosInstance.get(
           `/product/${categoryname}/${activeSubCategory}`,
         );
-        const sortedProducts = sortProductImages(response.data);
-        setProducts(sortedProducts);
+        setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -91,9 +76,7 @@ const CategoryPage = () => {
     };
 
     fetchProducts();
-  }, [activeSubCategory, categoryname]);
-
-  console.log(products);
+  }, [activeSubCategory]);
 
   if (isLoading) {
     return <Loading />;

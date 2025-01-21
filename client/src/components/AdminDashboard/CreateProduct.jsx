@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Package } from "lucide-react";
 import { toast } from "react-toastify";
@@ -44,10 +44,9 @@ const CreateProduct = () => {
     try {
       await axiosInstance.post("/product", formData);
       toast.success("Product created successfully");
-
     } catch (err) {
-      console.log('Error creating product:', err.message);
-      toast.error( "Error creating product");
+      console.log("Error creating product:", err.message);
+      toast.error("Error creating product");
     } finally {
       setLoading(false);
     }

@@ -45,32 +45,36 @@ export const createProduct = async (req, res, next) => {
     }
 
     let mainImage = "";
-    const additionalImages = [];
+    let imageUrls = [];
 
-    if (images && images.length > 0) {
+     if (images && images.length > 0) {
       try {
         // Sort images before upload
         const sortedImages = [...images].sort((a, b) => {
-          const isProdA = a.includes("hmgoepprod") || a.includes("prod");
-          const isProdB = b.includes("hmgoepprod") || b.includes("prod");
+          const isProdA = a.originalName.includes('prod') || 
+                         a.originalName.includes('main') || 
+                         a.originalName.includes('front');
+          const isProdB = b.originalName.includes('prod') || 
+                         b.originalName.includes('main') || 
+                         b.originalName.includes('front');
           return isProdB - isProdA;
         });
-
-        const uploadPromises = sortedImages.map((image) =>
-          cloudinary.uploader.upload(image, {
+    
+        // Upload to Cloudinary with original filenames
+        const uploadPromises = sortedImages.map(image =>
+          cloudinary.uploader.upload(image.data, {
             upload_preset: "minimal",
-            timeout: 60000,
-          }),
+            timeout: 120000,
+            public_id: image.originalName.split('.')[0], // Use original filename without extension
+            filename_override: image.originalName // Preserve original filename
+          })
         );
-
+    
         const cloudinaryResponses = await Promise.all(uploadPromises);
-
-        mainImage = cloudinaryResponses[0].secure_url;
-        additionalImages.push(
-          ...cloudinaryResponses
-            .slice(1)
-            .map((response) => response.secure_url),
-        );
+        console.log("Total images uploaded:", cloudinaryResponses.length);
+    
+        imageUrls = cloudinaryResponses.map(response => response.secure_url);
+        mainImage = imageUrls[0];
       } catch (cloudinaryError) {
         console.error("Cloudinary Upload Error:", cloudinaryError);
         throw createError(500, "Image upload failed");
@@ -87,7 +91,7 @@ export const createProduct = async (req, res, next) => {
       discountPercentage: calculatedDiscountPercentage || 0,
       category,
       image: mainImage,
-      imagePath: additionalImages,
+      imagePath: imageUrls,
       stock,
       gender,
       colors: colors || [],

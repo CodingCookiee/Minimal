@@ -104,10 +104,11 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       ...acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
+          originalName: file.name.toLowerCase(),
         }),
       ),
     ]);
-    // Set the first image as main image in formData
+
     if (acceptedFiles.length > 0) {
       setFormData((prev) => ({
         ...prev,
@@ -143,21 +144,26 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
   const handleAddCustomColor = () => {
     if (customColor.name && customColor.value) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        colors: [...prev.colors, { 
-          name: customColor.name, 
-          value: customColor.value 
-        }]
+        colors: [
+          ...prev.colors,
+          {
+            name: customColor.name,
+            value: customColor.value,
+          },
+        ],
       }));
       setCustomColor({ name: "", value: "#000000" });
     }
   };
-  
+
   const handleRemoveColor = (colorToRemove) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      colors: prev.colors.filter(color => color.value !== colorToRemove.value)
+      colors: prev.colors.filter(
+        (color) => color.value !== colorToRemove.value,
+      ),
     }));
   };
 
@@ -166,30 +172,36 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     if (!validateForm()) return;
 
     try {
-
       // Transform colors to hex values only before submission
-    const transformedData = {
-      ...formData,
-      colors: formData.colors.map(color => color.value)
-    };
+      const transformedData = {
+        ...formData,
+        colors: formData.colors.map((color) => color.value),
+      };
 
-    
-      const imagePromises = images.map((file) => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-      });
+      // Convert images to base64 and include original filename
+    const imagePromises = images.map(file => 
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve({
+            data: reader.result,
+            originalName: file.name.toLowerCase(),
+            type: file.type
+          });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      })
+    );
 
-      const base64Images = await Promise.all(imagePromises);
+    const processedImages = await Promise.all(imagePromises);
 
+      // Submit form with all images
       await onSubmit({
         ...transformedData,
-        images: base64Images
+        images: processedImages,
+        totalImages: processedImages.length
       });
-      
     } catch (err) {
       console.error("Error preparing images:", err);
     }
@@ -385,7 +397,6 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
               />
               <input
                 type="color"
-              
                 value={customColor.value}
                 onChange={(e) =>
                   setCustomColor((prev) => ({ ...prev, value: e.target.value }))
