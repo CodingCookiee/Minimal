@@ -161,7 +161,7 @@ const ProductCard = ({ product, viewType }) => {
                         ? "border-dark-primary dark:border-light-primary"
                         : "border-transparent"
                     }`}
-                    style={{ backgroundColor: color.toLowerCase }}
+                    style={{ backgroundColor: color.toLowerCase() }}
                   />
                 ))}
               </div>

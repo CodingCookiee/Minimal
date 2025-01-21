@@ -19,16 +19,7 @@ const productSchema = new mongoose.Schema(
     category: { type: String, required: true },
     stock: { type: Number, required: true },
     gender: { type: String, required: true },
-    colors: [{
-      name: {
-        type: String,
-        required: true
-      },
-      value: {
-        type: String,
-        required: true
-      }
-    }],
+    colors: [{ type: String }],
     sizes: [{ type: String }],
     isFeatured: { type: Boolean, default: false },
     rating: { type: Number, required: true },

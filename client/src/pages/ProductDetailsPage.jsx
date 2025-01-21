@@ -53,6 +53,38 @@ const ProductPage = () => {
     }
   };
 
+  const normalizeColors = (colors) => {
+    if (!colors) return [];
+    
+    return colors.map(color => {
+      // If color is already in correct format
+      if (typeof color === 'object' && color.name && color.value) {
+        return color;
+      }
+      
+      // If color is a string (hex value)
+      if (typeof color === 'string') {
+        return {
+          name: color,
+          value: color
+        };
+      }
+      
+      // If color is an array (handle the specific case)
+      if (Array.isArray(color)) {
+        const hexColor = color.join('');
+        return {
+          name: hexColor,
+          value: `#${hexColor}`
+        };
+      }
+      
+      return null;
+    }).filter(Boolean);
+  };
+
+
+
   if (loading) return <Loading />;
   if (!product)
     return (
@@ -125,26 +157,29 @@ const ProductPage = () => {
           </p>
 
           {/* Color Selection */}
+          <div className="flex gap-2">
           {product.colors?.length > 0 && (
-  <div className="mt-6 sm:mt-8">
-    <h3 className="text-sm font-sf-semibold mb-3 sm:mb-4">COLOR</h3>
-    <div className="flex flex-wrap gap-2 sm:gap-3">
-      {product.colors.map((color, index) => (
-        <button
-          key={index}
-          onClick={() => setSelectedColor(color)}
-          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all ${
-            selectedColor.value === color.value
-              ? "border-dark-primary dark:border-light-primary"
-              : "border-transparent"
-          }`}
-          style={{ backgroundColor: color.value }}
-          title={color.name}
-        />
-      ))}
-    </div>
-  </div>
-)}
+            <div className="mt-4">
+              <p className="text-xs font-sf-semibold font-semibold mb-2">
+                COLORS
+              </p>
+              <div className="flex gap-2">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-6 h-6 rounded-full border-2 ${
+                      selectedColor === color
+                        ? "border-dark-primary dark:border-light-primary"
+                        : "border-transparent"
+                    }`}
+                    style={{ backgroundColor: color.toLowerCase() }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
           {/* Size Selection */}
           {product.sizes?.length > 0 && (
             <div className="mt-6 sm:mt-8">

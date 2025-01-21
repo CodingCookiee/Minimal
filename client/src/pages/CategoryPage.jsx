@@ -94,6 +94,8 @@ useEffect(() => {
     fetchProducts();
   }, [activeSubCategory, categoryname]);
 
+  console.log(products)
+
   if (isLoading) {
     return <Loading />;
   }

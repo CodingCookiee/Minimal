@@ -179,7 +179,7 @@ export const menCategories = {
         "/Men/Shirts/Loose_Fit_T-shirt_-_White/hmgoepprod.jpeg",
       ],
       title: "Loose Fit T-Shirt",
-      subtitle: "White",
+      subtitle: "Loose Fit",
       description:
         "Comfortable loose fit t-shirt in white, perfect for a casual and relaxed style.",
       price: "$12.99",
@@ -193,7 +193,7 @@ export const menCategories = {
         "/Men/Shirts/Men_T_Brown/prod.jpg",
       ],
       title: "Men T-Shirt",
-      subtitle: "Brown",
+      subtitle: "Loose Fit",
       description:
         "Stylish men t-shirt in brown, perfect for a casual and modern look.",
       price: "$14.99",
@@ -207,7 +207,7 @@ export const menCategories = {
         "/Men/Shirts/Men_T_Dark_Brown/prod.jpg",
       ],
       title: "Men T-Shirt",
-      subtitle: "Dark Brown",
+      subtitle: "Regular Fit",
       description:
         "Stylish men t-shirt in dark brown, perfect for a casual and modern look.",
       price: "$14.99",
@@ -222,7 +222,7 @@ export const menCategories = {
         "/Men/Shirts/Regular_Fit_Corduroy_shirt_-_Burgundy/prod.jpg",
       ],
       title: "Regular Fit Corduroy Shirt",
-      subtitle: "Burgundy",
+      subtitle: "Regular Fit",
       description:
         "Elegant regular fit corduroy shirt in burgundy, perfect for a sophisticated look.",
       price: "$19.99",
@@ -237,7 +237,7 @@ export const menCategories = {
         "/Men/Shirts/Regular_Fit_Felted_overshirt_-_Navy_blue/hmgoepprod.jpeg",
       ],
       title: "Regular Fit Felted Overshirt",
-      subtitle: "Navy Blue",
+      subtitle: "Regular Fit",
       description:
         "Stylish regular fit felted overshirt in navy blue, perfect for a modern look.",
       price: "$22.99",
@@ -250,7 +250,7 @@ export const menCategories = {
         "/Men/Shirts/Regular_Fit_Felted_overshirt_White/prod.jpg",
       ],
       title: "Regular Fit Felted Overshirt",
-      subtitle: "White",
+      subtitle: "Regular Fit",
       description:
         "Elegant regular fit felted overshirt in white, perfect for a sophisticated look.",
       price: "$22.99",
@@ -264,7 +264,7 @@ export const menCategories = {
         "/Men/Shirts/Regular_Fit_Textured_polo_shirt_-_Black/hmgoepprod.jpeg",
       ],
       title: "Regular Fit Textured Polo Shirt",
-      subtitle: "Black",
+      subtitle: "Regular Fit",
       description:
         "Classic regular fit textured polo shirt in black, perfect for a timeless look.",
       price: "$18.99",
@@ -279,7 +279,7 @@ export const menCategories = {
         "/Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Black/prod.jpg",
       ],
       title: "Casual Smart Shirt",
-      subtitle: "Black",
+      subtitle: "Casual Fit",
       description:
         "Elegant casual smart shirt in black, perfect for a sophisticated look.",
       price: "$21.99",
@@ -294,7 +294,7 @@ export const menCategories = {
         "/Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Grey/prod.jpg",
       ],
       title: "Casual Smart Shirt",
-      subtitle: "Grey",
+      subtitle: "Loose Fit",
       description:
         "Elegant casual smart shirt in grey, perfect for a sophisticated look.",
       price: "$21.99",
@@ -308,7 +308,7 @@ export const menCategories = {
         "/Men/Shirts/Shirts_For_Men_Casual_Smart_Shirt_Navy_Blue/prod.jpg",
       ],
       title: "Casual Smart Shirt",
-      subtitle: "Navy Blue",
+      subtitle: "Regular Fit",
       description:
         "Elegant casual smart shirt in navy blue, perfect for a sophisticated look.",
       price: "$21.99",
@@ -322,7 +322,7 @@ export const menCategories = {
         "/Men/Shirts/Slim_Fit_Easy-iron_shirt_-_Black/hmgoepprod.jpeg",
       ],
       title: "Slim Fit Easy-Iron Shirt",
-      subtitle: "Black",
+      subtitle: "Slim Fit",
       description:
         "Classic slim fit easy-iron shirt in black, perfect for a timeless look.",
       price: "$19.99",
@@ -336,7 +336,7 @@ export const menCategories = {
         "/Men/Shirts/Slim_Fit_Polo_shirt_-_Black/hmgoepprod.jpeg",
       ],
       title: "Slim Fit Polo Shirt",
-      subtitle: "Black",
+      subtitle: "Slim Fit",
       description:
         "Classic slim fit polo shirt in black, perfect for a timeless look.",
       price: "$17.99",
@@ -350,7 +350,7 @@ export const menCategories = {
         "/Men/Shirts/Slim_Fit_Polo_shirt_-_Dark_turquoise/hmgoepprod.jpeg",
       ],
       title: "Slim Fit Polo Shirt",
-      subtitle: "Dark Turquoise",
+      subtitle: "Slim Fit",
       description:
         "Stylish slim fit polo shirt in dark turquoise, perfect for a modern look.",
       price: "$17.99",
@@ -364,7 +364,7 @@ export const menCategories = {
         "/Men/Shirts/Slim_Fit_Polo_shirt_-_Forest_green/hmgoepprod.jpeg",
       ],
       title: "Slim Fit Polo Shirt",
-      subtitle: "Forest Green",
+      subtitle: "Slim Fit",
       description:
         "Stylish slim fit polo shirt in forest green, perfect for a modern look.",
       price: "$17.99",
@@ -378,7 +378,7 @@ export const menCategories = {
         "/Men/Shirts/Slim_Fit_Polo_shirt_-_Navy_blue/hmgoepprod.jpeg",
       ],
       title: "Slim Fit Polo Shirt",
-      subtitle: "Navy Blue",
+      subtitle: "Slim Fit",
       description:
         "Classic slim fit polo shirt in navy blue, perfect for a timeless look.",
       price: "$17.99",
