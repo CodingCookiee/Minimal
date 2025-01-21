@@ -404,7 +404,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
               {formData.colors.map((color, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full"
+                  className="mt-2.5 flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full"
                 >
                   <span
                     className="w-4 h-4 rounded-full border"

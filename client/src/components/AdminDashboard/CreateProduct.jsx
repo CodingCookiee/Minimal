@@ -43,7 +43,8 @@ const CreateProduct = () => {
       await axiosInstance.post("/product", formData);
       toast.success("Product created successfully");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Error creating product");
+      console.log('Error creating product:', err.message);
+      toast.error( "Error creating product");
     } finally {
       setLoading(false);
     }
