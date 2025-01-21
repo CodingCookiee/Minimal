@@ -57,12 +57,12 @@ const CategoryPage = () => {
       }
       setIsLoading(false);
     };
-    
+
     fetchProducts();
   }, [categoryname]);
-  
+
   const sortProductImages = (products) => {
-    return products.map(product => {
+    return products.map((product) => {
       if (product.imagePath && product.imagePath.length > 0) {
         const sortedImages = [...product.imagePath].sort((a, b) => {
           const isProdA = a.includes("hmgoepprod") || a.includes("prod");
@@ -75,13 +75,12 @@ const CategoryPage = () => {
     });
   };
 
-
-useEffect(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
         const response = await axiosInstance.get(
-          `/product/${categoryname}/${activeSubCategory}`
+          `/product/${categoryname}/${activeSubCategory}`,
         );
         const sortedProducts = sortProductImages(response.data);
         setProducts(sortedProducts);
@@ -94,7 +93,7 @@ useEffect(() => {
     fetchProducts();
   }, [activeSubCategory, categoryname]);
 
-  console.log(products)
+  console.log(products);
 
   if (isLoading) {
     return <Loading />;
@@ -102,7 +101,6 @@ useEffect(() => {
 
   const subCategories = categoryData[normalizedCategory] || {};
   const categoryTitle = categoryTitles[activeCategory] || "Collection";
-
 
   return (
     <div className="min-h-screen bg-light-primary dark:bg-dark-primary">

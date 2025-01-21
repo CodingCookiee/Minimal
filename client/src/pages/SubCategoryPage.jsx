@@ -17,7 +17,7 @@ const SubCategoryPage = () => {
   };
 
   const sortProductImages = (products) => {
-    return products.map(product => {
+    return products.map((product) => {
       if (product.imagePath && product.imagePath.length > 0) {
         const sortedImages = [...product.imagePath].sort((a, b) => {
           const isProdA = a.includes("hmgoepprod") || a.includes("prod");
@@ -30,12 +30,12 @@ const SubCategoryPage = () => {
     });
   };
 
- useEffect(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
         const response = await axiosInstance.get(
-          `/product/${categoryname}/${subcategoryname}`
+          `/product/${categoryname}/${subcategoryname}`,
         );
         const sortedProducts = sortProductImages(response.data);
         setProducts(sortedProducts);

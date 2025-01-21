@@ -10,11 +10,11 @@ const productSchema = new mongoose.Schema(
     discountPercentage: { type: String },
     image: {
       type: String,
-      required: true
+      required: true,
     },
     imagePath: {
       type: [String],
-      default: []
+      default: [],
     },
     category: { type: String, required: true },
     stock: { type: Number, required: true },

@@ -124,7 +124,7 @@ const ProductCard = ({ product, viewType }) => {
             {/* Price display logic */}
             <div className="flex items-center gap-2 font-sf-regular">
               {hasDiscount ? (
-                <div className='flex flex-col'>
+                <div className="flex flex-col">
                   <p className="text-gray-400 line-through">${product.price}</p>
                   <p className="font-sf-regular font-semibold">
                     ${product.discountedPrice}

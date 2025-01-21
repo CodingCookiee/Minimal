@@ -170,9 +170,9 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-  
+
     try {
-      const imagePromises = images.map(file => {
+      const imagePromises = images.map((file) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onloadend = () => resolve(reader.result);
@@ -180,14 +180,14 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           reader.readAsDataURL(file);
         });
       });
-  
+
       const base64Images = await Promise.all(imagePromises);
-      
+
       const productData = {
         ...formData,
         images: base64Images,
       };
-      
+
       await onSubmit(productData);
     } catch (err) {
       console.error("Error preparing images:", err);
@@ -195,11 +195,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-8"
-      noValidate
-    >
+    <form onSubmit={handleSubmit} className="space-y-8" noValidate>
       {/* Basic Info */}
       <div className="bg-white p-6 rounded-lg shadow-sm">
         <h3 className="text-lg font-medium mb-4">Basic Information</h3>

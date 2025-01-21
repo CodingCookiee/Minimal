@@ -20,9 +20,8 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const hasDiscount = product?.discountedPrice && product.discountedPrice < product.price;
-
-  
+  const hasDiscount =
+    product?.discountedPrice && product.discountedPrice < product.price;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -55,35 +54,35 @@ const ProductPage = () => {
 
   const normalizeColors = (colors) => {
     if (!colors) return [];
-    
-    return colors.map(color => {
-      // If color is already in correct format
-      if (typeof color === 'object' && color.name && color.value) {
-        return color;
-      }
-      
-      // If color is a string (hex value)
-      if (typeof color === 'string') {
-        return {
-          name: color,
-          value: color
-        };
-      }
-      
-      // If color is an array (handle the specific case)
-      if (Array.isArray(color)) {
-        const hexColor = color.join('');
-        return {
-          name: hexColor,
-          value: `#${hexColor}`
-        };
-      }
-      
-      return null;
-    }).filter(Boolean);
+
+    return colors
+      .map((color) => {
+        // If color is already in correct format
+        if (typeof color === "object" && color.name && color.value) {
+          return color;
+        }
+
+        // If color is a string (hex value)
+        if (typeof color === "string") {
+          return {
+            name: color,
+            value: color,
+          };
+        }
+
+        // If color is an array (handle the specific case)
+        if (Array.isArray(color)) {
+          const hexColor = color.join("");
+          return {
+            name: hexColor,
+            value: `#${hexColor}`,
+          };
+        }
+
+        return null;
+      })
+      .filter(Boolean);
   };
-
-
 
   if (loading) return <Loading />;
   if (!product)
@@ -119,15 +118,15 @@ const ProductPage = () => {
         [&_.swiper-button-next]:transition-opacity [&_.swiper-button-prev]:transition-opacity 
         [&_.swiper-button-next:after]:text-sm [&_.swiper-button-prev:after]:text-sm`}
           >
-             {product.imagePath?.map((image, index) => (
-    <SwiperSlide key={index}>
-      <img
-        src={image}
-        alt={`${product.name} - View ${index + 1}`}
-        className="w-full h-full object-contain"
-      />
-    </SwiperSlide>
-  ))}
+            {product.imagePath?.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={image}
+                  alt={`${product.name} - View ${index + 1}`}
+                  className="w-full h-full object-contain"
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
 
@@ -139,17 +138,21 @@ const ProductPage = () => {
           </p>
 
           <div className="mt-4 sm:mt-6">
-          {hasDiscount ? (
-            <div className="flex items-center gap-2 mt-2">
-              <span className="text-gray-400 line-through">${product.price}</span>
-              <span className="text-2xl font-bold">${product.discountedPrice}</span>
-              <span className="bg-red-500 text-white px-2 py-1 rounded text-sm">
-                {product.discountPercentage}% OFF
-              </span>
-            </div>
-          ) : (
-            <p className="text-2xl font-bold mt-2">${product.price}</p>
-          )}
+            {hasDiscount ? (
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-gray-400 line-through">
+                  ${product.price}
+                </span>
+                <span className="text-2xl font-bold">
+                  ${product.discountedPrice}
+                </span>
+                <span className="bg-red-500 text-white px-2 py-1 rounded text-sm">
+                  {product.discountPercentage}% OFF
+                </span>
+              </div>
+            ) : (
+              <p className="text-2xl font-bold mt-2">${product.price}</p>
+            )}
           </div>
 
           <p className="mt-6 sm:mt-8 font-sf-light text-sm sm:text-base text-gray-700 dark:text-gray-400">
@@ -158,28 +161,28 @@ const ProductPage = () => {
 
           {/* Color Selection */}
           <div className="flex gap-2">
-          {product.colors?.length > 0 && (
-            <div className="mt-4">
-              <p className="text-xs font-sf-semibold font-semibold mb-2">
-                COLORS
-              </p>
-              <div className="flex gap-2">
-                {product.colors.map((color) => (
-                  <button
-                    key={color}
-                    onClick={() => setSelectedColor(color)}
-                    className={`w-6 h-6 rounded-full border-2 ${
-                      selectedColor === color
-                        ? "border-dark-primary dark:border-light-primary"
-                        : "border-transparent"
-                    }`}
-                    style={{ backgroundColor: color.toLowerCase() }}
-                  />
-                ))}
+            {product.colors?.length > 0 && (
+              <div className="mt-4">
+                <p className="text-xs font-sf-semibold font-semibold mb-2">
+                  COLORS
+                </p>
+                <div className="flex gap-2">
+                  {product.colors.map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedColor(color)}
+                      className={`w-6 h-6 rounded-full border-2 ${
+                        selectedColor === color
+                          ? "border-dark-primary dark:border-light-primary"
+                          : "border-transparent"
+                      }`}
+                      style={{ backgroundColor: color.toLowerCase() }}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
           {/* Size Selection */}
           {product.sizes?.length > 0 && (
             <div className="mt-6 sm:mt-8">

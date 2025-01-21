@@ -3,7 +3,6 @@ import {
   createProduct,
   deleteProduct,
   getAllProducts,
-  
   getProductsByTypeAndCategory,
   getSingleProduct,
 } from "../controllers/product.controller.js";
@@ -19,6 +18,5 @@ router.get("/", authenticateUser, getAllProducts);
 router.get("/:id", getSingleProduct);
 router.get("/:type/:category?", getProductsByTypeAndCategory);
 router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
-
 
 export default router;
