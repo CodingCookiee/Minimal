@@ -41,7 +41,7 @@ const ReturnPage = () => {
 
           updateOrders((prevOrders) => [...prevOrders, response.data.order]);
           updateCart([]);
-          navigate("/account");
+          
         } catch (error) {
           console.error("Order Processing Error:", error);
         } finally {
