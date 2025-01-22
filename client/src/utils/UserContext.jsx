@@ -10,16 +10,17 @@ export function UserProvider({ children }) {
 
   const updateUser = (userData) => {
     if (userData) {
-      // token expiration time when storing user data
       const expiresAt = new Date().getTime() + 24 * 60 * 60 * 1000; // 1 day
       const userWithExpiration = { ...userData, expiresAt };
       localStorage.setItem("user", JSON.stringify(userWithExpiration));
+      localStorage.removeItem("expiredNotificationShown"); // Reset flag when user logs in
       setCurrentUser(userWithExpiration);
     } else {
       localStorage.removeItem("user");
       setCurrentUser(null);
     }
   };
+  
 
   return (
     <UserContext.Provider value={{ currentUser, updateUser }}>

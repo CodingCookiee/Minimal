@@ -106,15 +106,23 @@ const Header = () => {
       const checkExpiration = () => {
         const currentTime = new Date().getTime();
         if (currentTime >= currentUser.expiresAt) {
+          const notificationShown = localStorage.getItem(
+            "expiredNotificationShown"
+          );
+
+          if (!notificationShown) {
+            toast.info("Session expired. Please sign in again.");
+            localStorage.setItem("expiredNotificationShown", "true");
+          }
+
           updateUser(null);
           setIsProfileOpen(false);
           navigate("/");
-          toast.info("Session expired. Please sign in again.");
         }
       };
 
-      checkExpiration(); // Check immediately
-      const interval = setInterval(checkExpiration, 60000); // Check every minute
+      checkExpiration();
+      const interval = setInterval(checkExpiration, 60000);
 
       return () => clearInterval(interval);
     };
@@ -261,7 +269,7 @@ const Header = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="z-50 absolute lg:right-12 lg:-top-2.5 mt-2 w-48 sm:w-96 right-5 top-5"
+                  className="z-50 absolute lg:right-12 lg:-top-2.5 mt-2 w-48 sm:w-72 right-5 top-5"
                 >
                   <div className="relative">
                     <input
