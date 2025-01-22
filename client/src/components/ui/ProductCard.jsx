@@ -11,8 +11,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../../utils/UserContext";
 import { toast } from "react-toastify";
 import { useCart } from "../../utils/CartContext";
+import { useMediaQuery } from "react-responsive";
 
 const ProductCard = ({ product, viewType }) => {
+  const isWideScreen = useMediaQuery({ minWidth: 630 });
   const { cartItems, updateCart } = useCart();
   const { currentUser } = useUser();
   const navigate = useNavigate();
@@ -51,10 +53,11 @@ const ProductCard = ({ product, viewType }) => {
       return isProdB - isProdA;
     });
 
-  const cardStyles =
-    viewType === "grid"
+  const cardStyles = isWideScreen
+    ? viewType === "grid"
       ? "flex flex-col"
-      : "flex flex-col gap-5 lg:w-2/3 lg:mx-auto";
+      : "flex flex-col gap-5 lg:w-2/3 lg:mx-auto"
+    : "flex flex-col w-full";
 
   return (
     <motion.div

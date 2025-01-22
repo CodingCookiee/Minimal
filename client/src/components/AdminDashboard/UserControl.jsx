@@ -26,6 +26,39 @@ const UserControl = () => {
     user: null,
   });
   const { currentUser } = useUser();
+  const [pendingRequests, setPendingRequests] = useState([]);
+
+  useEffect(() => {
+    const getAdminRequests = async () => {
+      try {
+        const response = await axiosInstance.get("/user/admin-requests");
+        setPendingRequests(response.data);
+      } catch (err) {
+        toast.error("Failed to fetch admin requests");
+      }
+    };
+
+    if (isPrimaryAdmin(currentUser)) {
+      getAdminRequests();
+    }
+  }, [currentUser]);
+
+  const handleRejectRequest = async (userId) => {
+    if (!isPrimaryAdmin(currentUser)) {
+      toast.error("You lack privileges to use these controls");
+      return;
+    }
+
+    try {
+      await axiosInstance.post(`/user/${userId}/reject-admin`);
+      setPendingRequests((prevRequests) =>
+        prevRequests.filter((request) => request._id !== userId),
+      );
+      toast.success("Admin request rejected");
+    } catch (err) {
+      toast.error("Failed to reject admin request");
+    }
+  };
 
   useEffect(() => {
     fetchUsers();
@@ -53,11 +86,21 @@ const UserControl = () => {
     }
     try {
       const response = await axiosInstance.put(`/user/${userId}/toggle-admin`);
+
+      // Update users list with new role
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
-          user._id === userId ? { ...user, role: response.data.role } : user,
+          user._id === userId
+            ? { ...user, role: response.data.role, adminRequest: false }
+            : user,
         ),
       );
+
+      // Remove from pending requests when approved
+      setPendingRequests((prevRequests) =>
+        prevRequests.filter((request) => request._id !== userId),
+      );
+
       toast.success(
         `User ${currentRole === "admin" ? "removed from" : "made"} admin`,
       );
@@ -126,6 +169,45 @@ const UserControl = () => {
           <div className="font-sf-medium">Role</div>
           <div className="font-sf-medium">Actions</div>
         </div>
+
+        {isPrimaryAdmin(currentUser) && pendingRequests.length > 0 && (
+          <div className="mb-6">
+            <h3 className="text-xl font-bold font-sf-medium mb-4">
+              Pending Admin Requests
+            </h3>
+            <div className="bg-white rounded-lg shadow-sm">
+              {pendingRequests.map((user) => (
+                <div
+                  key={user._id}
+                  className="p-4 border-b flex justify-between items-center"
+                >
+                  <div>
+                    <p className="font-medium font-sf-light">{user.name}</p>
+                    <p className="text-sm text-gray-600 font-sf-light">
+                      {user.email}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => handleToggleAdmin(user._id, user.role)}
+                      variant="default"
+                      className="font-sf-light"
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      onClick={() => handleRejectRequest(user._id)}
+                      variant="destructive"
+                      className="font-sf-light"
+                    >
+                      Reject
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* User List */}
         {users.map((user) => (

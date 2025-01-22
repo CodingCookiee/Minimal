@@ -12,6 +12,9 @@ import {
   deleteUser,
   getAllUsers,
   toggleAdmin,
+  requestAdminAccess,
+  getAdminRequests,
+  rejectAdminRequest,
 } from "../controllers/user.controller.js";
 
 const router = express.Router();
@@ -22,6 +25,20 @@ router.post("/address", authenticateUser, addAddress);
 router.put("/address/:addressId", authenticateUser, editAddress);
 router.delete("/address/:addressId", authenticateUser, deleteAddress);
 router.get("/", authenticateUser, authenticateAdmin, getAllUsers);
+router.post("/request-admin-access", authenticateUser, requestAdminAccess);
+router.get(
+  "/admin-requests",
+  authenticateUser,
+  authenticateAdmin,
+  getAdminRequests,
+);
+router.post(
+  "/:userId/reject-admin",
+  authenticateUser,
+  authenticateAdmin,
+  rejectAdminRequest,
+);
+
 router.put(
   "/:userId/toggle-admin",
   authenticateUser,

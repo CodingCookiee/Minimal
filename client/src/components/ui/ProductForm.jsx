@@ -498,7 +498,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       <Button
         type="submit"
         disabled={loading}
-        className=" mx-16 lg:mx-18 w-[80%] py-5 bg-dark-primary text-light-primary hover:bg-light-primary
+        className=" self-center px-24 py-5 bg-dark-primary text-light-primary hover:bg-light-primary
            hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium disabled:opacity-50"
       >
         {loading ? (

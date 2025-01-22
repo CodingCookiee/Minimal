@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    adminRequest: {
+      type: Boolean,
+      default: false,
+    },
     cartItems: [
       {
         productId: {

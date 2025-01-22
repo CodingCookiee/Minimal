@@ -7,6 +7,7 @@ import {
   ShoppingBag,
   X,
   ChevronDown,
+  Shield,
 } from "lucide-react";
 import { RiAdminLine } from "react-icons/ri";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,8 +16,10 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUser } from "../../utils/UserContext";
 import { useCart } from "../../utils/CartContext";
+import { Button } from "../ui";
 
 const Header = () => {
+  const [users, setUsers] = useState([]);
   const { cartCount, updateCart } = useCart();
   const { currentUser, updateUser } = useUser();
   const navigate = useNavigate();
@@ -54,6 +57,16 @@ const Header = () => {
       subcategories: Object.keys(womenCategories),
     },
   ];
+
+  const handleAdminRequest = async () => {
+    try {
+      await axiosInstance.post("/user/request-admin-access");
+      toast.success("Admin request sent successfully");
+    } catch (error) {
+      console.error("Admin request error:", error.message);
+      toast.error("Failed to send admin request");
+    }
+  };
 
   const handleSearch = async (e) => {
     const query = e.target.value;
@@ -183,10 +196,10 @@ const Header = () => {
                 bg-light-primary/90 backdrop-blur-md shadow-xl 
                 border border-neutral-200/20 dark:border-neutral-800/20"
             >
-              <div className="flex flex-col items-center justify-center w-full py-2">
+              <div className="flex flex-col items-center justify-center w-full py-1">
                 {categories.map((category) => (
                   <div key={category.name} className="relative w-full">
-                    <button className="py-3 px-6 font-sf w-full text-base sm:text-lg hover:bg-light-secondary transition-colors flex items-center justify-between cursor-pointer">
+                    <button className="py-1 px-6 font-sf w-full text-base sm:text-lg hover:bg-light-secondary transition-colors flex items-center justify-between cursor-pointer">
                       <span>{category.name}</span>
                     </button>
 
@@ -200,7 +213,7 @@ const Header = () => {
                       >
                         <Link
                           to={`/category/${category.name.toLowerCase()}`}
-                          className="block px-16 py-2.5 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+                          className="block font-sf-light px-16 py-1 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                           onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
                           View All
@@ -210,7 +223,7 @@ const Header = () => {
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             key={subcat}
                             to={`/category/${category.name.toLowerCase()}/${subcat}`}
-                            className="block px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                            className="block font-sf-light px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                           >
                             {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
                           </Link>
@@ -229,7 +242,7 @@ const Header = () => {
                   <Link
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     to="/category/sale"
-                    className="block px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
+                    className="block  px-16 py-4 backdrop-blur-sm text-sm font-sf-medium text-dark-primary dark:text-light-primary hover:bg-light-secondary/40 transition-colors"
                   >
                     View All
                   </Link>
@@ -239,7 +252,7 @@ const Header = () => {
                       onClick={() => setIsMenuOpen(!isMenuOpen)}
                       key={category}
                       to={`/category/sale/${category.toLowerCase()}`}
-                      className="block w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                      className="block font-sf-light w-full px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                     >
                       {category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
@@ -354,22 +367,35 @@ const Header = () => {
                       {isAdmin && (
                         <Link
                           to="/admin"
-                          className="block px-4 py-2 hover:bg-neutral-100"
+                          className="block font-sf-light px-4 py-2 hover:bg-neutral-100"
                           onClick={() => setIsProfileOpen(false)}
                         >
                           Dashboard
                         </Link>
                       )}
+                      {!isAdmin && (
+                        <Button
+                          className="w-full h-full hover:bg-neutral-100"
+                          onClick={handleAdminRequest}
+                        >
+                          <div className="flex items-center ">
+                            <Shield size={15} />
+                            <span className="font-sf-semibold text-md">
+                              Request Admin Access
+                            </span>
+                          </div>
+                        </Button>
+                      )}
                       <Link
                         to="/account"
-                        className="block px-4 py-2 hover:bg-neutral-100"
+                        className="block font-sf-light px-4 py-2 hover:bg-neutral-100"
                         onClick={() => setIsProfileOpen(false)}
                       >
                         Account
                       </Link>
                       <button
                         onClick={handleSignOut}
-                        className="block w-full text-left px-4 py-2 hover:bg-neutral-100"
+                        className="block font-sf-light w-full text-left px-4 py-2 hover:bg-neutral-100"
                       >
                         Sign Out
                       </button>
@@ -377,7 +403,7 @@ const Header = () => {
                   ) : (
                     <Link
                       to="/signin"
-                      className="block px-4 py-2 hover:bg-neutral-100"
+                      className="block font-sf-light px-4 py-2 hover:bg-neutral-100"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       Sign In

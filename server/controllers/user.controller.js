@@ -182,6 +182,49 @@ export const toggleAdmin = async (req, res, next) => {
   }
 };
 
+export const requestAdminAccess = async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { adminRequest: true },
+      { new: true },
+    );
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAdminRequests = async (req, res, next) => {
+  try {
+    const requests = await User.find({ adminRequest: true }).select(
+      "-password",
+    );
+    res.status(200).json(requests);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const rejectAdminRequest = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { adminRequest: false },
+      { new: true },
+    );
+
+    if (!user) {
+      throw createError(404, "User not found");
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const deleteUser = async (req, res, next) => {
   try {
     const { userId } = req.params;

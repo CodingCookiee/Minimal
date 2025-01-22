@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import { BsGrid3X3GapFill, BsListUl } from "react-icons/bs";
 import { ProductCard, Loading } from "../components/ui";
 import axiosInstance from "../utils/axios";
+import { useMediaQuery } from "react-responsive";
 
 const SubCategoryPage = () => {
+  const isWideScreen = useMediaQuery({ minWidth: 630 });
   const { categoryname, subcategoryname } = useParams();
   const [viewType, setViewType] = useState("grid");
   const [isLoading, setIsLoading] = useState(true);
@@ -51,30 +53,32 @@ const SubCategoryPage = () => {
       </div>
 
       {/* View Toggle */}
-      <div className="px-6 sm:px-12 lg:px-20 py-8">
-        <div className="flex gap-4 justify-end">
-          <button
-            onClick={() => setViewType("grid")}
-            className={`p-2 rounded ${
-              viewType === "grid"
-                ? "bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary"
-                : "text-dark-primary dark:text-light-primary"
-            }`}
-          >
-            <BsGrid3X3GapFill />
-          </button>
-          <button
-            onClick={() => setViewType("list")}
-            className={`p-2 rounded ${
-              viewType === "list"
-                ? "bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary"
-                : "text-dark-primary dark:text-light-primary"
-            }`}
-          >
-            <BsListUl />
-          </button>
+      {isWideScreen && (
+        <div className="px-6 sm:px-12 lg:px-20 py-8">
+          <div className="flex gap-4 justify-end">
+            <button
+              onClick={() => setViewType("grid")}
+              className={`p-2 rounded ${
+                viewType === "grid"
+                  ? "bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary"
+                  : "text-dark-primary dark:text-light-primary"
+              }`}
+            >
+              <BsGrid3X3GapFill />
+            </button>
+            <button
+              onClick={() => setViewType("list")}
+              className={`p-2 rounded ${
+                viewType === "list"
+                  ? "bg-dark-primary dark:bg-light-primary text-light-primary dark:text-dark-primary"
+                  : "text-dark-primary dark:text-light-primary"
+              }`}
+            >
+              <BsListUl />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Products Grid/List */}
       <div className="px-6 sm:px-12 lg:px-20 pb-20">
