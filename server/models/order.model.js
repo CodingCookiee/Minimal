@@ -32,7 +32,6 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   shippingAddress: {
     type: String,
     required: true,
@@ -55,6 +54,9 @@ const orderSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// Add the unique index
+orderSchema.index({ stripeSessionId: 1 }, { unique: true });
 
 const Order = mongoose.model("Order", orderSchema);
 export default Order;

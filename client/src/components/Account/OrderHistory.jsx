@@ -54,7 +54,10 @@ export const OrderHistory = () => {
 
               <div className="space-y-4">
                 {order.products.map((item) => (
-                  <div key={item.productId._id} className="flex gap-4">
+                  <div
+                    key={item.productId?._id || item._id}
+                    className="flex gap-4"
+                  >
                     <img
                       src={
                         item.productId?.imagePath?.[0] ||
@@ -64,12 +67,14 @@ export const OrderHistory = () => {
                       className="w-20 h-20 object-contain"
                     />
                     <div>
-                      <p className="font-sf-medium">{item.productId?.name}</p>
+                      <p className="font-sf-medium">
+                        {item.productId?.name || "Product Name Unavailable"}
+                      </p>
                       <p className="text-sm text-gray-600">
                         Quantity: {item.quantity}
                       </p>
                       <p className="text-sm text-gray-600">
-                        Price: ${item.price?.toFixed(2)}
+                        Price: ${item.price?.toFixed(2) || "0.00"}
                       </p>
                     </div>
                   </div>

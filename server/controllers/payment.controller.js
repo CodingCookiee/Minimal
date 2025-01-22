@@ -4,6 +4,7 @@ import createError from "../utils/createError.utils.js";
 import Cart from "../models/cart.model.js";
 import stripe from "../lib/stripe.js";
 import User from "../models/user.model.js";
+import { redis } from "../lib/redis.js";
 
 export const createCheckoutSession = async (req, res, next) => {
   try {
@@ -71,31 +72,35 @@ export const createCheckoutSession = async (req, res, next) => {
 export const checkoutSuccess = async (req, res, next) => {
   try {
     const { session_id } = req.body;
+    console.log('Processing session:', session_id);
 
-    const existingOrder = await Order.findOne({ stripeSessionId: session_id });
-    if (existingOrder) {
-      return res.status(200).json({
-        success: true,
-        message: "Order already processed",
-        order: existingOrder,
-      });
+    // Try to acquire lock using Redis
+    const lockKey = `order_lock:${session_id}`;
+    const lockAcquired = await redis.set(lockKey, 'locked', 'NX', 'EX', 30);
+    
+    if (!lockAcquired) {
+      const existingOrder = await Order.findOne({ stripeSessionId: session_id });
+      if (existingOrder) {
+        return res.status(200).json({
+          success: true,
+          message: "Order already processed",
+          order: existingOrder
+        });
+      }
+      throw createError(409, "Order processing in progress");
     }
 
     const session = await stripe.checkout.sessions.retrieve(session_id);
     const { userId } = session.metadata;
 
-    const user = await User.findById(userId);
-    if (!user) {
-      throw createError(404, "User not found");
-    }
+    const [user, cart] = await Promise.all([
+      User.findById(userId),
+      Cart.findOne({ userId }).populate("items.productId")
+    ]);
 
-    // Get cart to map product IDs
-    const cart = await Cart.findOne({ userId }).populate("items.productId");
-
-    if (!cart) {
-      const errorMessage = `Cart not found for userId: ${userId}`;
-      console.error(errorMessage);
-      throw createError(404, errorMessage);
+    if (!user || !cart) {
+      await redis.del(lockKey);
+      throw createError(404, "User or cart not found");
     }
 
     const newOrder = new Order({
@@ -113,16 +118,26 @@ export const checkoutSuccess = async (req, res, next) => {
       processed: true,
     });
 
-    await newOrder.save();
-    await Cart.findOneAndDelete({ userId });
+    await Promise.all([
+      newOrder.save(),
+      Cart.findOneAndDelete({ userId })
+    ]);
+
+    // Release lock after processing
+    await redis.del(lockKey);
 
     return res.status(201).json({
       success: true,
-      message: "Order placed successfully",
-      order: newOrder,
+      message: "Order created successfully",
+      order: newOrder
     });
   } catch (error) {
-    console.error("Checkout Success Error:", error.message);
+    console.error("Checkout Success Error:", error);
     next(error);
   }
 };
+
+
+
+
+

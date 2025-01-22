@@ -18,6 +18,8 @@ export const AccountDetails = ({
     onSubmit(e);
   };
 
+  
+
   return (
     <div className="details-container">
       <h2 className="text-3xl font-sf-heavy font-bold mb-4">Account Details</h2>

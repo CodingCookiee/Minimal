@@ -6,28 +6,52 @@ import axiosInstance from "../utils/axios";
 import { useCart } from "../utils/CartContext";
 import { useOrder } from "../utils/OrderContext";
 import { toast } from "react-toastify";
+import { Loading } from '../components/ui';
 
 const ReturnPage = () => {
-  const { updateCart } = useCart();
-  const { updateOrders } = useOrder();
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const sessionId = searchParams.get("session_id");
+    const [isProcessing, setIsProcessing] = useState(false);
+    const { updateCart } = useCart();
+    const { updateOrders } = useOrder();
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const sessionId = searchParams.get("session_id");
+  
+    useEffect(() => {
+      const processedSessions = JSON.parse(localStorage.getItem('processedSessions') || '[]');
+      
+      if (sessionId && !isProcessing && !processedSessions.includes(sessionId)) {
+        setIsProcessing(true);
+        
+        const processOrder = async () => {
+          try {
+            const response = await axiosInstance.post("/payment/checkout-success", { 
+              session_id: sessionId 
+            });
+            
+            // Mark session as processed
+            localStorage.setItem('processedSessions', 
+              JSON.stringify([...processedSessions, sessionId])
+            );
+            
+            updateOrders((prevOrders) => [...prevOrders, response.data.order]);
+            updateCart([]);
+            navigate("/account");
+          } catch (error) {
+            console.error("Order Processing Error:", error);
+          } finally {
+            setIsProcessing(false);
+          }
+        };
+  
+        // Debounce the order processing
+        const timeoutId = setTimeout(processOrder, 100);
+        return () => clearTimeout(timeoutId);
+      }
+    }, [sessionId]);
+  
 
-  useEffect(() => {
-    if (sessionId) {
-      axiosInstance
-        .post("/payment/checkout-success", { session_id: sessionId })
-        .then((response) => {
-          updateOrders((prevOrders) => [...prevOrders, response.data.order]);
-          updateCart([]);
-          navigate("/account");
-        })
-        .catch((error) => {
-          console.error("Order Processing Error:", error.message);
-        });
-    }
-  }, [sessionId, navigate, updateCart, updateOrders]);
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
