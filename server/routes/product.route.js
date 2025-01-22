@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getProductsByTypeAndCategory,
   getSingleProduct,
+  searchProducts
 } from "../controllers/product.controller.js";
 import {
   authenticateUser,
@@ -13,10 +14,12 @@ import {
 
 const router = express.Router();
 
+router.get('/search', searchProducts);
 router.post("/", authenticateUser, authenticateAdmin, createProduct);
 router.get("/", authenticateUser, getAllProducts);
 router.get("/:id", getSingleProduct);
 router.get("/:type/:category?", getProductsByTypeAndCategory);
 router.delete("/:id", authenticateUser, authenticateAdmin, deleteProduct);
+
 
 export default router;

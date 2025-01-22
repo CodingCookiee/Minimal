@@ -166,6 +166,36 @@ export const getProductsByTypeAndCategory = async (req, res, next) => {
   }
 };
 
+export const searchProducts = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+    console.log('Search query received:', q); 
+    
+    if (!q) {
+      return res.json([]);
+    }
+
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: q, $options: 'i' } },
+        { subtitle: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } },
+        { category: { $regex: q, $options: 'i' } }
+      ]
+    })
+    .select('name subtitle price image category')
+    .limit(8);
+
+    console.log('Found products:', products.length); 
+    res.json(products);
+  } catch (err) {
+    console.log("Error Searching Products", err.message);
+    next(createError(500, "Error searching products"));
+  }
+};
+
+
+
 export const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;

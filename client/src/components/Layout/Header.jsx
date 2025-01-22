@@ -23,6 +23,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const isAdmin = currentUser?.role === "admin";
 
@@ -52,6 +54,36 @@ const Header = () => {
       subcategories: Object.keys(womenCategories),
     },
   ];
+
+  const handleSearch = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (query.length >= 2) {
+      try {
+        const response = await axiosInstance.get(`/product/search?q=${query}`);
+        setSearchResults(response.data);
+      } catch (error) {
+        console.error("Search error:", error);
+        setSearchResults([]);
+      }
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isSearchOpen && !event.target.closest(".search-container")) {
+        setIsSearchOpen(false);
+        setSearchQuery("");
+        setSearchResults([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isSearchOpen]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -211,9 +243,13 @@ const Header = () => {
         </AnimatePresence>
 
         <div className="flex items-center gap-2 sm:gap-6">
-          <div className="relative">
+          <div className="relative search-container">
             <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              onClick={() => {
+                if (!isSearchOpen) {
+                  setIsSearchOpen(true);
+                }
+              }}
               className="p-1.5 sm:p-2 hover:bg-neutral-100 rounded-full transition-colors"
             >
               <Search size={20} />
@@ -225,14 +261,63 @@ const Header = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="absolute lg:right-12 lg:-top-2.5 mt-2 w-48 sm:w-72 right-5 top-5"
+                  className="z-50 absolute lg:right-12 lg:-top-2.5 mt-2 w-48 sm:w-96 right-5 top-5"
                 >
-                  <input
-                    type="text"
-                    placeholder="Search products..."
-                    className="backdrop-blur-lg w-full p-2 rounded-xl bg-light-primary/80 dark:bg-dark-primary/80 border border-black-300 focus:outline-none focus:border-neutral-300 text-sm sm:text-base"
-                    autoFocus
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={handleSearch}
+                      placeholder="Search products..."
+                      className="backdrop-blur-lg w-full p-2 rounded-xl bg-light-primary/80 dark:bg-dark-primary/80 border border-black-300 focus:outline-none focus:border-neutral-300 text-sm sm:text-base"
+                      autoFocus
+                    />
+
+                    {searchResults.length > 0 && (
+                      <div className="z-50 absolute w-full mt-1 bg-white dark:bg-dark-primary shadow-lg rounded-md max-h-96 overflow-y-auto">
+                        {searchResults.map((product) => {
+                          const categoryParts = product.category.split("_");
+                          const mainCategory =
+                            categoryParts[0].charAt(0).toUpperCase() +
+                            categoryParts[0].slice(1);
+                          const subCategory = categoryParts[1]
+                            ? ` - ${categoryParts[1].charAt(0).toUpperCase() + categoryParts[1].slice(1)}`
+                            : "";
+
+                          return (
+                            <Link
+                              key={product._id}
+                              to={`/product/${product._id}`}
+                              onClick={() => {
+                                setIsSearchOpen(false);
+                                setSearchQuery("");
+                                setSearchResults([]);
+                              }}
+                              className="flex items-center p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                            >
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-16 h-16 object-cover rounded"
+                              />
+                              <div className="ml-3 flex-1">
+                                <p className="font-medium text-sm">
+                                  {product.name}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  {mainCategory}
+                                  {subCategory}
+                                </p>
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                  ${product.price}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
