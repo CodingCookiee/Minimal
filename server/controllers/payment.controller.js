@@ -64,7 +64,7 @@ export const createCheckoutSession = async (req, res, next) => {
       sessionId: session.id,
     });
   } catch (error) {
-    console.log('Error creating checkout session:', error.message);
+    console.log("Error creating checkout session:", error.message);
     next(error);
   }
 };
@@ -72,19 +72,21 @@ export const createCheckoutSession = async (req, res, next) => {
 export const checkoutSuccess = async (req, res, next) => {
   try {
     const { session_id } = req.body;
-    console.log('Processing session:', session_id);
+    console.log("Processing session:", session_id);
 
     // Try to acquire lock using Redis
     const lockKey = `order_lock:${session_id}`;
-    const lockAcquired = await redis.set(lockKey, 'locked', 'NX', 'EX', 30);
-    
+    const lockAcquired = await redis.set(lockKey, "locked", "NX", "EX", 30);
+
     if (!lockAcquired) {
-      const existingOrder = await Order.findOne({ stripeSessionId: session_id });
+      const existingOrder = await Order.findOne({
+        stripeSessionId: session_id,
+      });
       if (existingOrder) {
         return res.status(200).json({
           success: true,
           message: "Order already processed",
-          order: existingOrder
+          order: existingOrder,
         });
       }
       throw createError(409, "Order processing in progress");
@@ -95,7 +97,7 @@ export const checkoutSuccess = async (req, res, next) => {
 
     const [user, cart] = await Promise.all([
       User.findById(userId),
-      Cart.findOne({ userId }).populate("items.productId")
+      Cart.findOne({ userId }).populate("items.productId"),
     ]);
 
     if (!user || !cart) {
@@ -118,10 +120,7 @@ export const checkoutSuccess = async (req, res, next) => {
       processed: true,
     });
 
-    await Promise.all([
-      newOrder.save(),
-      Cart.findOneAndDelete({ userId })
-    ]);
+    await Promise.all([newOrder.save(), Cart.findOneAndDelete({ userId })]);
 
     // Release lock after processing
     await redis.del(lockKey);
@@ -129,15 +128,10 @@ export const checkoutSuccess = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "Order created successfully",
-      order: newOrder
+      order: newOrder,
     });
   } catch (error) {
     console.error("Checkout Success Error:", error);
     next(error);
   }
 };
-
-
-
-
-

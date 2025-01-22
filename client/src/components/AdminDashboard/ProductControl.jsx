@@ -260,7 +260,9 @@ const ProductControl = () => {
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle className='font-sf-semibold text-md'>Delete Product</DialogTitle>
+            <DialogTitle className="font-sf-semibold text-md">
+              Delete Product
+            </DialogTitle>
           </DialogHeader>
           <div className="py-4 font-sf-light text-sm">
             <p>Are you sure you want to delete {deleteDialog.product?.name}?</p>
@@ -268,15 +270,15 @@ const ProductControl = () => {
           <DialogFooter>
             <Button
               variant="outline"
-              onClick={() => setDeleteDialog({ isOpen: false, product: null })
-              
-              }
-              className='font-sf-light'
+              onClick={() => setDeleteDialog({ isOpen: false, product: null })}
+              className="font-sf-light"
             >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteProduct}
-            className='text-red-700 font-sf-light'
+            <Button
+              variant="destructive"
+              onClick={handleDeleteProduct}
+              className="text-red-700 font-sf-light"
             >
               Delete
             </Button>

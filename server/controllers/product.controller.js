@@ -47,33 +47,35 @@ export const createProduct = async (req, res, next) => {
     let mainImage = "";
     let imageUrls = [];
 
-     if (images && images.length > 0) {
+    if (images && images.length > 0) {
       try {
         // Sort images before upload
         const sortedImages = [...images].sort((a, b) => {
-          const isProdA = a.originalName.includes('prod') || 
-                         a.originalName.includes('main') || 
-                         a.originalName.includes('front');
-          const isProdB = b.originalName.includes('prod') || 
-                         b.originalName.includes('main') || 
-                         b.originalName.includes('front');
+          const isProdA =
+            a.originalName.includes("prod") ||
+            a.originalName.includes("main") ||
+            a.originalName.includes("front");
+          const isProdB =
+            b.originalName.includes("prod") ||
+            b.originalName.includes("main") ||
+            b.originalName.includes("front");
           return isProdB - isProdA;
         });
-    
+
         // Upload to Cloudinary with original filenames
-        const uploadPromises = sortedImages.map(image =>
+        const uploadPromises = sortedImages.map((image) =>
           cloudinary.uploader.upload(image.data, {
             upload_preset: "minimal",
             timeout: 120000,
-            public_id: image.originalName.split('.')[0], // Use original filename without extension
-            filename_override: image.originalName // Preserve original filename
-          })
+            public_id: image.originalName.split(".")[0], // Use original filename without extension
+            filename_override: image.originalName, // Preserve original filename
+          }),
         );
-    
+
         const cloudinaryResponses = await Promise.all(uploadPromises);
         console.log("Total images uploaded:", cloudinaryResponses.length);
-    
-        imageUrls = cloudinaryResponses.map(response => response.secure_url);
+
+        imageUrls = cloudinaryResponses.map((response) => response.secure_url);
         mainImage = imageUrls[0];
       } catch (cloudinaryError) {
         console.error("Cloudinary Upload Error:", cloudinaryError);

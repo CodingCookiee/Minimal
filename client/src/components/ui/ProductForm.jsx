@@ -105,7 +105,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
         Object.assign(file, {
           preview: URL.createObjectURL(file),
           originalName: file.name.toLowerCase(),
-        })
+        }),
       ),
     ]);
 
@@ -161,7 +161,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     setFormData((prev) => ({
       ...prev,
       colors: prev.colors.filter(
-        (color) => color.value !== colorToRemove.value
+        (color) => color.value !== colorToRemove.value,
       ),
     }));
   };
@@ -191,7 +191,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
             };
             reader.onerror = reject;
             reader.readAsDataURL(file);
-          })
+          }),
       );
 
       const processedImages = await Promise.all(imagePromises);
@@ -380,7 +380,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                     <option key={key} value={`${formData.gender}_${key}`}>
                       {value}
                     </option>
-                  )
+                  ),
                 )}
               </select>
             </div>
@@ -494,7 +494,6 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
         )}
       </div>
       {/* Submit Button */}
-      
 
       <Button
         type="submit"
@@ -517,7 +516,6 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           </span>
         )}
       </Button>
-
     </form>
   );
 };

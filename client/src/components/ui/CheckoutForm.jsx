@@ -1,5 +1,4 @@
 import {
- 
   PaymentElement,
   useStripe,
   useElements,

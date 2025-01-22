@@ -26,7 +26,7 @@ const PaymentPage = () => {
         "/payment/create-checkout-session",
         {
           items: cartItems,
-        }
+        },
       );
       const secret = response.data.clientSecret;
       setClientSecret(secret);

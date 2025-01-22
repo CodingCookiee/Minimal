@@ -47,7 +47,7 @@ const CartPage = () => {
     try {
       await axiosInstance.delete(`/cart/${productId}`);
       const updatedItems = cartItems.filter(
-        (item) => item.productId._id !== productId
+        (item) => item.productId._id !== productId,
       );
       updateCart(updatedItems);
       toast.success("Item removed from cart");
@@ -77,7 +77,9 @@ const CartPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-sf-medium">Unable to initialize payment</h1>
+          <h1 className="text-2xl font-sf-medium">
+            Unable to initialize payment
+          </h1>
           <p className="text-gray-500 mb-4">{error}</p>
           <motion.button
             onClick={() => navigate("/")}
@@ -155,7 +157,7 @@ const CartPage = () => {
                           onClick={() =>
                             updateQuantity(
                               item.productId._id,
-                              item.quantity - 1
+                              item.quantity - 1,
                             )
                           }
                         >
@@ -168,7 +170,7 @@ const CartPage = () => {
                           onClick={() =>
                             updateQuantity(
                               item.productId._id,
-                              item.quantity + 1
+                              item.quantity + 1,
                             )
                           }
                         >

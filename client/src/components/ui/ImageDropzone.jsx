@@ -11,10 +11,9 @@ const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
-      <div className='flex items-center justify-start gap-1 mb-4 '>
-<ImagePlus className='w-4 h-4' /> 
+      <div className="flex items-center justify-start gap-1 mb-4 ">
+        <ImagePlus className="w-4 h-4" />
         <h3 className="text-lg font-sf-heavy">Product Images</h3>
-
       </div>
       <div
         {...getRootProps()}

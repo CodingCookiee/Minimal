@@ -17,7 +17,7 @@ export * from "./ProductList";
 export * from "./Dialog";
 export * from "./Loading";
 export * from "./imageDropzone";
-export * from "./LoadingDots"
-export * from "./CheckoutForm"
+export * from "./LoadingDots";
+export * from "./CheckoutForm";
 export { default as ProductCard } from "./ProductCard";
 export { default as ProductForm } from "./ProductForm";
