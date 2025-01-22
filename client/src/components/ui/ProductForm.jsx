@@ -1,7 +1,14 @@
 import { useState, useCallback } from "react";
 import { Button, ImageDropzone } from "../ui";
-import { X } from "lucide-react";
-import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import {
+  X,
+  BookType,
+  DollarSign,
+  ChartBarStacked,
+  Blend,
+  Ellipsis,
+} from "lucide-react";
 
 const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
   const [formData, setFormData] = useState({
@@ -105,7 +112,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
         Object.assign(file, {
           preview: URL.createObjectURL(file),
           originalName: file.name.toLowerCase(),
-        }),
+        })
       ),
     ]);
 
@@ -162,7 +169,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     setFormData((prev) => ({
       ...prev,
       colors: prev.colors.filter(
-        (color) => color.value !== colorToRemove.value,
+        (color) => color.value !== colorToRemove.value
       ),
     }));
   };
@@ -179,28 +186,29 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       };
 
       // Convert images to base64 and include original filename
-    const imagePromises = images.map(file => 
-      new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          resolve({
-            data: reader.result,
-            originalName: file.name.toLowerCase(),
-            type: file.type
-          });
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      })
-    );
+      const imagePromises = images.map(
+        (file) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              resolve({
+                data: reader.result,
+                originalName: file.name.toLowerCase(),
+                type: file.type,
+              });
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          })
+      );
 
-    const processedImages = await Promise.all(imagePromises);
+      const processedImages = await Promise.all(imagePromises);
 
       // Submit form with all images
       await onSubmit({
         ...transformedData,
         images: processedImages,
-        totalImages: processedImages.length
+        totalImages: processedImages.length,
       });
     } catch (err) {
       console.error("Error preparing images:", err);
@@ -211,10 +219,13 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     <form onSubmit={handleSubmit} className="space-y-8" noValidate>
       {/* Basic Info */}
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-medium mb-4">Basic Information</h3>
+        <div className="flex items-center justify-start gap-1  mb-4 ">
+          <BookType className="w-4 h-4 " />
+          <h3 className="text-lg font-sf-heavy ">Basic Information</h3>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Name</label>
+            <label className="block text-sm font-sf-medium mb-2">Name</label>
             <input
               type="text"
               name="name"
@@ -230,7 +241,9 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Subtitle</label>
+            <label className="block text-sm font-sf-medium mb-2">
+              Subtitle
+            </label>
             <input
               type="text"
               name="subtitle"
@@ -248,7 +261,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
             )}
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-sf-medium mb-2">
               Description
             </label>
             <textarea
@@ -271,10 +284,13 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
       {/* Pricing */}
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-medium mb-4">Pricing</h3>
+        <div className="flex items-center justify-start gap-1 mb-4 ">
+          <DollarSign className="w-4 h-4" />
+          <h3 className="text-lg font-sf-heavy">Pricing</h3>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Price</label>
+            <label className="block text-sm font-sf-medium mb-2">Price</label>
             <input
               type="number"
               value={formData.price}
@@ -290,7 +306,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-sf-medium mb-2">
               Discounted Price
             </label>
             <input
@@ -309,7 +325,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
             </small>
           )}
           <div>
-            <label className="block text-sm font-medium mb-2">Stock</label>
+            <label className="block text-sm font-sf-medium mb-2">Stock</label>
             <input
               type="number"
               name="stock"
@@ -329,10 +345,13 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
       {/* Categories */}
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-medium mb-4">Categorization</h3>
+        <div className="flex items-center justify-start gap-1 mb-4 ">
+          <ChartBarStacked className="w-4 h-4" />
+          <h3 className="text-lg font-sf-heavy">Categorization</h3>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-sf-medium mb-2">
               Gender/Category
             </label>
             <select
@@ -353,7 +372,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
           {formData.gender && (
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-sf-medium mb-2">
                 Subcategory
               </label>
               <select
@@ -369,7 +388,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                     <option key={key} value={`${formData.gender}_${key}`}>
                       {value}
                     </option>
-                  ),
+                  )
                 )}
               </select>
             </div>
@@ -378,10 +397,13 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       </div>
       {/* Colors and Sizes */}
       <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-medium mb-4">Colors & Sizes</h3>
+        <div className="flex items-center justify-start gap-1 mb-4 ">
+          <Blend className="w-4 h-4" />
+          <h3 className="text-lg font-sf-heavy">Color&Sizes</h3>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
           <div>
-            <label className="block text-sm font-medium mb-2 mt-2.5">
+            <label className="block text-sm font-sf-medium mb-2 mt-2.5">
               Colors
             </label>
             {/* Color Input */}
@@ -407,7 +429,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                 type="button"
                 onClick={handleAddCustomColor}
                 disabled={!customColor.name}
-                className="px-3 py-2 bg-gray-100 rounded-md text-sm font-medium hover:bg-gray-200 disabled:opacity-50"
+                className="px-3 py-2 bg-gray-100 rounded-md text-sm font-sf-medium hover:bg-gray-200 disabled:opacity-50"
               >
                 Add
               </button>
@@ -429,7 +451,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                     onClick={() => handleRemoveColor({ value: color })}
                     className="text-gray-500 hover:text-red-500"
                   >
-                    <X className="w-2 h-2" />
+                    <X className="w-3 h-3" />
                   </button>
                 </div>
               ))}
@@ -442,7 +464,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           </div>
           {/* Sizes */}
           <div className="bg-white  rounded-lg shadow-sm">
-            <h3 className="text-lg font-medium mb-2">Sizes</h3>
+            <h3 className="text-md font-sf-medium mb-2">Sizes</h3>
             <div className="flex flex-wrap gap-2">
               {availableSizes.map((size) => (
                 <button
@@ -481,8 +503,27 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       </div>
 
       {/* Submit Button */}
-      <Button type="submit" disabled={loading} className="w-full md:w-auto">
-        {loading ? "Creating..." : "Create Product"}
+      <Button
+        type="submit"
+        disabled={loading}
+        className="mt-5 w-full py-5 bg-dark-primary text-light-primary hover:bg-light-primary
+                 hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium disabled:opacity-50"
+      >
+        {loading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center items-center h-10 w-10 rounded-full bg-dark-primary"
+          >
+            <Ellipsis className="w-5 h-5" />
+            Creating ...
+          </motion.div>
+        ) : (
+          <span className="flex items-center justify-center">
+            Create Product
+          </span>
+        )}
       </Button>
     </form>
   );

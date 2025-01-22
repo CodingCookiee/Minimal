@@ -1,5 +1,5 @@
 import React from "react";
-import { Upload, X } from "lucide-react";
+import { Upload, X, ImagePlus } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
 const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
@@ -11,7 +11,11 @@ const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h3 className="text-lg font-medium mb-4">Product Images</h3>
+      <div className='flex items-center justify-start gap-1 mb-4 '>
+<ImagePlus className='w-4 h-4' /> 
+        <h3 className="text-lg font-sf-heavy">Product Images</h3>
+
+      </div>
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-lg p-6 ${
@@ -44,8 +48,8 @@ const ImageDropzone = ({ onImageUpload, images, onImageRemove }) => {
             </div>
           ) : (
             <div className=" flex flex-col items-center w-full h-full">
-              <Upload className="w-8 h-8 mb-4 text-gray-500 mx-auto" />
-              <p className="text-sm text-gray-500">
+              <Upload className="w-8 h-8 mb-4  text-gray-500 mx-auto" />
+              <p className="text-sm font-sf-heavy font-medium  text-gray-500">
                 Drag & drop images here, or click to select
               </p>
             </div>
