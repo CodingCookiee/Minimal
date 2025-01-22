@@ -63,6 +63,7 @@ export const createCheckoutSession = async (req, res, next) => {
       sessionId: session.id,
     });
   } catch (error) {
+    console.log('Error creating checkout session:', error.message);
     next(error);
   }
 };

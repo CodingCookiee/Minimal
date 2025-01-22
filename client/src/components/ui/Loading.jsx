@@ -1,16 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 
-export const Loading = () => {
+export const Loading = ({ height = "h-screen", width = "w-16" }) => {
   return (
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="flex items-center justify-center h-screen"
+        className={`flex items-center justify-center ${height}`}
       >
         <motion.div
-          className="w-16 h-16 border-[3px] border-t-4 border-dark-primary rounded-full"
+          className={`${width} aspect-square border-[3px] border-t-4 border-dark-primary rounded-full`}
           style={{
             borderColor: "#1C1C21",
             borderTopColor: "#edff66",

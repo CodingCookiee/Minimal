@@ -90,7 +90,7 @@ const ProductCard = ({ product, viewType }) => {
               <SwiperSlide key={index}>
                 {imageLoading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-                    <Loading />
+                    <Loading  width="w-8"/>
                   </div>
                 )}
                 <Link to={`/product/${product._id}`}>
