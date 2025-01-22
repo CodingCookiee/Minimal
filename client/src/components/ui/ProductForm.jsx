@@ -1,14 +1,7 @@
 import { useState, useCallback } from "react";
-import { Button, ImageDropzone } from "../ui";
+import { Button, ImageDropzone, LoadingDots } from "../ui";
 import { motion } from "framer-motion";
-import {
-  X,
-  BookType,
-  DollarSign,
-  ChartBarStacked,
-  Blend,
-  Ellipsis,
-} from "lucide-react";
+import { X, BookType, DollarSign, ChartBarStacked, Blend } from "lucide-react";
 
 const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
   const [formData, setFormData] = useState({
@@ -164,7 +157,6 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       setCustomColor({ name: "", value: "#000000" });
     }
   };
-
   const handleRemoveColor = (colorToRemove) => {
     setFormData((prev) => ({
       ...prev,
@@ -448,7 +440,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
                   <span className="text-sm">{color.name}</span>
                   <button
                     type="button"
-                    onClick={() => handleRemoveColor({ value: color })}
+                    onClick={() => handleRemoveColor(color)}
                     className="text-gray-500 hover:text-red-500"
                   >
                     <X className="w-3 h-3" />
@@ -501,23 +493,23 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           <small className="text-red-500 text-sm mt-1">{error.image}</small>
         )}
       </div>
-
       {/* Submit Button */}
+      
+
       <Button
         type="submit"
         disabled={loading}
-        className="mt-5 w-full py-5 bg-dark-primary text-light-primary hover:bg-light-primary
-                 hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium disabled:opacity-50"
+        className=" mx-16 lg:mx-18 w-[80%] py-5 bg-dark-primary text-light-primary hover:bg-light-primary
+           hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium disabled:opacity-50"
       >
         {loading ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-center items-center h-10 w-10 rounded-full bg-dark-primary"
+            className="flex items-center justify-center gap-2"
           >
-            <Ellipsis className="w-5 h-5" />
-            Creating ...
+            <span>Creating</span>
+            <LoadingDots />
           </motion.div>
         ) : (
           <span className="flex items-center justify-center">
@@ -525,6 +517,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           </span>
         )}
       </Button>
+
     </form>
   );
 };
