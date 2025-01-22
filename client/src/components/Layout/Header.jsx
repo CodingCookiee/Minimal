@@ -282,7 +282,7 @@ const Header = () => {
                     />
 
                     {searchResults.length > 0 && (
-                      <div className="z-50 absolute w-full mt-1 bg-white dark:bg-dark-primary shadow-lg rounded-md max-h-96 overflow-y-auto">
+                      <div className="font-sf-light  z-50 absolute w-full mt-1 bg-white dark:bg-dark-primary shadow-lg rounded-none max-h-96 overflow-y-auto">
                         {searchResults.map((product) => {
                           const categoryParts = product.category.split("_");
                           const mainCategory =
@@ -301,22 +301,22 @@ const Header = () => {
                                 setSearchQuery("");
                                 setSearchResults([]);
                               }}
-                              className="flex items-center p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                              className="font-sf-light flex items-center p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                             >
                               <img
                                 src={product.image}
                                 alt={product.name}
-                                className="w-16 h-16 object-cover rounded"
+                                className="w-16 h-16 object-contain rounded"
                               />
                               <div className="ml-3 flex-1">
-                                <p className="font-medium text-sm">
+                                <p className="font-sf-light text-sm">
                                   {product.name}
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {mainCategory}
                                   {subCategory}
                                 </p>
-                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                <p className="text-sm font-sf-light font-semibold text-gray-900 dark:text-gray-100">
                                   ${product.price}
                                 </p>
                               </div>
