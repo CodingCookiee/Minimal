@@ -98,7 +98,7 @@ const Header = () => {
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
-        },
+        }
       );
       updateUser(null);
       setIsProfileOpen(false);
@@ -139,7 +139,9 @@ const Header = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="lg:w-[20%] absolute top-full left-0 mt-5 flex flex-col bg-light-primary/90 backdrop-blur-md shadow-xl border border-neutral-200/20 dark:border-neutral-800/20 w-72 sm:w-96"
+              className="absolute top-full left-0 mt-2 w-full sm:w-96 lg:w-[20%] 
+                bg-light-primary/90 backdrop-blur-md shadow-xl 
+                border border-neutral-200/20 dark:border-neutral-800/20"
             >
               <div className="flex flex-col items-center justify-center w-full py-2">
                 {categories.map((category) => (
@@ -223,7 +225,7 @@ const Header = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="absolute right-12 -top-2.5 mt-2 w-48 sm:w-72"
+                  className="absolute lg:right-12 lg:-top-2.5 mt-2 w-48 sm:w-72 right-5 top-5"
                 >
                   <input
                     type="text"
