@@ -107,7 +107,7 @@ const Header = () => {
         const currentTime = new Date().getTime();
         if (currentTime >= currentUser.expiresAt) {
           const notificationShown = localStorage.getItem(
-            "expiredNotificationShown"
+            "expiredNotificationShown",
           );
 
           if (!notificationShown) {
@@ -138,7 +138,7 @@ const Header = () => {
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       updateUser(null);
       setIsProfileOpen(false);

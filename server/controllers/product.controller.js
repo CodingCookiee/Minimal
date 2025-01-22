@@ -169,7 +169,7 @@ export const getProductsByTypeAndCategory = async (req, res, next) => {
 export const searchProducts = async (req, res, next) => {
   try {
     const { q } = req.query;
-    
+
     if (!q) {
       return res.json([]);
     }
@@ -177,16 +177,16 @@ export const searchProducts = async (req, res, next) => {
     // Enhanced search query to match across all fields and categories
     const searchQuery = {
       $or: [
-        { name: { $regex: q, $options: 'i' } },
-        { subtitle: { $regex: q, $options: 'i' } },
-        { description: { $regex: q, $options: 'i' } },
-        { category: { $regex: q, $options: 'i' } }
-      ]
+        { name: { $regex: q, $options: "i" } },
+        { subtitle: { $regex: q, $options: "i" } },
+        { description: { $regex: q, $options: "i" } },
+        { category: { $regex: q, $options: "i" } },
+      ],
     };
 
-    const products = await Product.find(searchQuery)
-      .select('name subtitle price image category')
-      
+    const products = await Product.find(searchQuery).select(
+      "name subtitle price image category",
+    );
 
     res.json(products);
   } catch (err) {
@@ -194,9 +194,6 @@ export const searchProducts = async (req, res, next) => {
     next(createError(500, "Error searching products"));
   }
 };
-
-
-
 
 export const deleteProduct = async (req, res, next) => {
   try {

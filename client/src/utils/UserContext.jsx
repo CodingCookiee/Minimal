@@ -20,7 +20,6 @@ export function UserProvider({ children }) {
       setCurrentUser(null);
     }
   };
-  
 
   return (
     <UserContext.Provider value={{ currentUser, updateUser }}>

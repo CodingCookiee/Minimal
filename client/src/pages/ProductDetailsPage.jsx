@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -10,10 +10,13 @@ import { Loading } from "../components/ui";
 import axiosInstance from "../utils/axios";
 import { useCart } from "../utils/CartContext";
 import { toast } from "react-toastify";
+import { useUser } from "../utils/UserContext";
 
 const ProductPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { updateCart } = useCart();
+  const { currentUser } = useUser();
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
@@ -40,6 +43,10 @@ const ProductPage = () => {
   }, [id]);
 
   const handleAddToCart = async () => {
+    if (!currentUser) {
+      navigate("/signin");
+      return;
+    }
     try {
       const response = await axiosInstance.post("/cart", {
         productId: product._id,
