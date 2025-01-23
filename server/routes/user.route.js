@@ -15,6 +15,7 @@ import {
   requestAdminAccess,
   getAdminRequests,
   rejectAdminRequest,
+  forceLogoutUser,
 } from "../controllers/user.controller.js";
 
 const router = express.Router();
@@ -45,6 +46,13 @@ router.put(
   authenticateAdmin,
   toggleAdmin,
 );
+router.post(
+  "/:userId/force-logout",
+  authenticateUser,
+  authenticateAdmin,
+  forceLogoutUser
+);
+
 router.delete("/:userId", authenticateUser, authenticateAdmin, deleteUser);
 
 export default router;

@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Package, Trash2, ChevronDown } from "lucide-react";
@@ -60,7 +60,7 @@ const ProductControl = () => {
           endpoint = `/product/${selectedCategory}/${selectedSubcategory}`;
         } else {
           const defaultSubcategory = Object.keys(
-            categoryData[selectedCategory],
+            categoryData[selectedCategory]
           )[0];
           endpoint = `/product/${selectedCategory}/${defaultSubcategory}`;
         }
@@ -84,8 +84,8 @@ const ProductControl = () => {
       await axiosInstance.delete(`/product/${deleteDialog.product._id}`);
       setProducts((prevProducts) =>
         prevProducts.filter(
-          (product) => product._id !== deleteDialog.product._id,
-        ),
+          (product) => product._id !== deleteDialog.product._id
+        )
       );
       toast.success("Product deleted successfully");
       setDeleteDialog({ isOpen: false, product: null });
@@ -171,7 +171,7 @@ const ProductControl = () => {
                 >
                   {value}
                 </option>
-              ),
+              )
             )}
           </select>
         )}
@@ -206,12 +206,11 @@ const ProductControl = () => {
                 />
               </div>
               <div className="font-sf-medium">
-              <Link
-                      to={`/product/${product._id}`} >
-                  <h3 className="font-sf-medium mb-1 cursor-pointer">{product.name}</h3>
-                  </Link>
-          
-            
+                <Link to={`/product/${product._id}`}>
+                  <h3 className="font-sf-medium mb-1 cursor-pointer">
+                    {product.name}
+                  </h3>
+                </Link>
               </div>
               <div className="font-sf-medium uppercase text-xs text-neutral-500">
                 {product.category}
@@ -223,8 +222,7 @@ const ProductControl = () => {
                   size="sm"
                   disabled={!isPrimaryAdmin(currentUser)}
                   onClick={() => setDeleteDialog({ isOpen: true, product })}
-
-                    className="w-full font-sf-light"
+                  className="w-full font-sf-light"
                 >
                   <Trash2 className="w-4 h-4 mr-2 text-red-700" /> Delete
                 </Button>
@@ -240,11 +238,12 @@ const ProductControl = () => {
                   className="w-20 h-20 object-contain rounded"
                 />
                 <div className="flex-1">
-                <Link
-                      to={`/product/${product._id}`} >
-                  <h3 className="font-sf-medium mb-1 cursor-pointer">{product.name}</h3>
+                  <Link to={`/product/${product._id}`}>
+                    <h3 className="font-sf-medium mb-1 cursor-pointer">
+                      {product.name}
+                    </h3>
                   </Link>
-          
+
                   <p className="font-sf-medium uppercase text-[10px] mb-1 text-neutral-500">
                     {product.category}
                   </p>

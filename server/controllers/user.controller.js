@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import User from "../models/user.model.js";
 import createError from "../utils/createError.utils.js";
+import { redis } from "../lib/redis.js";
 
 export const getProfile = async (req, res, next) => {
   try {
@@ -226,6 +227,24 @@ export const rejectAdminRequest = async (req, res, next) => {
     next(err);
   }
 };
+
+export const forceLogoutUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    
+    // Clear user's refresh token from Redis
+    await redis.del(`refreshToken:${userId}`);
+    
+    // Clear user's cookies
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+    
+    res.status(200).json({ message: "User logged out successfully" });
+  } catch (err) {
+    next(err);
+  }
+};
+
 
 export const deleteUser = async (req, res, next) => {
   try {
