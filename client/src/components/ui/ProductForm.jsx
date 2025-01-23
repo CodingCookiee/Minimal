@@ -1,13 +1,21 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, forwardRef, useImperativeHandle } from "react";
 import { Button, ImageDropzone, LoadingDots } from "../ui";
 import { motion } from "framer-motion";
 import { X, BookType, DollarSign, ChartBarStacked, Blend } from "lucide-react";
 import { isPrimaryAdmin } from "../../utils/checkAdmin.js";
 import { useUser } from "../../utils/UserContext";
+import axiosInstance from "../../utils/axios";
+import { toast } from "react-toastify";
 
-const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
+const ProductForm = ({ categoryData }) => {
   const { currentUser } = useUser();
-  const [formData, setFormData] = useState({
+  const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([]);
+  const [customColor, setCustomColor] = useState({
+    name: "",
+    value: "#000000",
+  });
+  const initialFormState = {
     name: "",
     subtitle: "",
     description: "",
@@ -21,7 +29,8 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
     sizes: [],
     image: null,
     imagePath: [],
-  });
+  };
+  const [formData, setFormData] = useState(initialFormState);
   const [error, setError] = useState({
     name: "",
     subtitle: "",
@@ -37,11 +46,12 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
   const availableSizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
-  const [images, setImages] = useState([]);
-  const [customColor, setCustomColor] = useState({
-    name: "",
-    value: "#000000",
-  });
+  const handleReset = () => {
+    setFormData(initialFormState);
+    setImages([]);
+    setCustomColor({ name: "", value: "#000000" });
+    setError({});
+  };
 
   // Validate form
   const validateForm = () => {
@@ -172,15 +182,14 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+    setLoading(true);
 
     try {
-      // Transform colors to hex values only before submission
       const transformedData = {
         ...formData,
         colors: formData.colors.map((color) => color.value),
       };
 
-      // Convert images to base64 and include original filename
       const imagePromises = images.map(
         (file) =>
           new Promise((resolve, reject) => {
@@ -199,14 +208,19 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
 
       const processedImages = await Promise.all(imagePromises);
 
-      // Submit form with all images
-      await onSubmit({
+      await axiosInstance.post("/product", {
         ...transformedData,
         images: processedImages,
         totalImages: processedImages.length,
       });
+
+      toast.success("Product created successfully");
+      handleReset(); // Reset form after successful submission
     } catch (err) {
-      console.error("Error preparing images:", err);
+      console.error("Error creating product:", err);
+      toast.error("Error creating product");
+    } finally {
+      setLoading(false);
     }
   };
 

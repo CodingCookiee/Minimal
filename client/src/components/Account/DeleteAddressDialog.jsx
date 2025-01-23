@@ -22,7 +22,9 @@ export const DeleteAddressDialog = ({
             className="h-5 w-5 absolute right-4 top-4 cursor-pointer"
             onClick={() => setShowDeleteDialog(false)}
           />
-          <DialogTitle className="!mb-2 font-sf-heavy">Delete Address</DialogTitle>
+          <DialogTitle className="!mb-2 font-sf-heavy">
+            Delete Address
+          </DialogTitle>
           <DialogDescription className="font-sf-light flex justify-start !mb-2.5">
             This action cannot be undone.
           </DialogDescription>
@@ -40,7 +42,6 @@ export const DeleteAddressDialog = ({
               variant="destructive"
               className="text-red-700 font-sf-light text-sm transition-all duration-300"
               onClick={handleDeleteAddress}
-            
             >
               Delete
             </Button>

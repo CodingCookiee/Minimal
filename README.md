@@ -24,10 +24,10 @@
 - Stripe Payment Integration
 - Order Management System
 - Address Management
-- Responsive Design
-- Admin Dashboard
 - Real-time Cart Updates
 - Sales & Discounts System
+- Admin Dashboard with Extensive Controls
+- Responsive Design
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 

@@ -1,28 +1,9 @@
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Package } from "lucide-react";
-import { toast } from "react-toastify";
-import axiosInstance from "../../utils/axios";
 import ProductForm from "../ui/ProductForm";
 
 const CreateProduct = () => {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
-  const [error, setError] = useState({
-    name: "",
-    subtitle: "",
-    description: "",
-    price: "",
-    stock: "",
-    gender: "",
-    category: "",
-    image: [],
-    colors: [],
-    sizes: [],
-  });
-
   const categoryData = {
     men: {
       jeans: "Jeans",
@@ -39,19 +20,6 @@ const CreateProduct = () => {
     },
   };
 
-  const handleSubmit = async (formData) => {
-    setLoading(true);
-    try {
-      await axiosInstance.post("/product", formData);
-      toast.success("Product created successfully");
-    } catch (err) {
-      console.log("Error creating product:", err.message);
-      toast.error("Error creating product");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -63,11 +31,7 @@ const CreateProduct = () => {
         <h2 className="text-2xl font-bold font-sf-heavy">Create New Product</h2>
       </div>
 
-      <ProductForm
-        loading={loading}
-        onSubmit={handleSubmit}
-        categoryData={categoryData}
-      />
+      <ProductForm categoryData={categoryData} />
     </motion.div>
   );
 };
