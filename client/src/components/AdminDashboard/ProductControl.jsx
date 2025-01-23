@@ -223,6 +223,8 @@ const ProductControl = () => {
                   size="sm"
                   disabled={!isPrimaryAdmin(currentUser)}
                   onClick={() => setDeleteDialog({ isOpen: true, product })}
+
+                    className="w-full font-sf-light"
                 >
                   <Trash2 className="w-4 h-4 mr-2 text-red-700" /> Delete
                 </Button>
@@ -255,7 +257,7 @@ const ProductControl = () => {
                       onClick={() => setDeleteDialog({ isOpen: true, product })}
                       className="w-full font-sf-light"
                     >
-                      <Trash2 className="w-4 h-4 mr-2 text-red-700" /> Delete
+                      <Trash2 className=" w-4 h-4 mr-2 text-red-700" /> Delete
                     </Button>
                   </div>
                 </div>
