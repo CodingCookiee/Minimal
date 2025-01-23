@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Shield, ShieldOff, Trash2, Users, Check,X  } from "lucide-react";
+import { Shield, ShieldOff, Trash2, Users, Check, X } from "lucide-react";
 import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axios";
 import { useUser } from "../../utils/UserContext";
@@ -33,19 +33,20 @@ const UserControl = () => {
       try {
         const response = await axiosInstance.get("/user/admin-requests");
         // Only show pending requests
-        setPendingRequests(response.data.filter(user => 
-          user.adminRequest && user.role !== 'admin'
-        ));
+        setPendingRequests(
+          response.data.filter(
+            (user) => user.adminRequest && user.role !== "admin",
+          ),
+        );
       } catch (err) {
         toast.error("Failed to fetch admin requests");
       }
     };
-  
+
     if (isPrimaryAdmin(currentUser)) {
       getAdminRequests();
     }
   }, [currentUser]);
-  
 
   const handleRejectRequest = async (userId) => {
     if (!isPrimaryAdmin(currentUser)) {
@@ -197,7 +198,7 @@ const UserControl = () => {
                       variant="default"
                       className="font-sf-light"
                     >
-                    <Check size={18} className='text-green-600'/>
+                      <Check size={18} className="text-green-600" />
                       Approve
                     </Button>
                     <Button
@@ -205,7 +206,7 @@ const UserControl = () => {
                       variant="destructive"
                       className="font-sf-light"
                     >
-                    <X size={18} className='text-red-600'/>
+                      <X size={18} className="text-red-600" />
                       Reject
                     </Button>
                   </div>
@@ -324,19 +325,24 @@ const UserControl = () => {
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Delete User</DialogTitle>
+            <DialogTitle className="font-sf-heavy">Delete User</DialogTitle>
           </DialogHeader>
-          <div className="py-4">
+          <div className="py-4 font-sf-light text-sm">
             <p>Are you sure you want to delete {deleteDialog.user?.name}?</p>
           </div>
           <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setDeleteDialog({ isOpen: false, user: null })}
+              className="font-sf-light"
             >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteUser}>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteUser}
+              className="font-sf-light text-red-700"
+            >
               Delete
             </Button>
           </DialogFooter>

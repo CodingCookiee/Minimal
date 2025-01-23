@@ -128,7 +128,7 @@ const Analytics = () => {
             </div>
             <div>
               <p className="text-sm text-gray-500 font-sf-light">Total Sales</p>
-              <h3 className="text-2xl font-bold">
+              <h3 className="text-2xl font-bold font-sf-heavy">
                 ${analyticsData?.totalSales?.toFixed(2) || "0.00"}
               </h3>
             </div>

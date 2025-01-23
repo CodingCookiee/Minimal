@@ -499,27 +499,27 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       {/* Submit Button */}
 
       <div className="flex justify-center items-center">
-      <Button
-        disabled={!isPrimaryAdmin(currentUser)}
-        type="submit"
-        className=" w-2/3 py-5 bg-dark-primary text-light-primary hover:bg-light-primary
+        <Button
+          disabled={!isPrimaryAdmin(currentUser)}
+          type="submit"
+          className=" w-2/3 py-5 bg-dark-primary text-light-primary hover:bg-light-primary
            hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium disabled:opacity-50"
-      >
-        {loading ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center justify-center gap-2"
-          >
-            <span>Creating</span>
-            <LoadingDots />
-          </motion.div>
-        ) : (
-          <span className="flex items-center justify-center">
-            Create Product
-          </span>
-        )}
-      </Button>
+        >
+          {loading ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex items-center justify-center gap-2"
+            >
+              <span>Creating</span>
+              <LoadingDots />
+            </motion.div>
+          ) : (
+            <span className="flex items-center justify-center">
+              Create Product
+            </span>
+          )}
+        </Button>
       </div>
     </form>
   );

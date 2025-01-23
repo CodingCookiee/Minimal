@@ -198,9 +198,9 @@ export const requestAdminAccess = async (req, res, next) => {
 export const getAdminRequests = async (req, res, next) => {
   try {
     // Only fetch pending requests
-    const requests = await User.find({ 
+    const requests = await User.find({
       adminRequest: true,
-      role: { $ne: 'admin' } // Exclude users who are already admins
+      role: { $ne: "admin" }, // Exclude users who are already admins
     }).select("-password");
     res.status(200).json(requests);
   } catch (err) {

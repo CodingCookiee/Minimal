@@ -62,21 +62,19 @@ const Header = () => {
     if (currentUser) {
       const checkAdminStatus = async () => {
         try {
-          const response = await axiosInstance.get('/user/profile');
-          if (response.data.role === 'admin' && currentUser.role !== 'admin') {
-            toast.success('You have been granted admin access!');
+          const response = await axiosInstance.get("/user/profile");
+          if (response.data.role === "admin" && currentUser.role !== "admin") {
+            toast.success("You have been granted admin access!");
             updateUser(response.data);
           }
         } catch (error) {
-          console.error('Error checking admin status:', error);
+          console.error("Error checking admin status:", error);
         }
       };
-  
+
       checkAdminStatus();
     }
   }, [currentUser]);
-  
-
 
   const handleAdminRequest = async () => {
     try {
@@ -87,7 +85,6 @@ const Header = () => {
       toast.error("Failed to send admin request");
     }
   };
-
 
   const handleSearch = async (e) => {
     const query = e.target.value;
