@@ -13,8 +13,11 @@ RUN npm install --force
 # Copy Source Code
 COPY . . 
 
-#Set environment variable
+# Set default environment variables
+ENV PORT=8800
 ENV NODE_ENV=production
+ENV CLIENT_URL=http://localhost:5173
+
 
 # Expose port
 EXPOSE 8800
