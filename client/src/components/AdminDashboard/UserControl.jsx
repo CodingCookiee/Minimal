@@ -91,17 +91,6 @@ const UserControl = () => {
   }
   try {
     const response = await axiosInstance.put(`/user/${userId}/toggle-admin`);
-
-    // Force logout that user if removing admin privileges
-    if (currentRole === "admin") {
-      await axiosInstance.post(`/auth/logout`, {}, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true
-      });
-    }
-
     // Update users list with new role
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
