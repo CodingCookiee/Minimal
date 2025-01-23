@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import SignIn from "../components/Auth/SignIn";
+import SignIn from "../components/Auth/Signin";
 
 export default function SignInPage() {
   const [authStatus, setAuthStatus] = useState("loading");
