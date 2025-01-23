@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Package, Trash2, ChevronDown } from "lucide-react";
 import { toast } from "react-toastify";
@@ -204,7 +205,14 @@ const ProductControl = () => {
                   className="w-16 h-16 object-contain rounded"
                 />
               </div>
-              <div className="font-sf-medium">{product.name}</div>
+              <div className="font-sf-medium">
+              <Link
+                      to={`/product/${product._id}`} >
+                  <h3 className="font-sf-medium mb-1 cursor-pointer">{product.name}</h3>
+                  </Link>
+          
+            
+              </div>
               <div className="font-sf-medium uppercase text-xs text-neutral-500">
                 {product.category}
               </div>
@@ -230,7 +238,11 @@ const ProductControl = () => {
                   className="w-20 h-20 object-contain rounded"
                 />
                 <div className="flex-1">
-                  <h3 className="font-sf-medium mb-1">{product.name}</h3>
+                <Link
+                      to={`/product/${product._id}`} >
+                  <h3 className="font-sf-medium mb-1 cursor-pointer">{product.name}</h3>
+                  </Link>
+          
                   <p className="font-sf-medium uppercase text-[10px] mb-1 text-neutral-500">
                     {product.category}
                   </p>
