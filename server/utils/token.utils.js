@@ -29,20 +29,23 @@ export const storeRefreshToken = async (userId, refreshToken) => {
 };
 
 export const setCookies = (res, accessToken, refreshToken) => {
-  res.cookie("accessToken", accessToken, {
+  const cookieOptions = {
     httpOnly: true,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 24 * 60 * 60 * 1000,
-  });
+    secure: true, 
+    sameSite: 'none',
+    path: '/',
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  };
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+  const refreshCookieOptions = {
+    ...cookieOptions,
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  };
+
+  res.cookie('accessToken', accessToken, cookieOptions);
+  res.cookie('refreshToken', refreshToken, refreshCookieOptions);
 };
+
 
 export const verifyAccessToken = (token) => {
   return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
