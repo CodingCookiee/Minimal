@@ -44,6 +44,7 @@ const ProductPage = () => {
 
   const handleAddToCart = async () => {
     if (!currentUser) {
+      toast.info("Please Signin to Continue");
       navigate("/signin");
       return;
     }

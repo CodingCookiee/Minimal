@@ -61,7 +61,7 @@ const ProductCard = ({ product, viewType }) => {
 
   return (
     <motion.div
-      className={`group ${cardStyles} bg-white dark:bg-gray-900 p-4 rounded-none`}
+      className={`group ${cardStyles} border border-dark-primary bg-white dark:bg-gray-900 p-2.5 rounded-none`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       whileHover={{ y: -5 }}
@@ -173,7 +173,7 @@ const ProductCard = ({ product, viewType }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <motion.button
+        {/* <motion.button
           onClick={handleAddToCart}
           className="mt-4 w-full bg-dark-secondary dark:bg-light-secondary text-light-secondary dark:text-dark-secondary py-2 font-sf-medium text-sm tracking-wider"
           whileHover={{ scale: 1.02 }}
@@ -193,7 +193,7 @@ const ProductCard = ({ product, viewType }) => {
               Add to Cart
             </span>
           )}
-        </motion.button>
+        </motion.button> */}
       </div>
     </motion.div>
   );
