@@ -85,42 +85,45 @@ const UserControl = () => {
   };
 
   const handleToggleAdmin = async (userId, currentRole) => {
-    if (!isPrimaryAdmin(currentUser)) {
-      toast.error("You lack privileges to use these controls");
-      return;
+  if (!isPrimaryAdmin(currentUser)) {
+    toast.error("You lack privileges to use these controls");
+    return;
+  }
+  try {
+    const response = await axiosInstance.put(`/user/${userId}/toggle-admin`);
+
+    // Force logout that user if removing admin privileges
+    if (currentRole === "admin") {
+      await axiosInstance.post(`/auth/logout`, {}, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      });
     }
-    try {
-      const response = await axiosInstance.put(`/user/${userId}/toggle-admin`);
 
-      
-     
-      // If removing admin privileges, force logout using existing auth logout endpoint
-      if (currentRole === "admin") {
-        await axiosInstance.post("/auth/logout", { userId });
-      }
+    // Update users list with new role
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === userId
+          ? { ...user, role: response.data.role, adminRequest: false }
+          : user,
+      ),
+    );
 
+    // Remove from pending requests when approved
+    setPendingRequests((prevRequests) =>
+      prevRequests.filter((request) => request._id !== userId),
+    );
 
-      // Update users list with new role
-      setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user._id === userId
-            ? { ...user, role: response.data.role, adminRequest: false }
-            : user,
-        ),
-      );
+    toast.success(
+      `User ${currentRole === "admin" ? "removed from" : "made"} admin`,
+    );
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Error updating admin status");
+  }
+};
 
-      // Remove from pending requests when approved
-      setPendingRequests((prevRequests) =>
-        prevRequests.filter((request) => request._id !== userId),
-      );
-
-      toast.success(
-        `User ${currentRole === "admin" ? "removed from" : "made"} admin`,
-      );
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Error updating admin status");
-    }
-  };
 
   const handleDeleteUser = async () => {
     if (!isPrimaryAdmin(currentUser)) {
