@@ -62,15 +62,20 @@ export const createProduct = async (req, res, next) => {
           return isProdB - isProdA;
         });
 
-        // Upload to Cloudinary with original filenames
-        const uploadPromises = sortedImages.map((image) =>
-          cloudinary.uploader.upload(image.data, {
-            upload_preset: "minimal",
-            timeout: 120000,
-            public_id: image.originalName.split(".")[0], // Use original filename without extension
-            filename_override: image.originalName, // Preserve original filename
-          }),
-        );
+       // Generate a unique folder name for each product
+const folderName = `minimal/${name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`;
+
+// Update the cloudinary upload config
+const uploadPromises = sortedImages.map((image) =>
+  cloudinary.uploader.upload(image.data, {
+    upload_preset: "minimal",
+    folder: folderName,
+    timeout: 120000,
+    public_id: image.originalName.split(".")[0],
+    filename_override: image.originalName,
+  }),
+);
+
 
         const cloudinaryResponses = await Promise.all(uploadPromises);
         console.log("Total images uploaded:", cloudinaryResponses.length);
