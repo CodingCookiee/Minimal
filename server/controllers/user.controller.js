@@ -171,7 +171,7 @@ export const toggleAdmin = async (req, res, next) => {
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { role: newRole },
+      { role: newRole, adminRequest: false },
       { new: true },
     );
 
@@ -197,9 +197,11 @@ export const requestAdminAccess = async (req, res, next) => {
 
 export const getAdminRequests = async (req, res, next) => {
   try {
-    const requests = await User.find({ adminRequest: true }).select(
-      "-password",
-    );
+    // Only fetch pending requests
+    const requests = await User.find({ 
+      adminRequest: true,
+      role: { $ne: 'admin' } // Exclude users who are already admins
+    }).select("-password");
     res.status(200).json(requests);
   } catch (err) {
     next(err);

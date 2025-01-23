@@ -32,16 +32,20 @@ const UserControl = () => {
     const getAdminRequests = async () => {
       try {
         const response = await axiosInstance.get("/user/admin-requests");
-        setPendingRequests(response.data);
+        // Only show pending requests
+        setPendingRequests(response.data.filter(user => 
+          user.adminRequest && user.role !== 'admin'
+        ));
       } catch (err) {
         toast.error("Failed to fetch admin requests");
       }
     };
-
+  
     if (isPrimaryAdmin(currentUser)) {
       getAdminRequests();
     }
   }, [currentUser]);
+  
 
   const handleRejectRequest = async (userId) => {
     if (!isPrimaryAdmin(currentUser)) {

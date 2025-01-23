@@ -2,8 +2,11 @@ import { useState, useCallback } from "react";
 import { Button, ImageDropzone, LoadingDots } from "../ui";
 import { motion } from "framer-motion";
 import { X, BookType, DollarSign, ChartBarStacked, Blend } from "lucide-react";
+import { isPrimaryAdmin } from "../../utils/checkAdmin.js";
+import { useUser } from "../../utils/UserContext";
 
 const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
+  const { currentUser } = useUser();
   const [formData, setFormData] = useState({
     name: "",
     subtitle: "",
@@ -495,10 +498,11 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
       </div>
       {/* Submit Button */}
 
+      <div className="flex justify-center items-center">
       <Button
+        disabled={!isPrimaryAdmin(currentUser)}
         type="submit"
-        disabled={loading}
-        className=" self-center px-24 py-5 bg-dark-primary text-light-primary hover:bg-light-primary
+        className=" w-2/3 py-5 bg-dark-primary text-light-primary hover:bg-light-primary
            hover:text-dark-primary border border-dark-primary transition-all duration-300 font-sf-medium disabled:opacity-50"
       >
         {loading ? (
@@ -516,6 +520,7 @@ const ProductForm = ({ loading, onSubmit, categoryData, initialData = {} }) => {
           </span>
         )}
       </Button>
+      </div>
     </form>
   );
 };
