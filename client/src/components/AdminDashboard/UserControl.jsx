@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Shield, ShieldOff, Trash2, Users } from "lucide-react";
+import { Shield, ShieldOff, Trash2, Users, Check,X  } from "lucide-react";
 import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axios";
 import { useUser } from "../../utils/UserContext";
@@ -193,6 +193,7 @@ const UserControl = () => {
                       variant="default"
                       className="font-sf-light"
                     >
+                    <Check size={18} className='text-green-600'/>
                       Approve
                     </Button>
                     <Button
@@ -200,6 +201,7 @@ const UserControl = () => {
                       variant="destructive"
                       className="font-sf-light"
                     >
+                    <X size={18} className='text-red-600'/>
                       Reject
                     </Button>
                   </div>

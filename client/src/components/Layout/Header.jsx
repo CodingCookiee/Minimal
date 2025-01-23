@@ -358,7 +358,7 @@ const Header = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute right-0 mt-2 w-48 rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-lg
+                  className="absolute right-0  w-52 rounded-sm bg-light-primary/80 dark:bg-dark-primary/80 backdrop-blur-lg
 
   shadow-lg py-2"
                 >
@@ -378,9 +378,9 @@ const Header = () => {
                           className="w-full h-full hover:bg-neutral-100"
                           onClick={handleAdminRequest}
                         >
-                          <div className="flex items-center ">
-                            <Shield size={15} />
-                            <span className="font-sf-semibold text-md">
+                          <div className="flex items-center justify-start gap-1">
+                            <Shield size={12} />
+                            <span className="font-sf-semibold text-xs uppercase">
                               Request Admin Access
                             </span>
                           </div>
