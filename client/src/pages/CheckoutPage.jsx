@@ -57,7 +57,7 @@ const CheckoutPage = () => {
           <div className="flex justify-between items-center">
             <h2 className="font-sf-heavy text-2xl">Select Delivery Address</h2>
             <Link
-              to="/add-address"
+              to="/add-address?redirect=checkout"
               className="text-dark-primary hover:underline font-sf-medium"
             >
               Add New Address
@@ -68,7 +68,7 @@ const CheckoutPage = () => {
             <div className="text-center py-8">
               <p className="text-gray-600 mb-4">No addresses found</p>
               <Link
-                to="/add-address"
+                to="/add-address?redirect=checkout"
                 className="text-dark-primary hover:underline font-sf-medium"
               >
                 Add your first address

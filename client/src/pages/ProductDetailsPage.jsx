@@ -45,7 +45,7 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     if (!currentUser) {
       toast.info("Please Signin to Continue");
-      navigate("/signin");
+      navigate(`/signin?redirect=/product/${product._id}&action=addToCart`);
       return;
     }
     try {
@@ -58,38 +58,6 @@ const ProductPage = () => {
     } catch (error) {
       toast.error("Failed to add to cart");
     }
-  };
-
-  const normalizeColors = (colors) => {
-    if (!colors) return [];
-
-    return colors
-      .map((color) => {
-        // If color is already in correct format
-        if (typeof color === "object" && color.name && color.value) {
-          return color;
-        }
-
-        // If color is a string (hex value)
-        if (typeof color === "string") {
-          return {
-            name: color,
-            value: color,
-          };
-        }
-
-        // If color is an array (handle the specific case)
-        if (Array.isArray(color)) {
-          const hexColor = color.join("");
-          return {
-            name: hexColor,
-            value: `#${hexColor}`,
-          };
-        }
-
-        return null;
-      })
-      .filter(Boolean);
   };
 
   if (loading) return <Loading />;

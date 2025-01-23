@@ -128,7 +128,7 @@ const CartPage = () => {
                   <img
                     src={item.productId.image}
                     alt={item.productId.name}
-                    className="w-24 h-24 object-cover rounded"
+                    className="w-24 h-24 object-contain rounded"
                   />
                   <div className="flex-1">
                     <h3 className="font-sf-medium">{item.productId.name}</h3>

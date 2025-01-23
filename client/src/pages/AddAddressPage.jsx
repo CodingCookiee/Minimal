@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axiosInstance from "../utils/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
@@ -17,6 +17,10 @@ import {
 import { Button, Input, Checkbox } from "../components/ui";
 
 const AddAddressPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const redirectTo = queryParams.get("redirect");
   const [isUpdating, setIsUpdating] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addressData, setAddressData] = useState({
@@ -36,7 +40,6 @@ const AddAddressPage = () => {
     country: "",
     phone: "",
   });
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const validateForm = () => {
@@ -89,7 +92,7 @@ const AddAddressPage = () => {
       setTimeout(() => {
         setIsSubmitting(false);
         queryClient.invalidateQueries(["user"]);
-        navigate("/account");
+        navigate(redirectTo === "checkout" ? "/checkout" : "/account");
       }, 100);
     },
     onError: (error) => {
@@ -288,7 +291,9 @@ const AddAddressPage = () => {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => navigate("/account")}
+                onClick={() =>
+                  navigate(redirectTo === "checkout" ? "/checkout" : "/account")
+                }
                 className="font-sf-light text-sm w-full sm:w-1/2 border-none bg-light-primary text-dark-primary"
               >
                 Cancel

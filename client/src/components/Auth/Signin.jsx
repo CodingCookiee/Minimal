@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Button, Input, Card } from "../ui";
 import { ArrowRight, Mail, LockKeyhole, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
@@ -11,7 +11,11 @@ import { useUser } from "../../utils/UserContext";
 
 export default function SignIn() {
   const { updateUser } = useUser();
+  const location = useLocation();
   const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const redirectPath = searchParams.get("redirect");
+  const action = searchParams.get("action");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -45,7 +49,11 @@ export default function SignIn() {
       const { data } = await axiosInstance.post("/auth/signin", formData);
       updateUser(data.user);
       toast.success("Welcome back to Minimal");
-      navigate("/");
+      if (redirectPath && action === "addToCart") {
+        navigate(redirectPath);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.log("Client Error Response:", error.response);
       const errorMessage =
@@ -66,7 +74,11 @@ export default function SignIn() {
         });
         updateUser(data.user);
         toast.success("Welcome to Minimal!");
-        navigate("/");
+        if (redirectPath && action === "addToCart") {
+          navigate(redirectPath);
+        } else {
+          navigate("/");
+        }
       } catch (error) {
         toast.error("Google authentication failed");
       }
@@ -203,7 +215,7 @@ export default function SignIn() {
           </div>
 
           <p className="mt-6 text-center text-sm text-black-500 dark:text-white-500">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               to="/signup"
               className="font-sf-light text-black-300 dark:text-white-700 hover:text-neutral-500"

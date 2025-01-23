@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Button, Input, Card } from "../ui";
 import { ArrowRight, Mail, LockKeyhole, User, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
@@ -7,9 +7,15 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axios.js";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import { useUser } from "../../utils/UserContext";
 
 export default function SignUp() {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { updateUser } = useUser();
+  const searchParams = new URLSearchParams(location.search);
+  const redirectPath = searchParams.get("redirect");
+  const action = searchParams.get("action");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,10 +53,14 @@ export default function SignUp() {
     if (!validateForm()) return;
     setIsLoading(true);
     try {
-      const response = await axiosInstance.post("/auth/signup", formData);
-      if (response && response.data) {
-        toast.success("Welcome to Minimal!");
-        navigate("/signin");
+      const { data } = await axiosInstance.post("/auth/signup", formData);
+      updateUser(data.user);
+      toast.success("Welcome to Minimal!");
+
+      if (redirectPath && action === "addToCart") {
+        navigate(redirectPath);
+      } else {
+        navigate("/");
       }
     } catch (error) {
       if (error.response?.data?.errors) {
@@ -77,14 +87,21 @@ export default function SignUp() {
       setIsLoading(false);
     }
   };
+
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
         const { data } = await axiosInstance.post("/auth/google", {
           token: tokenResponse.access_token,
         });
+        updateUser(data.user);
         toast.success("Welcome to Minimal");
-        navigate("/");
+
+        if (redirectPath && action === "addToCart") {
+          navigate(redirectPath);
+        } else {
+          navigate("/");
+        }
       } catch (error) {
         toast.error("Google authentication failed");
       }
