@@ -210,7 +210,7 @@ const Header = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute top-full left-0 mt-2 w-full sm:w-96 lg:w-[20%] 
+              className="absolute top-full left-0 mt-3 w-full sm:w-96 lg:w-[20%] 
                 bg-light-primary/90 backdrop-blur-md shadow-xl 
                 border border-neutral-200/20 dark:border-neutral-800/20"
             >

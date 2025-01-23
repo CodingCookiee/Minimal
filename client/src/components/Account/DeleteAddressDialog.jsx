@@ -19,28 +19,30 @@ export const DeleteAddressDialog = ({
       <DialogContent>
         <DialogHeader>
           <CircleX
-            className="h-4 w-4 absolute right-4 top-4 cursor-pointer"
+            className="h-5 w-5 absolute right-4 top-4 cursor-pointer"
             onClick={() => setShowDeleteDialog(false)}
           />
-          <DialogTitle className="!mb-2">Delete Address</DialogTitle>
-          <DialogDescription className="flex justify-start !mb-2.5">
+          <DialogTitle className="!mb-2 font-sf-heavy">Delete Address</DialogTitle>
+          <DialogDescription className="font-sf-light flex justify-start !mb-2.5">
             This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <div className="flex justify-end gap-2.5">
             <Button
-              variant="destructive"
-              className="bg-red-700 text-light-primary hover:bg-red-600 transition-all duration-300"
-              onClick={handleDeleteAddress}
-            >
-              Delete
-            </Button>
-            <Button
               variant="outline"
               onClick={() => setShowDeleteDialog(false)}
+              className="font-sf-light text-sm"
             >
               Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              className="text-red-700 font-sf-light text-sm transition-all duration-300"
+              onClick={handleDeleteAddress}
+            
+            >
+              Delete
             </Button>
           </div>
         </DialogFooter>
