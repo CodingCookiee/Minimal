@@ -12,10 +12,10 @@ import { useUser } from "../../utils/UserContext";
 export default function SignUp() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { updateUser } = useUser();
   const searchParams = new URLSearchParams(location.search);
   const redirectPath = searchParams.get("redirect");
   const action = searchParams.get("action");
+  const { updateUser } = useUser();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -198,7 +198,7 @@ export default function SignUp() {
               <p className="self-end mt-4 text-sm text-gray-700 font-sf-light">
                 Already have an account?{" "}
                 <Link
-                  to="/signin"
+                  to={`/signin${location.search}`}
                   className="font-sf-light text-[15px] text-neutral-950 hover:text-neutral-500"
                 >
                   Sign in

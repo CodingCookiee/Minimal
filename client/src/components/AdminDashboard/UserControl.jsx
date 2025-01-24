@@ -91,35 +91,39 @@ const UserControl = () => {
     }
     try {
       const response = await axiosInstance.put(`/user/${userId}/toggle-admin`);
-
-      
-    // If removing admin privileges, force logout that user
-    if (currentRole === "admin") {
-      await axiosInstance.post(`/user/${userId}/force-logout`);
-    }
-
-
+  
+      // Force logout that user if removing admin privileges
+      if (currentRole === "admin") {
+        await axiosInstance.post(`/user/${userId}/force-logout`);
+        
+        // Emit event for cross-tab synchronization
+        const logoutEvent = new CustomEvent('forceLogout', { 
+          detail: { userId } 
+        });
+        window.dispatchEvent(logoutEvent);
+      }
+  
       // Update users list with new role
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === userId
             ? { ...user, role: response.data.role, adminRequest: false }
-            : user,
-        ),
+            : user
+        )
       );
-
+  
       // Remove from pending requests when approved
       setPendingRequests((prevRequests) =>
-        prevRequests.filter((request) => request._id !== userId),
+        prevRequests.filter((request) => request._id !== userId)
       );
-
-      toast.success(
-        `User ${currentRole === "admin" ? "removed from" : "made"} admin`,
-      );
+  
+      toast.success(`User ${currentRole === "admin" ? "removed from" : "made"} admin`);
     } catch (err) {
       toast.error(err.response?.data?.message || "Error updating admin status");
     }
   };
+  
+  
 
   const handleDeleteUser = async () => {
     if (!isPrimaryAdmin(currentUser)) {
