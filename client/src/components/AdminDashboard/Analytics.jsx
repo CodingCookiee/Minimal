@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BarChart,
   Users,
@@ -14,6 +14,7 @@ import axiosInstance from "../../utils/axios";
 import { Loading } from "../ui";
 
 const Analytics = () => {
+  const navigate = useNavigate();
   const [analyticsData, setAnalyticsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,11 +44,18 @@ const Analytics = () => {
           <h1 className="text-2xl font-bold font-sf-regular">
             Something went wrong
           </h1>
-          <p className="text-gray-500 font-sf-light mb-4">{error}</p>
+          <p className="text-gray-500 mb-4">{error}</p>
+          <motion.button
+            onClick={() => navigate("/")}
+            className="font-sf-regular px-6 py-3 bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary border border-dark-primary transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Return to Home
+          </motion.button>
         </div>
       </div>
     );
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Package } from "lucide-react";
 import ProductForm from "../ui/ProductForm";
+import { useUser } from "../../utils/UserContext";
+import axiosInstance from "../../utils/axios";
+import { useNavigate } from "react-router-dom";
+import { Loading } from "../ui";
 
 const CreateProduct = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useUser();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const categoryData = {
     men: {
       jeans: "Jeans",
@@ -19,6 +28,48 @@ const CreateProduct = () => {
       women: "Women's Sale",
     },
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      const checkAdminStatus = async () => {
+        try {
+          const response = await axiosInstance.get("/user/profile");
+          if (response.data.role !== "admin") {
+            setError("Access Denied - Admin Only");
+          }
+          setLoading(false);
+        } catch (error) {
+          setError(error.response?.data?.message || "Error checking admin status");
+          setLoading(false);
+        }
+      };
+
+      checkAdminStatus();
+    }
+  }, [currentUser]);
+
+  if (loading) return <Loading />;
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold font-sf-regular">
+            Something went wrong
+          </h1>
+          <p className="text-gray-500 mb-4">{error}</p>
+          <motion.button
+            onClick={() => navigate("/")}
+            className="font-sf-regular px-6 py-3 bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary border border-dark-primary transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Return to Home
+          </motion.button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

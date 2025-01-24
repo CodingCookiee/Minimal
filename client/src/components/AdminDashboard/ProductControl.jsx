@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Package, Trash2, ChevronDown } from "lucide-react";
 import { toast } from "react-toastify";
@@ -17,9 +17,12 @@ import {
 } from "../ui";
 
 const ProductControl = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [adminLoading, setAdminLoading] = useState(true);
+  const [adminError, setAdminError] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState({
     isOpen: false,
     product: null,
@@ -46,6 +49,25 @@ const ProductControl = () => {
       women: "Women's Sale",
     },
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      const checkAdminStatus = async () => {
+        try {
+          const response = await axiosInstance.get("/user/profile");
+          if (response.data.role !== "admin") {
+            setAdminError("Access Denied - Admin Only");
+          }
+          setAdminLoading(false);
+        } catch (error) {
+          setAdminError(error.response?.data?.message || "Error checking admin status");
+          setAdminLoading(false);
+        }
+      };
+
+      checkAdminStatus();
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     fetchProducts();
@@ -94,7 +116,28 @@ const ProductControl = () => {
     }
   };
 
-  if (loading) return <Loading />;
+  if (adminLoading) return <Loading />;
+
+  if (adminError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold font-sf-regular">
+            Something went wrong
+          </h1>
+          <p className="text-gray-500 mb-4">{adminError}</p>
+          <motion.button
+            onClick={() => navigate("/")}
+            className="font-sf-regular px-6 py-3 bg-dark-primary text-light-primary hover:bg-light-primary hover:text-dark-primary border border-dark-primary transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Return to Home
+          </motion.button>
+        </div>
+      </div>
+    );
+  }
 
   if (error)
     return (
