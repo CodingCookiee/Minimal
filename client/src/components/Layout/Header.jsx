@@ -130,17 +130,6 @@ const Header = () => {
     fetchCartItems();
   }, [currentUser]);
 
-  useEffect(() => {
-    const handleForceLogout = (event) => {
-      if (currentUser && event.detail.userId === currentUser._id) {
-        handleSignOut();
-        toast.info("Your admin privileges have been revoked");
-      }
-    };
-  
-    window.addEventListener('forceLogout', handleForceLogout);
-    return () => window.removeEventListener('forceLogout', handleForceLogout);
-  }, [currentUser]);
   
 
   useEffect(() => {

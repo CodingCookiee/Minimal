@@ -92,16 +92,7 @@ const UserControl = () => {
     try {
       const response = await axiosInstance.put(`/user/${userId}/toggle-admin`);
   
-      // Force logout that user if removing admin privileges
-      if (currentRole === "admin") {
-        await axiosInstance.post(`/user/${userId}/force-logout`);
-        
-        // Emit event for cross-tab synchronization
-        const logoutEvent = new CustomEvent('forceLogout', { 
-          detail: { userId } 
-        });
-        window.dispatchEvent(logoutEvent);
-      }
+
   
       // Update users list with new role
       setUsers((prevUsers) =>
@@ -112,7 +103,6 @@ const UserControl = () => {
         )
       );
   
-      // Remove from pending requests when approved
       setPendingRequests((prevRequests) =>
         prevRequests.filter((request) => request._id !== userId)
       );
@@ -122,6 +112,7 @@ const UserControl = () => {
       toast.error(err.response?.data?.message || "Error updating admin status");
     }
   };
+  
   
   
 
