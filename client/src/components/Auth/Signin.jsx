@@ -217,7 +217,7 @@ export default function SignIn() {
           <p className="mt-6 text-center text-sm text-black-500 dark:text-white-500">
             Don&apos;t have an account?{" "}
             <Link
-             to={`/signup${location.search}`}
+              to={`/signup${location.search}`}
               className="font-sf-light text-black-300 dark:text-white-700 hover:text-neutral-500"
             >
               Sign up
