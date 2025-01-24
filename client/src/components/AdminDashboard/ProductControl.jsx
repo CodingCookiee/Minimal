@@ -50,28 +50,6 @@ const ProductControl = () => {
     },
   };
 
-  useEffect(() => {
-    if (currentUser) {
-      const checkAdminStatus = async () => {
-        try {
-          const response = await axiosInstance.get("/user/profile");
-          if (response.data.role !== "admin") {
-            setAdminError("Access Denied - Admin Only");
-          }
-          setAdminLoading(false);
-        } catch (error) {
-          setAdminError(error.response?.data?.message || "Error checking admin status");
-          setAdminLoading(false);
-        }
-      };
-
-      checkAdminStatus();
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, [selectedCategory, selectedSubcategory]);
 
   const fetchProducts = async () => {
     try {
@@ -116,6 +94,30 @@ const ProductControl = () => {
     }
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      const checkAdminStatus = async () => {
+        try {
+          const response = await axiosInstance.get("/user/profile");
+          if (response.data.role !== "admin") {
+            setAdminError("Access Denied - Admin Only");
+          }
+          setAdminLoading(false);
+        } catch (error) {
+          setAdminError(error.response?.data?.message || "Error checking admin status");
+          setAdminLoading(false);
+        }
+      };
+
+      checkAdminStatus();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [selectedCategory, selectedSubcategory]);
+
+  
   if (adminLoading) return <Loading />;
 
   if (adminError) {
