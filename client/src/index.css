@@ -150,7 +150,7 @@ ul[role='list'] {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 3px; /* Width of the scrollbar */
+  width: 7px; /* Width of the scrollbar */
   height: 3px; /* Height of the scrollbar (for horizontal scrollbars) */
 }
 

@@ -35,7 +35,7 @@ const HomePage = () => {
     <div className="h-screen overflow-hidden relative">
       <div className="h-screen sticky top-0 z-10">
         <div className="flex lg:flex-row flex-col h-screen">
-          <div className="lg:w-[20%] w-full flex lg:flex-col items-center flex-row justify-center bg-transparent">
+          <div className="lg:w-[30%] w-full flex lg:flex-col items-center flex-row justify-center bg-transparent">
             <div className="flex lg:flex-col flex-row w-full">
               {Object.keys(homeCarouselData).map((category) => (
                 <motion.div

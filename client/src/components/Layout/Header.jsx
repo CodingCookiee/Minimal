@@ -130,8 +130,6 @@ const Header = () => {
     fetchCartItems();
   }, [currentUser]);
 
-  
-
   useEffect(() => {
     const checkTokenExpiration = () => {
       if (!currentUser || !currentUser.expiresAt) return;
@@ -140,7 +138,7 @@ const Header = () => {
         const currentTime = new Date().getTime();
         if (currentTime >= currentUser.expiresAt) {
           const notificationShown = localStorage.getItem(
-            "expiredNotificationShown",
+            "expiredNotificationShown"
           );
 
           if (!notificationShown) {
@@ -171,7 +169,7 @@ const Header = () => {
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
-        },
+        }
       );
       updateUser(null);
       setIsProfileOpen(false);
@@ -185,6 +183,7 @@ const Header = () => {
   return (
     <header className="fixed w-full top-0 z-50 px-3 sm:px-6 py-4 bg-transparent">
       <nav className="flex items-center justify-between px mx-auto">
+        {/* Drop Down Menu */}
         <div className="flex items-center">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -212,11 +211,11 @@ const Header = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute top-full left-0 mt-3 w-full sm:w-96 lg:w-[20%] 
-                bg-light-primary/90 backdrop-blur-md shadow-xl 
-                border border-neutral-200/20 dark:border-neutral-800/20"
+              className=" absolute top-12 left-0 w-1/3 max-h-[calc(100vh-2rem)] overflow-y-auto
+      bg-light-primary/90 backdrop-blur-md shadow-xl 
+      border border-neutral-200/20 dark:border-neutral-800/20"
             >
-              <div className="flex flex-col items-center justify-center w-full py-1">
+              <div className="flex flex-col items-center justify-center w-full py-5 backdrop-blur-xl">
                 {categories.map((category) => (
                   <div key={category.name} className="relative w-full">
                     <button className="py-1 px-6 font-sf w-full text-base sm:text-lg hover:bg-light-secondary transition-colors flex items-center justify-between cursor-pointer">
@@ -229,7 +228,7 @@ const Header = () => {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
+                        className="  overflow-hidden bg-white/50 dark:bg-dark-primary/50 backdrop-blur-sm"
                       >
                         <Link
                           to={`/category/${category.name.toLowerCase()}`}
@@ -240,20 +239,20 @@ const Header = () => {
                         </Link>
                         {category.subcategories.map((subcat) => (
                           <Link
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            key={subcat}
-                            to={`/category/${category.name.toLowerCase()}/${subcat}`}
-                            className="block font-sf-light px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
+                          onClick={() => setIsMenuOpen(!isMenuOpen)}
+                          key={subcat}
+                          to={`/category/${category.name.toLowerCase()}/${subcat}`}
+                          className=" block font-sf-light px-16 py-4 backdrop-blur-sm text-sm text-gray-700 dark:text-gray-300 hover:bg-light-secondary/40 transition-colors"
                           >
                             {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
                           </Link>
                         ))}
                       </motion.div>
                     </AnimatePresence>
+                    <div className="mt-2.5 mb-2.5  w-full border-t border-neutral-800"></div>
                   </div>
                 ))}
 
-                <div className="mt-2.5 mb-2.5  w-full border-t border-neutral-800"></div>
 
                 <div className="w-full cursor-pointer">
                   <div className="py-2.5 px-6 font-sf w-full text-base sm:text-lg text-red-600 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors flex items-center justify-between group">
